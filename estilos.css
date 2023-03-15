@@ -1,14 +1,22 @@
 body {
-	background: #00777b; /* Color de fondo */
+	background: #000000; /* Color de fondo */
 	font-family: sans-serif;
+}
 
-	/*	Imagen de fondo*/
+body::before {
+	content: "";
 	background-image: url('https://i.redd.it/yvyj7hwc4pv31.jpg');
 	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: top;
-	opacity: 0.85;
-}
+	background-position: center;
+	opacity: 0.5;
+	filter: blur(10px);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+  }
 
 .login-box {
 	position: absolute;
@@ -21,6 +29,7 @@ body {
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 	border-radius: 10px;
     text-align: center;
+	opacity: 0.85;
 }
 
 .login-box h2 {

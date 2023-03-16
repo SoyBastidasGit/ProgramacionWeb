@@ -74,7 +74,7 @@ body::before {
 	font-size: 12px;
 }
 
-.login-box a {
+.login-box button {
 	display: inline-block;
 	background: #005366; /* Color del botón */
 	color: #f7e7be; /* Color del texto del botón */
@@ -85,9 +85,10 @@ body::before {
 	margin-top: 40px;
 	border-radius: 25px;
 	transition: 0.5s;
+	border-style: none;
 }
 
-.login-box a:hover {
+.login-box button:hover {
 	background: #00777b; /* Color del botón al pasar el mouse */
 	color: #f7e7be; /* Color del texto del botón al pasar el mouse */
 }

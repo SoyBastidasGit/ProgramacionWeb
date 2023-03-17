@@ -1,9 +1,13 @@
-function login() {
-    var username = document.getElementsById("usrName").value;
-    var password = document.getElementsById("usrPass").value;
-    if (username == "Daniel" && password == "123") {
-        window.location.href = "VIEW/dashboard.html";
-    } else {
-        alert("Usuario y/o contraseña incorrectos");
+const username = document.getElementById('usrName')
+const password = document.getElementById('usrPass')
+const button = document.getElementById('button')
+
+button.addEventListener('click', (e) => {
+    e.preventDefault()
+    const data = {
+        username: username.value,
+        password: password.value
     }
-}
+
+    console.log(data)
+})

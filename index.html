@@ -5,7 +5,6 @@
 	<title>Pagina Web</title>
 	<meta name='viewport' content='width=device-width, initial-scale=1'>
 	<link rel="stylesheet" type="text/css" href="/VIEW/estilos.css">
-	<script src='CONTROLLER/login.js'></script>
 </head>
 
 <body>
@@ -13,18 +12,20 @@
 		<h2>Iniciar sesión</h2>
 		<form>
 			<div class="user-box">
-				<input type="text" id="usrName" name="usrName" required="true">
+				<input type="text" id="usrName" required="true">
 				<label for="usrName">Nombre de usuario</label>
 			</div>
 			<div class="user-box">
-				<input type="password" id="usrPass" name="usrPass" required="true">
+				<input type="password" id="usrPass" required="true">
 				<label for="usrPass">Contraseña</label>
 			</div>
-			<button type="submit" onclick="login()">
+			<button id="button">
 				Ingresar
 			</button>
 		</form>
 	</div>
+
+	<script src='CONTROLLER/login.js'></script>
 </body>
 
 </html>

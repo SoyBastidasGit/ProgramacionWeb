@@ -1,30 +1,29 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Pagina Web</title>
 	<link rel="stylesheet" type="text/css" href="/VIEW/estilos.css">
-    <script src='VIEW/index.js'></script>
+	<script src='CONTROLLER/login.js'></script>
 </head>
+
 <body>
 	<div class="login-box">
 		<h2>Iniciar sesión</h2>
 		<form>
 			<div class="user-box">
-				<input type="text" name="usrName" required="true">
+				<input type="text" name="usrName" value="Daniel" required="true">
 				<label for="usrName">Nombre de usuario</label>
 			</div>
 			<div class="user-box">
-				<input type="password" name="usrPass" required="true">
+				<input type="password" name="usrPass" value="123" required="true">
 				<label for="usrPass">Contraseña</label>
 			</div>
-			<button href="VIEW/dashboard.html">
-				<span></span>
-				<span></span>
-				<span></span>
-				<span></span>
+			<button type="submit" onclick="login()">
 				Ingresar
 			</button>
 		</form>
 	</div>
 </body>
+
 </html>

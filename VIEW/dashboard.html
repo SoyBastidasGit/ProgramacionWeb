@@ -1,27 +1,51 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Dashboard del ERP</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Mi Página con Sidebar Colapsable y Cuadrícula</title>
+    <link rel="stylesheet" href="style_dash.css">
   </head>
   <body>
-    <h1>Dashboard del ERP</h1>
-    <div class="container">
-      <div class="card">
-        <h2>Materia Prima</h2>
-        <p>Información sobre la cantidad de materia prima disponible y los proveedores.</p>
-        <a href="#">Ver más</a>
-      </div>
-      <div class="card">
-        <h2>Órdenes de Trabajo</h2>
-        <p>Información sobre las órdenes de trabajo en curso y su estado.</p>
-        <a href="#">Ver más</a>
-      </div>
-      <div class="card">
-        <h2>Clientes</h2>
-        <p>Información sobre los clientes, sus pedidos y su historial de compras.</p>
-        <a href="#">Ver más</a>
-      </div>
+    <!-- Sidebar -->
+    <div class="sidebar" id="mySidebar">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="#">Link 1</a>
+      <a href="#">Link 2</a>
+      <a href="#">Link 3</a>
+      <a href="#">Link 4</a>
     </div>
+
+    <!-- Contenido principal -->
+    <button class="openbtn" onclick="openNav()">&#9776; Menu</button>
+
+    <section class="clientes">
+      <h2>Clientes</h2>
+      <p>Contenido de la sección de clientes</p>
+    </section>
+
+    <section class="ordenes-compra">
+      <h2>Órdenes de Compra</h2>
+      <p>Contenido de la sección de órdenes de compra</p>
+    </section>
+
+    <section class="ordenes-trabajo">
+      <h2>Órdenes de Trabajo</h2>
+      <p>Contenido de la sección de órdenes de trabajo</p>
+    </section>
+
+    <section class="extra">
+      <h2>Extra</h2>
+      <p>Contenido de la sección extra</p>
+    </section>
+
+    <script>
+      function openNav() {
+        document.getElementById("mySidebar").style.width = "200px";
+      }
+
+      function closeNav() {
+        document.getElementById("mySidebar").style.width = "0";
+      }
+    </script>
   </body>
 </html>

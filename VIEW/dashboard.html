@@ -1,52 +1,50 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Mi sitio web</title>
-    <link rel="stylesheet" href="style_dash.css">
-  </head>
-  <body>
-    <div class="container">
-      <div class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#">Link 1</a>
-        <a href="#">Link 2</a>
-        <a href="#">Link 3</a>
-        <a href="#">Link 4</a>
-        <a href="#" id="cerrar-sesion">Cerrar Sesión</a>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard ERP</title>
+  <link rel="stylesheet" href="style_dash.css" />
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/974b03f183.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <ul>
+        <li><a href="#" class="logo">
+          <img src="/img/logo.png">
+          <span class="nav-item">ERP</span>
+        </a></li>
+        <li><a href="#">
+          <i class="fas fa-columns"></i>
+          <span class="nav-item">Dashboard</span>
+        </a></li>
+        <li><a href="#">
+          <i class="fas fa-comment"></i>
+          <span class="nav-item">Mensajes</span>
+        </a></li>
+        <li><a href="#">
+          <i class="fas fa-file"></i>
+          <span class="nav-item">Ordenes de trabajo</span>
+        </a></li>
+        <li><a href="#">
+          <i class="fas fa-chart-bar"></i>
+          <span class="nav-item">Clientes</span>
+        </a></li>
+
+        <li><a href="#" class="logout">
+          <i class="fas fa-sign-out-alt"></i>
+          <span class="nav-item">Cerrar Sesion</span>
+        </a></li>
+      </ul>
+    </nav>
+
+    <section class="main">
+      <div class="main-top">
+        <h1>Dashboard</h1>
+        <i class="fas fa-user-cog"></i>
       </div>
-      <div class="content">
-        <button class="openbtn" onclick="openNav()">&#9776; Menu</button>
-
-        <section class="clientes">
-        <h2>Clientes</h2>
-        <p>Contenido de la sección de clientes</p>
-        </section>
-
-        <section class="ordenes-compra">
-        <h2>Órdenes de Compra</h2>
-        <p>Contenido de la sección de órdenes de compra</p>
-        </section>
-
-        <section class="ordenes-trabajo">
-        <h2>Órdenes de Trabajo</h2>
-        <p>Contenido de la sección de órdenes de trabajo</p>
-        </section>
-
-        <section class="extra">
-        <h2>Extra</h2>
-        <p>Contenido de la sección extra</p>
-        </section>
-
-        <script>
-        function openNav() {
-            document.getElementById("mySidebar").style.width = "200px";
-        }
-
-        function closeNav() {
-            document.getElementById("mySidebar").style.width = "0";
-        }
-        </script>
-      </div>
-    </div>
-  </body>
+      <div class="users">
+  </div>
+</body>
 </html>

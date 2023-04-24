@@ -1,0 +1,131 @@
+/*  import google fonts */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+*{
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+	background: #000000; /* Color de fondo */
+	font-family: sans-serif;
+}
+
+body::before {
+	content: "";
+	background-image: url('https://i.redd.it/yvyj7hwc4pv31.jpg');
+	background-size: cover;
+	background-position: center;
+	opacity: 0.5;
+	filter: blur(10px);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+  }
+
+/* navbar */
+nav{
+  position: sticky;
+  top: 0;
+  bottom: 0;
+  height: 100vh;
+  left: 0;
+  width: 90px;
+  background: #f7e7be;
+  overflow: hidden;
+  transition: 0.2s;
+  opacity: 0.85;
+}
+
+nav:hover{
+  width: 280px;
+  transition: 0.2s;
+}
+
+.logo{
+  text-align: center;
+  display: flex;
+  margin: 10px 0 0 10px;
+  padding-bottom: 3rem;
+}
+
+.logo img{
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+
+.logo span{
+  font-weight: bold;
+  padding-left: 15px;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+a{
+  position: relative;
+  width: 280px;
+  font-size: 14px;
+  color: #005366;
+  display: table;
+  padding: 10px;
+}
+
+nav .fas{
+  position: relative;
+  width: 70px;
+  height: 40px;
+  top: 20px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.nav-item{
+  position: relative;
+  top: 12px;
+  margin-left: 10px;
+}
+
+a:hover{
+  background: #eee;
+}
+
+a:hover i{
+  color: #34AF6D;
+  transition: 0.5s;
+}
+
+.logout{
+  position: absolute;
+  bottom: 0;
+}
+
+.container{
+  display: flex;
+}
+
+/* Seccion principal */
+.main{
+  position: relative;
+  padding: 20px;
+  width: 100%;
+  color: #f7e7be;
+}
+.main-top{
+  display: flex;
+  width: 100%;
+}
+.main-top i{
+  position: absolute;
+  right: 0;
+  margin: 10px 30px;
+  color: #f7e7be;
+  cursor: pointer;
+}

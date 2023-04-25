@@ -1,14 +1,15 @@
-
 from pymongo.mongo_client import MongoClient
 
-uri = "mongodb+srv://SoyBastidas:<SoyBastidas123>@erp.a1ztdjx.mongodb.net/?retryWrites=true&w=majority"
+uri = "mongodb+srv://SoyBastidas:SoyBastidas123@erp.a1ztdjx.mongodb.net/<LoginDB>?retryWrites=true&w=majority"
 
-# Create a new client and connect to the server
+# Crea un nuevo cliente y conexion al servidor de la bd y coleccion
 client = MongoClient(uri)
+mongo_db = client["LoginDB"]
+mongo_collection = mongo_db["Users"]
 
-# Send a ping to confirm a successful connection
-try:
-    client.admin.command('ping')
-    print("Pinged your deployment. You successfully connected to MongoDB!")
-except Exception as e:
-    print(e)
+def login_auth(user, password):
+    document = mongo_collection.find_one({user: user, password: password})
+    if document:
+        return True
+    else:
+        return False

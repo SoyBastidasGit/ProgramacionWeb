@@ -10,17 +10,17 @@ const cookieParser = require('cookie-parser');
 const bodyparser = require('body-parser');
 const session = require('express-session');
 
-const { url } = require('./config/database');
+const { url } = require('./src/config/database');
 
 mongoose.connect(url, {
   useNewUrlParser: true
 });
 
-require('./config/passport')(passport);
+require('./src/config/passport')(passport);
 
 //settings
 app.set('port', process.env.PORT || 4000)
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'src/views'));
 app.set('view engine', 'html');
 app.engine('html', require('ejs').renderFile);
 
@@ -38,10 +38,10 @@ app.use(passport.session());
 app.use(flash());
 
 //routes
-require('./app/routes')(app, passport);
+require('./src/app/routes')(app, passport);
 
 //static files
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'src/public')));
 
 
 app.listen(app.get('port'), () => {

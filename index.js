@@ -16,7 +16,7 @@ mongoose.connect(url, {
   useNewUrlParser: true
 });
 
-require('./src/config/passport')(passport); 
+require('./src/config/passport')(passport);
 
 //settings
 app.set('port', process.env.PORT || 4000)

@@ -2,13 +2,13 @@ module.exports = (app, passport) => {
 
     app.get('/', (req, res) => {
         res.render('index')
-    })
+    });
 
     app.get('/login', (req, res) => {
         res.render('index', {
             message: req.flash('loginMessage')
-        })  
-    })
+        });
+    });
 
     app.post('/login', passport.authenticate('local-login', {
         successRedirect: '/dashboard',

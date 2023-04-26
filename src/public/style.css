@@ -3,7 +3,7 @@ body {
 	font-family: sans-serif;
 }
 
-body::before {
+body::before { 
 	content: "";
 	background-image: url('https://i.redd.it/yvyj7hwc4pv31.jpg');
 	background-size: cover;

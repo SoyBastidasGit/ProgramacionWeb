@@ -19,9 +19,9 @@ module.exports = function (passport) {
        passwordField: 'password',
        passReqToCallback: true 
     },
-    function (req, user, password, done) {
-        User.findOne({'local.user': user}, function (err, user) {
-            if (err) {return done(err); }
+    async function (req, user, password, done) {
+        await User.findOne({'local.user': user}, function (err, user) {
+            if (err) { return done(err); }
             if (!user) {
                 return done(null, false, req.flash('loginMessage', 'El usuario no existe.'));
             }

@@ -4,13 +4,13 @@ module.exports = (app, passport) => {
         res.render('index')
     });
 
-    app.get('/index', (req, res) => {
+    app.get('/login', (req, res) => {
         res.render('index', {
             message: req.flash('loginMessage')
         });
     });
 
-    app.post('/index', passport.authenticate('local-login', {
+    app.post('/login', passport.authenticate('local-login', {
         successRedirect: '/dashboard',
         failureRedirect: '/index',
         failureflash: true

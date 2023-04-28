@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 const { hashSync } = require('bcrypt');
+const passport = require('../../config/passport');
 const userSchema = new mongoose.Schema({
     local: {
         user: String,

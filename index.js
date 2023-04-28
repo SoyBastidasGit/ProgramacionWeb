@@ -1,5 +1,5 @@
 const express = require('express');
-const app = new express();
+const app = express();
 
 const path = require('path');
 const mongoose = require('mongoose');
@@ -9,6 +9,7 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyparser = require('body-parser');
 const session = require('express-session');
+const LocalStrategy = require("passport-local");
 
 const { url } = require('./src/config/database');
 

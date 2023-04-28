@@ -1,6 +1,6 @@
 const localStrategy = require('passport-local').Strategy;
 
-const User = require('../app/models/user');
+const user = require('../app/models/user');
 
 module.exports = function (passport) {
     passport.serializeUser(function (user, done) {
@@ -8,7 +8,7 @@ module.exports = function (passport) {
     }); 
 
     passport.deserializeUser(async function (id, done) {
-        await User.findById(id, function(err, user){
+        await user.findById(id, function(err, user){
             done(err, user);
         });
     });
@@ -31,25 +31,25 @@ module.exports = function (passport) {
             return done(null, user);
         });
     })); */
-
-    passport.use('local-login', new localStrategy({
-        usernameField: 'user',
-        passwordField: 'password',
-        passReqToCallback: true
-    },
-    function (req, user, password, done) {
-        User.findOne({'local.user': user}).exec()
-            .then(user => {
-                if (!user) {
-                    return done(null, false, req.flash('loginMessage', 'El usuario no existe.'));
-                }
-                if (!user.validatePassword(password)) {
-                    return done(null, false, req.flash('loginMessage', 'El password no coincide.'));
-                }
-                return done(null, user);
-            })
-            .catch(err => {
-                return done(err);
-            });
-    }));
+    
+    app.post("/login", async function(req, res){
+        try {
+            // validar si el usuario existe
+            const user = await user.findOne({ username: req.body.username });
+            if (user) {
+              // validar si la contra hace match
+              const result = req.body.password === user.password;
+              // si es correcta regresar a home
+              if (result) {
+                res.render("index");
+              } else {
+                res.status(400).json({ error: "Contraseña incorrecta" });
+              }
+            } else {
+              res.status(400).json({ error: "Usuario no existe" });
+            }
+          } catch (error) {
+            res.status(400).json({ error });
+          }
+    });
 }

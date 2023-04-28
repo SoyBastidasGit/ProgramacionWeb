@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 const { hashSync } = require('bcrypt');
 const passport = require('../../config/passport');
+const passportLocalMongoose = require('passport-local-mongoose');
+
 const userSchema = new mongoose.Schema({
     local: {
         user: String,
@@ -17,4 +19,5 @@ userSchema.method.validatePassword = function(password) {
     return bcrypt.compareSync(password, this.local.password);
 };
 
-module.exports = mongoose.model('User', userSchema);
+userSchema.plugin(passportLocalMongoose);
+module.exports = mongoose.model('user', userSchema);

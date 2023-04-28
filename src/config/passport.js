@@ -31,25 +31,4 @@ module.exports = function (passport) {
             return done(null, user);
         });
     })); */
-    
-    app.post("/login", async function(req, res){
-        try {
-            // validar si el usuario existe
-            const user = await user.findOne({ username: req.body.username });
-            if (user) {
-              // validar si la contra hace match
-              const result = req.body.password === user.password;
-              // si es correcta regresar a home
-              if (result) {
-                res.render("index");
-              } else {
-                res.status(400).json({ error: "Contraseña incorrecta" });
-              }
-            } else {
-              res.status(400).json({ error: "Usuario no existe" });
-            }
-          } catch (error) {
-            res.status(400).json({ error });
-          }
-    });
 }

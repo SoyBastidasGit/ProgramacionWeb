@@ -1,6 +1,6 @@
 const localStrategy = require('passport-local').Strategy;
 
-const user = require('../app/models/user');
+const User = require('../app/models/user');
 
 module.exports = function (passport) {
     passport.serializeUser(function (user, done) {
@@ -8,13 +8,13 @@ module.exports = function (passport) {
     }); 
 
     passport.deserializeUser(async function (id, done) {
-        await user.findById(id, function(err, user){
+        await User.findById(id, function(err, user){
             done(err, user);
         });
     });
 
 //login
-/*     passport.use('local-login', new localStrategy({
+    passport.use('local-login', new localStrategy({
        usernameField: 'user',
        passwordField: 'password',
        passReqToCallback: true 
@@ -30,5 +30,5 @@ module.exports = function (passport) {
             }
             return done(null, user);
         });
-    })); */
+    }));
 }

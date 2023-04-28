@@ -1,7 +1,7 @@
 const express = require('express');
 const app = new express();
 
-const path = require('path');
+  const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const flash = require('connect-flash');

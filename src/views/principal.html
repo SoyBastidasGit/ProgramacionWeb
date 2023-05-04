@@ -6,14 +6,17 @@
   <link rel="stylesheet" href="style_dash.css" />
   <!-- Font Awesome -->
   <script src="https://kit.fontawesome.com/974b03f183.js" crossorigin="anonymous"></script>
+  <!--  -->
+  
+  <!--  -->
 </head>
-<body> 
+<body>
   <div class="container">
     <nav>
       <ul>
         <li><a class="logo">
-          <img src="https://github.com/SoyBastidasGit/ProgramacionWeb/blob/main/IMG/logo.png?raw=true">
-          <span class="nav-item">ERP</span>
+          <img src="../public/img/logo.png">
+          <span class="nav-item">Departamento</span>
         </a></li>
         <li><a>
           <i class="fas fa-columns"></i>
@@ -25,14 +28,12 @@
         </a></li>
         <li><a>
           <i class="fas fa-file"></i>
-          <span class="nav-item">Ordenes de trabajo</span>
+          <span class="nav-item">Inventario</span>
         </a></li>
         <li><a>
           <i class="fas fa-chart-bar"></i>
           <span class="nav-item">Ordenes de compra</span>
         </a></li>
-
-
 
         <!-- Boton logout -->
         <form action="/logout" method="POST">
@@ -49,7 +50,11 @@
         <h1>Dashboard</h1>
         <i class="fas fa-user-cog"></i>
       </div>
-      <div class="users">
-  </div>
+      <div class="users"></div>
+
+      <!-- Muestra dashboard -->
+      <div w3-include-html="dashboard.html"></div>
+
+  <script>includeHTML();</script>
 </body>
 </html>

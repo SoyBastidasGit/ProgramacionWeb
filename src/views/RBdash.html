@@ -1,0 +1,45 @@
+<style>
+    .dash-container {
+        position: relative;
+        height: calc(100% - 40px);
+        display: grid;
+        padding: 15px;
+        grid-template-columns: auto auto auto;
+        grid-row: auto;
+        background-color: rgba(127, 255, 212, 0.607);
+        gap: 20px 15px;
+        grid-template-rows: 20% 60% 20%;
+    }
+
+    .dash-item {
+        background-color: #f7e7be;
+        padding: 5px;
+        border: 2px solid #005366;
+        border-radius: 10px;
+    }
+
+    .dash-header {
+        grid-column: 1 / 4;
+    }
+
+    .dash-footer {
+        grid-column: 1 / 4;
+    }
+
+    .dash-body {
+        grid-column: 1 / 2;
+    }
+
+    .dash-body2 {
+        grid-column: 2 / 4;
+    }
+
+</style>
+<div>
+    <div class="dash-container">
+        <div class="dash-item dash-header">header</div>
+        <div class="dash-item dash-body">body</div>
+        <div class="dash-item dash-body2">body</div>
+        <div class="dash-item dash-footer">footer</div>
+    </div>
+</div>

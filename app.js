@@ -10,6 +10,8 @@ const User = require("./src/app/models/user");
 const path = require('path');
 var app = express();
 
+var flagSession = false;
+
 // Conexion a MongoDB
 mongoose.connect("mongodb+srv://SoyBastidas:SoyBastidas123@erp.a1ztdjx.mongodb.net/LoginDB?retryWrites=true&w=majority");
 
@@ -80,7 +82,8 @@ app.post("/login", async function(req, res){
 		//check if password matches
 		const result = req.body.password === user.password;
 		if (result) {
-			res.render("dashboard");
+			flagSession = true;
+			res.redirect("dashboard");
 		} else {
 			res.status(400).json({ error: "Constraseña no coincide!" });
 		}
@@ -94,6 +97,7 @@ app.post("/login", async function(req, res){
 
 //Handling user logout
 app.post("/logout", function (req, res) {
+	flagSession = false;
 	req.logout(function(err) {
 		if (err) { return next(err); }
 		res.redirect('/login');
@@ -101,8 +105,11 @@ app.post("/logout", function (req, res) {
 });
 
 function isLoggedIn(req, res, next) {
-	if (req.isAuthenticated()) return next();
-	res.redirect("/login");
+	if (flagSession == true) {
+		return next();
+	} else {
+		res.redirect("/login");
+	}
 }
 
 //Listen port

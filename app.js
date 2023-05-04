@@ -16,19 +16,17 @@ app.set('views', path.join(__dirname, 'src/views'));
 app.set('view engine', 'html');
 app.engine('html', require('ejs').renderFile);
 
-/* app.set("view engine", "ejs"); */
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(require("express-session")({
-	secret: "Rusty is a dog", 
-	resave: false,
-	saveUninitialized: false
+	secret: "mysecret", 
+	resave: true,
+	saveUninitialized: true
 }));
 
 //middlewares
+passport.use(new LocalStrategy(User.authenticate()));
 app.use(passport.initialize());
 app.use(passport.session());
-
-passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -52,12 +50,17 @@ app.get("/register", function (req, res) {
 
 // Handling user signup
 app.post("/register", async (req, res) => {
-	const user = await User.create({
-	username: req.body.username,
-	password: req.body.password
-	});
-	
-	return res.status(200).json(user);
+	try {
+		const user = await User.create({
+			username: req.body.username,
+			password: req.body.password
+		});
+		// Redirect to dashboard page after successful user registration
+		res.redirect('/dashboard');
+	} catch (err) {
+		// Handle any errors that occur during user registration
+		res.status(500).send("A ocurrido un error con el registro de usuario.");
+	}
 });
 
 //Showing login form
@@ -87,10 +90,10 @@ app.post("/login", async function(req, res){
 });
 
 //Handling user logout
-app.get("/logout", function (req, res) {
+app.post("/logout", function (req, res) {
 	req.logout(function(err) {
 		if (err) { return next(err); }
-		res.redirect('/');
+		res.redirect('/login');
 	});
 });
 

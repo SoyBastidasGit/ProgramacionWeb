@@ -82,15 +82,21 @@ nav .fas{
   position: relative;
   width: 70px;
   height: 40px;
-  top: 20px;
+  top: 15px;
   font-size: 20px;
   text-align: center;
 }
 
 .nav-item{
   position: relative;
-  top: 12px;
+  top: 15px;
   margin-left: 10px;
+}
+
+.nav-item2{
+  position: relative;
+  top: 15px;
+  margin-left: -5px;
 }
 
 a:hover{
@@ -105,6 +111,23 @@ a:hover i{
 .logout{
   position: absolute;
   bottom: 0;
+  display: inline-block;
+  background: #005366;
+  color: #f7e7be;
+  text-transform: uppercase;
+  font-size: 14px;
+  padding: 10px 0px 20px 0px;
+  margin-bottom: 10px;
+  border-radius: 25px;
+  width: 80%; /* Ajustar el ancho al 80% del contenedor */
+  left: 50%; /* Centrar horizontalmente */
+  transform: translateX(-50%); /* Centrar horizontalmente */
+  white-space: nowrap;
+}
+
+.logout:hover {
+	background: #00777b; /* Color del botón al pasar el mouse */
+	color: #f7e7be; /* Color del texto del botón al pasar el mouse */
 }
 
 .container{

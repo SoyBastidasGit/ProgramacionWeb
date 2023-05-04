@@ -11,31 +11,36 @@
   <div class="container">
     <nav>
       <ul>
-        <li><a href="#" class="logo">
+        <li><a class="logo">
           <img src="https://github.com/SoyBastidasGit/ProgramacionWeb/blob/main/IMG/logo.png?raw=true">
           <span class="nav-item">ERP</span>
         </a></li>
-        <li><a href="#">
+        <li><a>
           <i class="fas fa-columns"></i>
           <span class="nav-item">Dashboard</span>
         </a></li>
-        <li><a href="#">
+        <li><a>
           <i class="fas fa-comment"></i>
           <span class="nav-item">Mensajes</span>
         </a></li>
-        <li><a href="#">
+        <li><a>
           <i class="fas fa-file"></i>
           <span class="nav-item">Ordenes de trabajo</span>
         </a></li>
-        <li><a href="#">
+        <li><a>
           <i class="fas fa-chart-bar"></i>
           <span class="nav-item">Ordenes de compra</span>
         </a></li>
 
-        <li><a href="#" class="logout">
-          <i class="fas fa-sign-out-alt"></i>
-          <span class="nav-item">Cerrar Sesion</span>
-        </a></li>
+
+
+        <!-- Boton logout -->
+        <form action="/logout" method="POST">
+          <li><a class="logout">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="nav-item">Cerrar Sesion</span>
+          </a></li>
+        </form>
       </ul>
     </nav>
 

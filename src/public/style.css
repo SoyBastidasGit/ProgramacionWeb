@@ -3,6 +3,14 @@ body {
 	font-family: sans-serif;
 }
 
+hr {
+    border: none;
+    height: 1px;
+    background-color: #005366;
+    margin-top: 50px;
+    margin-bottom: 0px;
+}
+
 body::before { 
 	content: "";
 	background-image: url('https://i.redd.it/yvyj7hwc4pv31.jpg');

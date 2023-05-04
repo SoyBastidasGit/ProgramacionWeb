@@ -11,11 +11,11 @@
 
 <body>
 	<div class="login-box">
-		<h2>Iniciar sesión</h2>
+		<h2>Registrarse</h2>
 
-		<form action="/login" method="post">
+		<form action="/register" method="POST">
 			<div class="user-box">
-				<input type="user" name="user" required="true">
+				<input type="text" name="username" required="true">
 				<label for="user">
 					<i class="fa-solid fa-user"></i>
 					Nombre de usuario</label>
@@ -27,14 +27,20 @@
 					Contraseña</label>
 			</div>
 			<button>
-				Ingresar
+				<i class="fa-solid fa-user"></i>
+				Registrar
+			</button>
+		</form>
+
+		<hr>
+
+		<form action="/login" method="GET">
+			<button>
 				<i class="fa-solid fa-right-to-bracket"></i>
+				Iniciar Sesion
 			</button>
 		</form>
 		
 	</div>
-
-<!-- 	<script src='CONTROLLER/login.js'></script> -->
 </body>
-
 </html>

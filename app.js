@@ -43,9 +43,9 @@ app.get("/", function (req, res) {
 	res.render("Login");
 });
 
-// Muestra dashboard despues de iniciar sesion
-app.get("/dashboard", isLoggedIn, function (req, res) {
-	res.render("dashboard");
+// Muestra principal despues de iniciar sesion
+app.get("/principal", isLoggedIn, function (req, res) {
+	res.render("principal");
 });
 
 // Registro
@@ -61,7 +61,7 @@ app.post("/register", async (req, res) => {
 			password: req.body.password
 		});
 		// Redirecciona a dashboard luego de registrarse correctamente
-		res.redirect('/dashboard');
+		res.redirect('/principal');
 	} catch (err) {
 		// Muestra error durante el proceso de registro de usuario
 		res.status(500).send("A ocurrido un error con el registro de usuario.");
@@ -83,7 +83,7 @@ app.post("/login", async function(req, res){
 		const result = req.body.password === user.password;
 		if (result) {
 			flagSession = true;
-			res.redirect("dashboard");
+			res.redirect("principal");
 		} else {
 			res.status(400).json({ error: "Constraseña no coincide!" });
 		}

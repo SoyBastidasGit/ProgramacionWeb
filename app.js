@@ -4,11 +4,13 @@ var express = require("express"),
 	bodyParser = require("body-parser"),
 	LocalStrategy = require("passport-local"),
 	passportLocalMongoose = require("passport-local-mongoose");
+const { session } = require("passport");
 const User = require("./src/app/models/user");
 
 const path = require('path');
 var app = express();
 
+// Conexion a MongoDB
 mongoose.connect("mongodb+srv://SoyBastidas:SoyBastidas123@erp.a1ztdjx.mongodb.net/LoginDB?retryWrites=true&w=majority");
 
 //view engine
@@ -34,31 +36,32 @@ passport.deserializeUser(User.deserializeUser());
 app.use(express.static(path.join(__dirname, 'src/public')));
 
 //Routes
-// Showing home page
+// Muestra pagina principal 
 app.get("/", function (req, res) {
 	res.render("Login");
 });
 
-// Showing secret page
+// Muestra dashboard despues de iniciar sesion
 app.get("/dashboard", isLoggedIn, function (req, res) {
 	res.render("dashboard");
 });
 
+// Registro
 app.get("/register", function (req, res) {
 	res.render("register");
 });
 
-// Handling user signup
+
 app.post("/register", async (req, res) => {
 	try {
 		const user = await User.create({
 			username: req.body.username,
 			password: req.body.password
 		});
-		// Redirect to dashboard page after successful user registration
+		// Redirecciona a dashboard luego de registrarse correctamente
 		res.redirect('/dashboard');
 	} catch (err) {
-		// Handle any errors that occur during user registration
+		// Muestra error durante el proceso de registro de usuario
 		res.status(500).send("A ocurrido un error con el registro de usuario.");
 	}
 });

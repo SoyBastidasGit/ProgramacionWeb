@@ -41,7 +41,7 @@ nav{
   background: #f7e7be;
   overflow: hidden;
   transition: 0.2s;
-  opacity: 0.85;
+  opacity: 0.90;
 }
 
 nav:hover{
@@ -139,7 +139,7 @@ a:hover i{
   position: relative;
   padding: 20px;
   width: 100%;
-  color: #f7e7be;
+  height: calc(100% - 4em);
 }
 .main-top{
   display: flex;
@@ -151,4 +151,47 @@ a:hover i{
   margin: 10px 30px;
   color: #f7e7be;
   cursor: pointer;
+}
+/* RBdash.html ///////////////////////////////////////////////////////// */
+.dash-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
+  height: calc(100% - 4em);
+  display: grid;
+  padding: 15px;
+  grid-template-columns: auto auto;
+  grid-row: auto;
+  gap: 1em;
+  grid-template-rows: 20% 60% 20%;
+  opacity: 0.90;
+}
+
+.dash-item {
+  background-color: #f7e7be;
+  padding: 5px;
+  border: 2px solid #005366;
+  border-radius: 10px;
+}
+
+.dash-item:hover {
+  box-shadow: 0 6px 8px 0 #eee;
+}
+
+.dash-header,
+.dash-footer {
+  grid-column: 1 / 3;
+}
+
+.dash-item-title {
+  border-width: 0 0 2px 0;
+  border-style: solid;
+  border-color: #005366;
+}
+
+.main-top{
+  color: #f7e7be;
+}
+
+.dashboard{
+  height: calc(100% - 4em);
 }

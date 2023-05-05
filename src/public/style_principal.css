@@ -156,7 +156,7 @@ a:hover i{
 .dash-container {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   position: relative;
-  height: calc(100% - 4em);
+  
   display: grid;
   padding: 15px;
   grid-template-columns: auto auto;
@@ -190,8 +190,4 @@ a:hover i{
 
 .main-top{
   color: #f7e7be;
-}
-
-.dashboard{
-  height: calc(100% - 4em);
 }

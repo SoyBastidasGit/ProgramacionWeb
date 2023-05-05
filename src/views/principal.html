@@ -20,19 +20,15 @@
         </a></li>
         <li><a>
           <i class="fas fa-columns"></i>
-          <span class="nav-item">Dashboard</span>
-        </a></li>
-        <li><a>
-          <i class="fas fa-comment"></i>
-          <span class="nav-item">Mensajes</span>
+          <span class="nav-item" onclick="loadDashboard()">Dashboard</span>
         </a></li>
         <li><a>
           <i class="fas fa-file"></i>
-          <span class="nav-item">Inventario</span>
+          <span class="nav-item" onclick="loadInventory()">Inventario</span>
         </a></li>
         <li><a>
           <i class="fas fa-chart-bar"></i>
-          <span class="nav-item">Ordenes de compra</span>
+          <span class="nav-item">Ordenes de trabajo</span>
         </a></li>
 
         <!-- Boton logout -->
@@ -48,11 +44,18 @@
     <section class="main">
       <!-- Muestra dashboard -->
       <div class="dashboard"></div>
+      
+      <!--  Muestra inventario -->
+      <div class="inventory"></div>
 
       <script>
-        $(document).ready(function () {
+        function loadDashboard() {
           $('.dashboard').load('RBdash');
-        });
+        }
+
+        function loadInventory() {
+          $('.inventory').load('Inventory');
+        }
       </script>
 </body>
 </html>

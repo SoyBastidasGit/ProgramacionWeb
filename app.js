@@ -36,6 +36,7 @@ passport.deserializeUser(User.deserializeUser());
 
 //static files
 app.use(express.static(path.join(__dirname, 'src/public')));
+app.use(express.static(path.join(__dirname, 'src/public/img')));
 
 //Routes
 // Muestra pagina principal 
@@ -102,6 +103,11 @@ app.post("/logout", function (req, res) {
 		if (err) { return next(err); }
 		res.redirect('/login');
 	});
+});
+
+//Dashboard
+app.get("/RBDash", function (req, res) {
+	res.render("RBdash");
 });
 
 function isLoggedIn(req, res, next) {

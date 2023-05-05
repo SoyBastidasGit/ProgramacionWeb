@@ -110,6 +110,16 @@ app.get("/RBDash", function (req, res) {
 	res.render("RBdash");
 });
 
+//Inventory
+app.get("/Inventory", function (req, res) {
+	res.render("Inventory");
+});
+
+//Work-Order
+app.get("/Work-Order", function (req, res) {
+	res.render("Work-Order");
+});
+
 function isLoggedIn(req, res, next) {
 	if (flagSession == true) {
 		return next();

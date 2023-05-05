@@ -18,15 +18,15 @@
           <img src="../public/img/logo.png">
           <span class="nav-item">Departamento</span>
         </a></li>
-        <li><a>
+        <li><a onclick="loadDashboard()">
           <i class="fas fa-columns"></i>
-          <span class="nav-item" onclick="loadDashboard()">Dashboard</span>
+          <span class="nav-item">Dashboard</span>
         </a></li>
-        <li><a>
+        <li><a onclick="loadInventory()">
           <i class="fas fa-file"></i>
-          <span class="nav-item" onclick="loadInventory()">Inventario</span>
+          <span class="nav-item">Inventario</span>
         </a></li>
-        <li><a>
+        <li><a onclick="loadWorkOrder()">
           <i class="fas fa-chart-bar"></i>
           <span class="nav-item">Ordenes de trabajo</span>
         </a></li>
@@ -48,13 +48,26 @@
       <!--  Muestra inventario -->
       <div class="inventory"></div>
 
+      <!-- Muestra ordenes de trabajo -->
+      <div class="workOrder"></div>
+
       <script>
         function loadDashboard() {
+          $('.inventory').empty();
+          $('.workOrder').empty();
           $('.dashboard').load('RBdash');
         }
 
         function loadInventory() {
+          $('.dashboard').empty();
+          $('.workOrder').empty();
           $('.inventory').load('Inventory');
+        }
+
+        function loadWorkOrder() {
+          $('.dashboard').empty();
+          $('.inventory').empty();
+          $('.workOrder').load('Work-Order');
         }
       </script>
 </body>

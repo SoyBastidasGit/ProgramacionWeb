@@ -150,13 +150,13 @@ a:hover i{
 .dash-container {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   position: relative;
-  
   display: grid;
   padding: 15px;
   grid-template-columns: 50% 50%;
   gap: 0.7em;
   grid-template-rows: 20% 60% 20%;
   height: 85vh;
+  opacity: 0.90;
 }
 
 .dash-item {
@@ -167,7 +167,7 @@ a:hover i{
 }
 
 .dash-item:hover {
-  box-shadow: 0 6px 8px 0 #eee;
+  box-shadow: 0 2px 8px 0 #eee;
 }
 
 .dash-header,

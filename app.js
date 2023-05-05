@@ -36,7 +36,6 @@ passport.deserializeUser(User.deserializeUser());
 
 //static files
 app.use(express.static(path.join(__dirname, 'src/public')));
-app.use(express.static(path.join(__dirname, 'src/public/img')));
 
 //Routes
 // Muestra pagina principal 

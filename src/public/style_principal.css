@@ -144,19 +144,13 @@ a:hover i{
 .main-top{
   display: flex;
   width: 100%;
-}
-.main-top i{
-  position: absolute;
-  right: 0;
-  margin: 10px 30px;
   color: #f7e7be;
-  cursor: pointer;
 }
-/* RBdash.html ///////////////////////////////////////////////////////// */
+/* RBdash.html y basicamente cualquier partial ///////////////////////////////////////////////////////// */
 .dash-container {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   position: relative;
-  align-content: center;
+  
   display: grid;
   padding: 15px;
   grid-template-columns: 50% 50%;
@@ -185,8 +179,4 @@ a:hover i{
   border-width: 0 0 2px 0;
   border-style: solid;
   border-color: #005366;
-}
-
-.main-top{
-  color: #f7e7be;
 }

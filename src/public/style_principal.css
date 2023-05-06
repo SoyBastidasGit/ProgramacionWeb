@@ -1,3 +1,17 @@
+/* Paleta de colores y su distribucion:
+
+Fondo por defecto:#D2D2D4
+
+//Botones sobre el fondo por defecto
+Botones: #16354D
+Botones Hover: #6B99C3
+Texto botones: #E4E5EA
+Texto botones hover: #E4E5EA
+
+//Texto y lineas sobre el fondo por defecto
+Texto: #0C151C
+Lineas: #0C151C */
+
 /*  import google fonts */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 *{
@@ -11,7 +25,7 @@
 }
 
 body {
-	background: #000000; /* Color de fondo */
+	background: #0C151C; /* Color de fondo */
 	font-family: sans-serif;
 }
 
@@ -38,10 +52,9 @@ nav{
   height: 100vh;
   left: 0;
   width: 90px;
-  background: #f7e7be;
+  background: #0C151C;
   overflow: hidden;
   transition: 0.2s;
-  opacity: 0.90;
 }
 
 nav:hover{
@@ -73,7 +86,7 @@ a{
   position: relative;
   width: 280px;
   font-size: 14px;
-  color: #005366;
+  color: #E4E5EA;
   display: table;
   padding: 10px;
 }
@@ -100,11 +113,12 @@ nav .fas{
 }
 
 a:hover{
-  background: #eee;
+  background: #D2D2D4;
+  color: #0C151C;
 }
 
 a:hover i{
-  color: #34AF6D;
+  color: #0C151C;
   transition: 0.5s;
 }
 
@@ -112,8 +126,8 @@ a:hover i{
   position: absolute;
   bottom: 0;
   display: inline-block;
-  background: #005366;
-  color: #f7e7be;
+  background: #16354D;
+  color: #E4E5EA;
   text-transform: uppercase;
   font-size: 14px;
   padding: 10px 0px 20px 0px;
@@ -126,8 +140,8 @@ a:hover i{
 }
 
 .logout:hover {
-	background: #00777b; /* Color del botón al pasar el mouse */
-	color: #f7e7be; /* Color del texto del botón al pasar el mouse */
+	background: #6B99C3; /* Color del botón al pasar el mouse */
+	color: #E4E5EA; /* Color del texto del botón al pasar el mouse */
 }
 
 .container{
@@ -144,7 +158,7 @@ a:hover i{
 .main-top{
   display: flex;
   width: 100%;
-  color: #f7e7be;
+  color: #E4E5EA;
 }
 /* RBdash.html y basicamente cualquier partial ///////////////////////////////////////////////////////// */
 .dash-container {
@@ -156,18 +170,17 @@ a:hover i{
   gap: 0.7em;
   grid-template-rows: 20% 60% 20%;
   height: 85vh;
-  opacity: 0.90;
 }
 
 .dash-item {
-  background-color: #f7e7be;
+  background-color: #D2D2D4;
   padding: 5px;
-  border: 2px solid #005366;
+  border: 2px solid #16354D;
   border-radius: 10px;
 }
 
 .dash-item:hover {
-  box-shadow: 0 2px 8px 0 #eee;
+  box-shadow: 0 2px 8px 0 #E4E5EA;
 }
 
 .dash-header,
@@ -178,5 +191,5 @@ a:hover i{
 .dash-item-title {
   border-width: 0 0 2px 0;
   border-style: solid;
-  border-color: #005366;
+  border-color: #16354D;
 }

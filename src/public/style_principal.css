@@ -85,11 +85,12 @@ nav:hover{
 
 a{
   position: relative;
-  width: 280px;
+  width: 100%;
   font-size: 14px;
   color: #E4E5EA;
-  display: table;
+  display: inline-block;
   padding: 10px;
+  white-space: nowrap;
 }
 
 a.active {
@@ -138,7 +139,7 @@ a:hover i{
   font-size: 14px;
   padding: 10px 0px 20px 0px;
   margin-bottom: 10px;
-  border-radius: 25px;
+  border-radius: 20px;
   width: 80%; /* Ajustar el ancho al 80% del contenedor */
   left: 50%; /* Centrar horizontalmente */
   transform: translateX(-50%); /* Centrar horizontalmente */
@@ -151,11 +152,11 @@ a:hover i{
 	color: #E4E5EA; /* Color del texto del botón al pasar el mouse */
 }
 
+/* RBdash.html y basicamente cualquier partial ///////////////////////////////////////////////////////// */
 .container{
   display: flex;
 }
 
-/* Seccion principal */
 .main{
   position: relative;
   padding: 20px;
@@ -167,7 +168,7 @@ a:hover i{
   width: 100%;
   color: #E4E5EA;
 }
-/* RBdash.html y basicamente cualquier partial ///////////////////////////////////////////////////////// */
+
 .dash-container {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   position: relative;

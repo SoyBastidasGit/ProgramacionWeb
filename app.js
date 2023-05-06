@@ -8,6 +8,7 @@ const { session } = require("passport");
 const User = require("./src/app/models/user");
 
 const path = require('path');
+const { Script } = require("vm");
 var app = express();
 
 var flagSession = false;
@@ -85,13 +86,14 @@ app.post("/login", async function(req, res){
 			flagSession = true;
 			res.redirect("principal");
 		} else {
+			alert("Contraseña!!");
 			res.status(400).json({ error: "Constraseña no coincide!" });
 		}
 		} else {
-		res.status(400).json({ error: "Usuario no existe" });
+			res.status(400).json({ error: "Usuario no existe" });
 		}
 	} catch (error) {
-		res.status(400).json({ error });
+		res.status(400).json({ error: "aaaaa" });
 	}
 });
 
@@ -105,17 +107,17 @@ app.post("/logout", function (req, res) {
 });
 
 //Dashboard
-app.get("/RBDash", function (req, res) {
+app.get("/RBDash", isLoggedIn, function (req, res) {
 	res.render("RBdash");
 });
 
 //Inventory
-app.get("/Inventory", function (req, res) {
+app.get("/Inventory", isLoggedIn, function (req, res) {
 	res.render("Inventory");
 });
 
 //Work-Order
-app.get("/Work-Order", function (req, res) {
+app.get("/Work-Order", isLoggedIn, function (req, res) {
 	res.render("Work-Order");
 });
 

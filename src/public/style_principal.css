@@ -46,6 +46,7 @@ body::before {
 
 /* navbar */
 nav{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   position: sticky;
   top: 0;
   bottom: 0;
@@ -63,15 +64,15 @@ nav:hover{
 }
 
 .logo{
-  text-align: center;
   display: flex;
-  margin: 10px 0 0 10px;
-  padding-bottom: 3rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .logo img{
   width: 45px;
   height: 45px;
+  margin-left: 10px;
   border-radius: 100%;
 }
 
@@ -91,6 +92,11 @@ a{
   padding: 10px;
 }
 
+a.active {
+  background-color: #D2D2D4;
+  color: #0C151C;
+}
+
 nav .fas{
   position: relative;
   width: 70px;
@@ -106,7 +112,7 @@ nav .fas{
   margin-left: 10px;
 }
 
-.nav-item2{
+.nav-item-logout{
   position: relative;
   top: 15px;
   margin-left: -5px;
@@ -137,6 +143,7 @@ a:hover i{
   left: 50%; /* Centrar horizontalmente */
   transform: translateX(-50%); /* Centrar horizontalmente */
   white-space: nowrap;
+  overflow: hidden;
 }
 
 .logout:hover {

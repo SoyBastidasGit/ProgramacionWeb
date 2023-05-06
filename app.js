@@ -86,8 +86,7 @@ app.post("/login", async function(req, res){
 			flagSession = true;
 			res.redirect("principal");
 		} else {
-			alert("Contraseña!!");
-			res.status(400).json({ error: "Constraseña no coincide!" });
+			res.status(400).json({ error: "Contraseña no coincide!" });
 		}
 		} else {
 			res.status(400).json({ error: "Usuario no existe" });

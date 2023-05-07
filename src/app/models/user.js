@@ -12,7 +12,6 @@ var User = new Schema({
 	}
 })
 
-
 /* const bcrypt = require('bcrypt-nodejs');
 const { hashSync } = require('bcrypt');
 
@@ -23,7 +22,6 @@ User.method.generateHash = function (password) {
 User.method.validatePassword = function(password) {
     return bcrypt.compareSync(password, this.local.password);
 }; */
-
 
 User.plugin(passportLocalMongoose);
 

@@ -7,6 +7,24 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<!-- Font Awesome -->
 	<script src="https://kit.fontawesome.com/974b03f183.js" crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+	<script>
+		window.addEventListener('DOMContentLoaded', (event) => {
+			<% if (locals.errorMsg && locals.iconMsg && locals.iconColorMsg) { %>
+				Swal.fire( {
+					position: 'center',
+					icon: '<%= locals.iconMsg %>',
+					iconColor: '<%= locals.iconColorMsg %>',
+					title: '<%= locals.errorMsg %>',
+					background: '#D2D2D4',
+					color: '#0C151C',
+					confirmButtonColor: '#16354D'
+				})
+			<% } %>
+		});
+	</script>
 </head>
 
 <body>
@@ -18,7 +36,7 @@
 				<input type="text" name="username" required="true">
 				<label for="user">
 					<i class="fa-solid fa-user"></i>
-					Nombre de usuario</label>
+					Correo Electronico</label>
 			</div>
 			<div class="user-box">
 				<input type="password" name="password" required="true">

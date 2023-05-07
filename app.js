@@ -68,7 +68,10 @@ app.post("/register", async (req, res) => {
 		res.status(400).render("login");
 	} catch (err) {
 		// Muestra error durante el proceso de registro de usuario
-		res.status(500).send("A ocurrido un error con el registro de usuario.");
+		res.locals.errorMsg = "¡El usuario ya existe!";
+		res.locals.iconMsg = "warning";
+		res.locals.iconColorMsg = "#0000FF";
+		res.status(400).render("register");
 	}
 });
 

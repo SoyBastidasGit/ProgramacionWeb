@@ -8,6 +8,22 @@
   <script src="https://kit.fontawesome.com/974b03f183.js" crossorigin="anonymous"></script>
   <!--  -->
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+  <script>
+		window.addEventListener('DOMContentLoaded', (event) => {
+			<% if (locals.errorMsg && locals.iconMsg && locals.iconColorMsg) { %>
+				Swal.fire( {
+					position: 'center',
+					icon: '<%= locals.iconMsg %>',
+					iconColor: '<%= locals.iconColorMsg %>',
+					title: '<%= locals.errorMsg %>',
+					background: '#D2D2D4',
+					color: '#0C151C',
+					confirmButtonColor: '#16354D'
+				})
+			<% } %>
+		});
+	</script>
 </head>
 
 <body>

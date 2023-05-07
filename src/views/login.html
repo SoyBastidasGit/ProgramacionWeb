@@ -12,11 +12,11 @@
 
 	<script>
 		window.addEventListener('DOMContentLoaded', (event) => {
-			<% if (locals.errorMsg && locals.iconMsg) { %>
+			<% if (locals.errorMsg && locals.iconMsg && locals.iconColorMsg) { %>
 				Swal.fire( {
-					position: 'top',
+					position: 'center',
 					icon: '<%= locals.iconMsg %>',
-					iconColor: '#0C151C',
+					iconColor: '<%= locals.iconColorMsg %>',
 					title: '<%= locals.errorMsg %>',
 					background: '#D2D2D4',
 					color: '#0C151C',

@@ -62,9 +62,9 @@ app.post("/register", async (req, res) => {
 			password: req.body.password
 		});
 		// Redirecciona a dashboard luego de registrarse correctamente
-		/* res.redirect('/principal'); */
 		res.locals.errorMsg = "¡Usuario registrado con exito!";
 		res.locals.iconMsg = "success";
+		res.locals.iconColorMsg = "#008f39";
 		res.status(400).render("login");
 	} catch (err) {
 		// Muestra error durante el proceso de registro de usuario
@@ -91,26 +91,36 @@ app.post("/login", async function(req, res){
 			} else {
 				res.locals.errorMsg = "¡Contraseña no coincide!";
 				res.locals.iconMsg = "error";
+				res.locals.iconColorMsg = "#FF0000";
 				res.status(400).render("login");
 			}
 		} else {
 			res.locals.errorMsg = "¡Usuario no existe!";
 			res.locals.iconMsg = "error";
+			res.locals.iconColorMsg = "#FF0000";
 			res.status(400).render("login");
 		}
 	} catch (error) {
 		res.locals.errorMsg = "¡A ocurrido un error en el servidor!";
 		res.locals.iconMsg = "error";
+		res.locals.iconColorMsg = "#FF0000";
 		res.status(400).render("login");
 	}
 });
 
+app.get("/logout", isLoggedIn, function (req, res) {
+	res.render("login");
+});
+
 //Handling user logout
-app.post("/logout", function (req, res) {
+app.post("/logout", isLoggedIn, function (req, res) {
 	flagSession = false;
 	req.logout(function(err) {
 		if (err) { return next(err); }
-		res.redirect('/login');
+		res.locals.errorMsg = "¡Cerraste Sesion!";
+		res.locals.iconMsg = "warning";
+		res.locals.iconColorMsg = "#0000FF";
+		res.status(400).render("login");
 	});
 });
 

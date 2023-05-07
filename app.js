@@ -62,7 +62,10 @@ app.post("/register", async (req, res) => {
 			password: req.body.password
 		});
 		// Redirecciona a dashboard luego de registrarse correctamente
-		res.redirect('/principal');
+		/* res.redirect('/principal'); */
+		res.locals.errorMsg = "¡Usuario registrado con exito!";
+		res.locals.iconMsg = "success";
+		res.status(400).render("login");
 	} catch (err) {
 		// Muestra error durante el proceso de registro de usuario
 		res.status(500).send("A ocurrido un error con el registro de usuario.");
@@ -87,14 +90,17 @@ app.post("/login", async function(req, res){
 				res.redirect("principal");
 			} else {
 				res.locals.errorMsg = "¡Contraseña no coincide!";
+				res.locals.iconMsg = "error";
 				res.status(400).render("login");
 			}
 		} else {
 			res.locals.errorMsg = "¡Usuario no existe!";
+			res.locals.iconMsg = "error";
 			res.status(400).render("login");
 		}
 	} catch (error) {
 		res.locals.errorMsg = "¡A ocurrido un error en el servidor!";
+		res.locals.iconMsg = "error";
 		res.status(400).render("login");
 	}
 });

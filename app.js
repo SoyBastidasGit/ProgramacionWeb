@@ -93,7 +93,8 @@ app.get("/login", function (req, res) {
 //Handling user login
 app.post("/login", async function(req, res){
 	try {
-		if (!emailRegex.test(req.body.email)) {
+		const email = req.body.email;
+		if (!emailRegex.test(email)) {
 			// si el valor del campo "email" no es una dirección de correo electrónico válida
 			res.locals.errorMsg = "¡Por favor ingrese una dirección de correo electrónico válida!";
 			res.locals.iconMsg = "error";
@@ -102,7 +103,7 @@ app.post("/login", async function(req, res){
 		  }
 
 		// check if the user exists
-		const user = await User.findOne({ email: req.body.email });
+		const user = await User.findOne({ email: email });
 		if (user) {
 			//check if password matches
 			const result = req.body.password === user.password;

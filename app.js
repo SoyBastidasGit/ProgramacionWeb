@@ -54,11 +54,10 @@ app.get("/register", function (req, res) {
 	res.render("register");
 });
 
-
 app.post("/register", async (req, res) => {
 	try {
 		const user = await User.create({
-			username: req.body.username,
+			email: req.body.email,
 			password: req.body.password
 		});
 		// Redirecciona a dashboard luego de registrarse correctamente
@@ -84,7 +83,7 @@ app.get("/login", function (req, res) {
 app.post("/login", async function(req, res){
 	try {
 		// check if the user exists
-		const user = await User.findOne({ username: req.body.username });
+		const user = await User.findOne({ email: req.body.email });
 		if (user) {
 			//check if password matches
 			const result = req.body.password === user.password;

@@ -64,7 +64,7 @@ app.post("/register", async (req, res) => {
 			res.locals.errorMsg = "¡Por favor ingrese una dirección de correo electrónico válida!";
 			res.locals.iconMsg = "error";
 			res.locals.iconColorMsg = "#FF0000";
-			res.status(400).render("register");
+			 return res.status(400).render("register");
 		  }
 
 		const user = await User.create({

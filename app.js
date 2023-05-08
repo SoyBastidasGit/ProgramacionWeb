@@ -77,7 +77,9 @@ app.post("/register", async (req, res) => {
 
 		const user = await User.create({
 			email: email,
-			password: passwordHash
+			password: passwordHash,
+			nombre: req.body.nombre,
+			tipo_empleado: req.body.tipo_empleado
 		});
 		// Redirecciona a dashboard luego de registrarse correctamente
 		res.locals.errorMsg = "¡Usuario registrado con exito!";

@@ -10,6 +10,12 @@ var User = new Schema({
 	  },
 	password: {
 		type: String
+	  },
+	nombre: {
+		type: String
+	  },
+	tipo_empleado: {
+		type: String
 	  }
 });
 

@@ -6,6 +6,7 @@ var express = require("express"),
 	passportLocalMongoose = require("passport-local-mongoose");
 const { session } = require("passport");
 const User = require("./src/app/models/user");
+const { encrypt, compare } = require('./src/app/models/bcrypt');
 
 const path = require('path');
 const { Script } = require("vm");
@@ -13,10 +14,15 @@ var app = express();
 
 var flagSession = false;
 
-// Conexion a MongoDB
-mongoose.connect("mongodb+srv://SoyBastidas:SoyBastidas123@erp.a1ztdjx.mongodb.net/LoginDB?retryWrites=true&w=majority");
+mongoose.set('strictQuery', false);
 
-//view engine
+// Conexion a MongoDB
+mongoose.connect("mongodb+srv://SoyBastidas:SoyBastidas123@erp.a1ztdjx.mongodb.net/LoginDB?retryWrites=true&w=majority", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+//Configuration
 app.set('views', path.join(__dirname, 'src/views'));
 app.set('view engine', 'html');
 app.engine('html', require('ejs').renderFile);
@@ -67,9 +73,11 @@ app.post("/register", async (req, res) => {
 			return res.status(400).render("register");
 		  }
 
+		const passwordHash = await encrypt(req.body.password)
+
 		const user = await User.create({
 			email: email,
-			password: req.body.password
+			password: passwordHash
 		});
 		// Redirecciona a dashboard luego de registrarse correctamente
 		res.locals.errorMsg = "¡Usuario registrado con exito!";
@@ -112,10 +120,12 @@ app.post("/login", async function(req, res){
 
 		// check if the user exists
 		const user = await User.findOne({ email: email });
+
 		if (user) {
 			//check if password matches
-			const result = req.body.password === user.password;
-			if (result) {
+			const checkPassword = await compare(req.body.password, user.password)
+
+			if (checkPassword) {
 				flagSession = true;
 				res.redirect("principal");
 			} else {

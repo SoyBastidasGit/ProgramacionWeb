@@ -77,11 +77,19 @@ app.post("/register", async (req, res) => {
 		res.locals.iconColorMsg = "#008f39";
 		res.status(400).render("login");
 	} catch (err) {
-		// Muestra error durante el proceso de registro de usuario
-		res.locals.errorMsg = "¡El usuario ya existe!";
-		res.locals.iconMsg = "warning";
-		res.locals.iconColorMsg = "#0000FF";
-		res.status(400).render("register");
+		if (err.code === 11000) {
+			// si el código de error es 11000 (duplicado de clave en índice único)
+			res.locals.errorMsg = "¡El correo electrónico ya está registrado!";
+			res.locals.iconMsg = "warning";
+			res.locals.iconColorMsg = "#0000FF";
+			return res.status(400).render("register");
+		} else {
+			// Muestra error durante el proceso de registro de usuario
+			res.locals.errorMsg = "¡Hubo un error al registrar el usuario!";
+			res.locals.iconMsg = "warning";
+			res.locals.iconColorMsg = "#0000FF";
+			return res.status(500).render("register");
+		}
 	}
 });
 

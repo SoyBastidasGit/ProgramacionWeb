@@ -5,11 +5,12 @@ const passportLocalMongoose = require('passport-local-mongoose');
 
 var User = new Schema({
 	email: {
-		type: String
-	},
+		type: String,
+		unique: true
+	  },
 	password: {
 		type: String
-	}
+	  }
 })
 
 /* const bcrypt = require('bcrypt-nodejs');

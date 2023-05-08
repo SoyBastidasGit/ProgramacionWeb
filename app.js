@@ -54,10 +54,21 @@ app.get("/register", function (req, res) {
 	res.render("register");
 });
 
+const emailRegex = /^\S+@\S+\.\S+$/; // expresión regular para validar un correo electrónico
+
 app.post("/register", async (req, res) => {
 	try {
+		const email = req.body.email;
+		if (!emailRegex.test(email)) {
+			// si el valor del campo "email" no es una dirección de correo electrónico válida
+			res.locals.errorMsg = "¡Por favor ingrese una dirección de correo electrónico válida!";
+			res.locals.iconMsg = "error";
+			res.locals.iconColorMsg = "#FF0000";
+			res.status(400).render("register");
+		  }
+
 		const user = await User.create({
-			email: req.body.email,
+			email: email,
 			password: req.body.password
 		});
 		// Redirecciona a dashboard luego de registrarse correctamente
@@ -82,6 +93,14 @@ app.get("/login", function (req, res) {
 //Handling user login
 app.post("/login", async function(req, res){
 	try {
+		if (!emailRegex.test(req.body.email)) {
+			// si el valor del campo "email" no es una dirección de correo electrónico válida
+			res.locals.errorMsg = "¡Por favor ingrese una dirección de correo electrónico válida!";
+			res.locals.iconMsg = "error";
+			res.locals.iconColorMsg = "#FF0000";
+			return res.status(400).render("login");
+		  }
+
 		// check if the user exists
 		const user = await User.findOne({ email: req.body.email });
 		if (user) {

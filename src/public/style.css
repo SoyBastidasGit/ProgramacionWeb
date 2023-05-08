@@ -14,7 +14,7 @@ Lineas: #0C151C */
 
 body {
 	background: #000000; /* Color de fondo */
-	font-family: sans-serif;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 hr {
@@ -40,6 +40,7 @@ body::before {
 	z-index: -1;
   }
 
+  /* Login */
 .login-box {
 	position: absolute;
 	top: 50%;

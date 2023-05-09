@@ -10,7 +10,6 @@ var Inventory = new Schema({
     "modelo": String,
     "cantidad": Number,
     "precio_unitario": Number,
-    "imagen": String,
     "tipo": {
       "PCB": Boolean,
       "Leds": Boolean,
@@ -23,8 +22,7 @@ var Inventory = new Schema({
       "Microcontroladores": {
         "nombre": String
       }
-    },
-    "fecha_creacion": Date
+    }
   });
 
 module.exports = mongoose.model('Inventory', Inventory)

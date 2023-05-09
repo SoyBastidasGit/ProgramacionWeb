@@ -6,7 +6,7 @@ var express = require("express"),
 	passportLocalMongoose = require("passport-local-mongoose");
 const { session } = require("passport");
 const User = require("./src/app/models/user");
-const Inventory = require("./src/app/models/inventory");
+const Components = require("./src/app/models/Components");
 const { encrypt, compare } = require('./src/app/models/bcrypt');
 
 const path = require('path');

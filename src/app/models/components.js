@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const passportLocalMongoose = require('passport-local-mongoose');
 
-var Inventory = new Schema({
+var Components = new Schema({
     "nombre": String,
     "descripcion": String,
     "marca": String,
@@ -25,4 +25,4 @@ var Inventory = new Schema({
     }
   });
 
-module.exports = mongoose.model('Inventory', Inventory)
+module.exports = mongoose.model('Components', Components)

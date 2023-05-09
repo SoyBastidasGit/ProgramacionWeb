@@ -127,10 +127,6 @@ body::before {
 	background: transparent;
 }
 
-.user-box {
-	position: relative;
-}
-
 .user-box select {
 	width: 100%;
 	padding: 10px 0;
@@ -141,17 +137,6 @@ body::before {
 	border-bottom: 1px solid #0C151C;
 	outline: none;
 	background: transparent;
-}
-
-.user-box label {
-	position: absolute;
-	top: 0;
-	left: 0;
-	padding: 10px 0;
-	font-size: 16px;
-	color: #0C151C;
-	pointer-events: none;
-	transition: 0.5s;
 }
 
 .user-box select:focus ~ label,

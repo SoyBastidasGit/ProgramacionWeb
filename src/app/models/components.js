@@ -25,6 +25,6 @@ var Components = new Schema({
         "nombre": String
       }
     }
-  });
+});
 
 module.exports = mongoose.model('Components', Components)

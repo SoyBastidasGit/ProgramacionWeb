@@ -19,5 +19,4 @@ var Item = new Schema({
 	//   }
 });
 
-
 module.exports = mongoose.model('User', User)

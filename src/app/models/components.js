@@ -11,6 +11,8 @@ var Components = new Schema({
     "cantidad": Number,
     "precio_unitario": Number,
     "tipo": {
+      "Case": Boolean,
+      "Plates": Boolean,
       "PCB": Boolean,
       "Leds": Boolean,
       "Diodos": Boolean,

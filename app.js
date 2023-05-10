@@ -15,7 +15,8 @@ var app = express();
 mongoose.set('strictQuery', false);
 
 // Conexion a MongoDB
-mongoose.connect("mongodb+srv://SoyBastidas:SoyBastidas123@erp.a1ztdjx.mongodb.net/KeyboardTech?retryWrites=true&w=majority", {
+const URI = 'mongodb+srv://SoyBastidas:SoyBastidas123@erp.a1ztdjx.mongodb.net/KeyboardTech?retryWrites=true&w=majority';
+mongoose.connect(URI, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true
 });
@@ -28,13 +29,17 @@ app.engine('html', require('ejs').renderFile);
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //Mantener sesion iniciada
-var flagSession = false;
-
 const session = require("express-session");
+const MongoStore = require('connect-mongo');
+
 app.use(session({
 	secret: "mysecret",
-	saveUninitialized: true,
 	resave: true,
+	saveUninitialized: true,
+	store: MongoStore.create({
+		mongoUrl: URI,
+		autoReconnect: true
+	})
   }));
 
 //middlewares
@@ -136,7 +141,7 @@ app.post("/login", async function (req, res) {
 			const checkPassword = await compare(req.body.password, user.password)
 
 			if (checkPassword) {
-				flagSession = true;
+				req.session.user = req.body.email;
 				res.redirect("principal");
 			} else {
 				res.locals.errorMsg = "¡Contraseña no coincide!";
@@ -164,7 +169,6 @@ app.get("/logout", isLoggedIn, function (req, res) {
 
 //Handling user logout
 app.post("/logout", isLoggedIn, function (req, res) {
-	flagSession = false;
 	req.logout(function (err) {
 		if (err) { return next(err); }
 		res.locals.errorMsg = "¡Cerraste Sesion!";
@@ -190,10 +194,11 @@ app.get("/Work-Order", isLoggedIn, function (req, res) {
 });
 
 function isLoggedIn(req, res, next) {
-	if (flagSession == true) {
-		return next();
+
+	if (req.session.user) {
+		next();
 	} else {
-		res.redirect("/login");
+		res.redirect('/login');
 	}
 }
 

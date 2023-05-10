@@ -3,8 +3,7 @@ var express = require("express"),
 	passport = require("passport"),
 	bodyParser = require("body-parser"),
 	LocalStrategy = require("passport-local"),
-	passportLocalMongoose = require("passport-local-mongoose");
-const { session } = require("passport");
+ 	passportLocalMongoose = require("passport-local-mongoose");
 const User = require("./src/app/models/user");
 const Components = require("./src/app/models/Components");
 const { encrypt, compare } = require('./src/app/models/bcrypt');
@@ -13,7 +12,15 @@ const path = require('path');
 const { Script } = require("vm");
 var app = express();
 
+//Mantener sesion iniciada
 var flagSession = false;
+
+const session = require("express-session");
+app.use(session({
+	secret: "mysecret",
+	saveUninitialized: true,
+	resave: true,
+  }));
 
 mongoose.set('strictQuery', false);
 
@@ -29,11 +36,11 @@ app.set('view engine', 'html');
 app.engine('html', require('ejs').renderFile);
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(require("express-session")({
+/* app.use(require("express-session")({
 	secret: "mysecret", 
 	resave: true,
 	saveUninitialized: true
-}));
+})); */
 
 //middlewares
 passport.use(new LocalStrategy(User.authenticate()));

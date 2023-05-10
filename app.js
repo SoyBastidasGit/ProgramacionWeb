@@ -54,8 +54,8 @@ app.use(express.static(path.join(__dirname, 'src/public')));
 
 //Routes
 // Muestra pagina principal 
-app.get("/", function (req, res) {
-	res.render("Login");
+app.get("/", isLoggedIn, function (req, res) {
+	res.redirect("Principal");
 });
 
 // Muestra principal despues de iniciar sesion
@@ -65,6 +65,9 @@ app.get("/principal", isLoggedIn, function (req, res) {
 
 // Registro
 app.get("/register", function (req, res) {
+	if (req.session.user) {
+		return res.redirect("/principal");
+	}
 	res.render("register");
 });
 
@@ -118,6 +121,9 @@ app.post("/register", async (req, res) => {
 
 //Showing login form
 app.get("/login", function (req, res) {
+	if (req.session.user) {
+		return res.redirect("/principal");
+	  }
 	res.render("login");
 });
 
@@ -194,7 +200,6 @@ app.get("/Work-Order", isLoggedIn, function (req, res) {
 });
 
 function isLoggedIn(req, res, next) {
-
 	if (req.session.user) {
 		next();
 	} else {

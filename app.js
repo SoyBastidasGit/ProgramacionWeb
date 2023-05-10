@@ -12,16 +12,6 @@ const path = require('path');
 const { Script } = require("vm");
 var app = express();
 
-//Mantener sesion iniciada
-var flagSession = false;
-
-const session = require("express-session");
-app.use(session({
-	secret: "mysecret",
-	saveUninitialized: true,
-	resave: true,
-  }));
-
 mongoose.set('strictQuery', false);
 
 // Conexion a MongoDB
@@ -36,11 +26,16 @@ app.set('view engine', 'html');
 app.engine('html', require('ejs').renderFile);
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(require("express-session")({
+
+//Mantener sesion iniciada
+var flagSession = false;
+
+const session = require("express-session");
+app.use(session({
 	secret: "mysecret",
+	saveUninitialized: true,
 	resave: true,
-	saveUninitialized: true
-}));
+  }));
 
 //middlewares
 passport.use(new LocalStrategy(User.authenticate()));

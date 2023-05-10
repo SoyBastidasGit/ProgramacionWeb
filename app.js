@@ -40,7 +40,7 @@ app.use(require("express-session")({
 	secret: "mysecret",
 	resave: true,
 	saveUninitialized: true
-})); */
+}));
 
 //middlewares
 passport.use(new LocalStrategy(User.authenticate()));

@@ -14,10 +14,11 @@ Lineas: #0C151C */
 
 /*  import google fonts */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
-*{
+
+* {
   margin: 0;
   padding: 0;
-  outline: none;  
+  outline: none;
   border: none;
   text-decoration: none;
   box-sizing: border-box;
@@ -25,27 +26,28 @@ Lineas: #0C151C */
 }
 
 body {
-	background: #0C151C; /* Color de fondo */
-	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #0C151C;
+  /* Color de fondo */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body::before {
-	content: "";
-	background-image: url('https://i.redd.it/yvyj7hwc4pv31.jpg');
-	background-size: cover;
-	background-position: center;
-	opacity: 0.5;
-	filter: blur(10px);
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: -1;
-  }
+  content: "";
+  background-image: url('https://i.redd.it/yvyj7hwc4pv31.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.5;
+  filter: blur(10px);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
 
 /* navbar */
-nav{
+nav {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   position: sticky;
   top: 0;
@@ -58,32 +60,32 @@ nav{
   transition: 0.2s;
 }
 
-nav:hover{
+nav:hover {
   width: 280px;
   transition: 0.2s;
 }
 
-.logo{
+.logo {
   display: flex;
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
 
-.logo img{
+.logo img {
   width: 45px;
   height: 45px;
   margin-left: 10px;
   border-radius: 100%;
 }
 
-.logo span{
+.logo span {
   font-weight: bold;
   padding-left: 15px;
   font-size: 18px;
   text-transform: uppercase;
 }
 
-a{
+a {
   position: relative;
   width: 100%;
   font-size: 14px;
@@ -98,7 +100,7 @@ a.active {
   color: #0C151C;
 }
 
-nav .fas{
+nav .fas {
   position: relative;
   width: 70px;
   height: 40px;
@@ -107,29 +109,29 @@ nav .fas{
   text-align: center;
 }
 
-.nav-item{
+.nav-item {
   position: relative;
   top: 15px;
   margin-left: 10px;
 }
 
-.nav-item-logout{
+.nav-item-logout {
   position: relative;
   top: 15px;
   margin-left: -5px;
 }
 
-a:hover{
+a:hover {
   background: #D2D2D4;
   color: #0C151C;
 }
 
-a:hover i{
+a:hover i {
   color: #0C151C;
   transition: 0.5s;
 }
 
-.logout{
+.logout {
   position: absolute;
   bottom: 0;
   display: inline-block;
@@ -140,30 +142,36 @@ a:hover i{
   padding: 10px 0px 20px 0px;
   margin-bottom: 10px;
   border-radius: 20px;
-  width: 80%; /* Ajustar el ancho al 80% del contenedor */
-  left: 50%; /* Centrar horizontalmente */
-  transform: translateX(-50%); /* Centrar horizontalmente */
+  width: 80%;
+  /* Ajustar el ancho al 80% del contenedor */
+  left: 50%;
+  /* Centrar horizontalmente */
+  transform: translateX(-50%);
+  /* Centrar horizontalmente */
   white-space: nowrap;
   overflow: hidden;
 }
 
 .logout:hover {
-	background: #6B99C3; /* Color del botón al pasar el mouse */
-	color: #E4E5EA; /* Color del texto del botón al pasar el mouse */
+  background: #6B99C3;
+  /* Color del botón al pasar el mouse */
+  color: #E4E5EA;
+  /* Color del texto del botón al pasar el mouse */
 }
 
 /* RBdash.html y basicamente cualquier partial ///////////////////////////////////////////////////////// */
-.container{
+.container {
   display: flex;
 }
 
-.main{
+.main {
   position: relative;
   padding: 20px;
   width: 100%;
   height: calc(100% - 4em);
 }
-.main-top{
+
+.main-top {
   display: flex;
   width: 100%;
   color: #E4E5EA;
@@ -178,6 +186,7 @@ a:hover i{
   gap: 0.7em;
   grid-template-rows: 20% 60% 20%;
   height: 85vh;
+  max-height: 85vh;
 }
 
 .dash-item {
@@ -200,4 +209,43 @@ a:hover i{
   border-width: 0 0 2px 0;
   border-style: solid;
   border-color: #16354D;
+  font-weight: 500;
+  font-size: large;
+}
+
+.dash-item-title>i {
+  float: right;
+}
+
+.dash-item-content {
+  padding: 5px;
+  display: grid;
+  overflow: hidden;
+  min-height: 0;
+  height: 100%;
+}
+
+.dash-item-content>form {
+  position: relative;
+  display: grid;
+  overflow: auto;
+  padding: 10px;
+  row-gap: 10px;
+  overflow: auto;
+  grid-template-columns: auto auto;
+  min-height: 0;
+  font-size: 1em;
+}
+
+.add-item {
+  background: #16354D;
+  color: #E4E5EA;
+  font-size: 1em;
+  text-align: center;
+  padding: 10px 0px 20px 0px;
+  border-radius: 10px;
+  height: 40px;
+  border-width: 10px;
+  white-space: nowrap;
+  overflow: hidden;
 }

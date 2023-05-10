@@ -92,7 +92,10 @@
         // cargar la última página visitada cuando la página se recarga
         window.addEventListener('load', (event) => {
           var lastPage = localStorage.getItem("lastPage");
-          if (lastPage == "dashboard") {
+          if (lastPage == null || lastPage == "") {
+            loadDashboard();
+            activar(document.querySelectorAll('a')[1]); // activar el botón correspondiente
+          } else if (lastPage == "dashboard") {
             loadDashboard();
             activar(document.querySelectorAll('a')[1]); // activar el botón correspondiente
           } else if (lastPage == "inventory") {
@@ -103,6 +106,16 @@
             activar(document.querySelectorAll('a')[3]); // activar el botón correspondiente
           }
         });
+
+        function activar(elemento) {
+          var elementos = document.getElementsByTagName("a");
+
+          for (var i = 0; i < elementos.length; i++) {
+            elementos[i].classList.remove("active");
+          }
+
+          elemento.classList.add("active");
+        }
       </script>
 </body>
 </html>

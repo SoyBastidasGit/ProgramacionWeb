@@ -6,7 +6,7 @@ var express = require("express"),
 	passportLocalMongoose = require("passport-local-mongoose");
 const { session } = require("passport");
 const User = require("./src/app/models/user");
-const Components = require("./src/app/models/Components");
+const Components = require("./src/app/models/components");
 const { encrypt, compare } = require('./src/app/models/bcrypt');
 
 const path = require('path');
@@ -19,8 +19,8 @@ mongoose.set('strictQuery', false);
 
 // Conexion a MongoDB
 mongoose.connect("mongodb+srv://SoyBastidas:SoyBastidas123@erp.a1ztdjx.mongodb.net/KeyboardTech?retryWrites=true&w=majority", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
+	useNewUrlParser: true,
+	useUnifiedTopology: true
 });
 
 //Configuration
@@ -30,7 +30,7 @@ app.engine('html', require('ejs').renderFile);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(require("express-session")({
-	secret: "mysecret", 
+	secret: "mysecret",
 	resave: true,
 	saveUninitialized: true
 }));
@@ -63,6 +63,11 @@ app.get("/register", function (req, res) {
 
 const emailRegex = /^\S+@\S+\.\S+$/; // expresión regular para validar un correo electrónico
 
+app.post("/loaditem", async (req, res) => {
+	try {
+	} catch (err) { () => console.log(err) }
+})
+
 app.post("/register", async (req, res) => {
 	try {
 		const email = req.body.email;
@@ -72,7 +77,7 @@ app.post("/register", async (req, res) => {
 			res.locals.iconMsg = "error";
 			res.locals.iconColorMsg = "#FF0000";
 			return res.status(400).render("register");
-		  }
+		}
 
 		const passwordHash = await encrypt(req.body.password)
 
@@ -110,7 +115,7 @@ app.get("/login", function (req, res) {
 });
 
 //Handling user login
-app.post("/login", async function(req, res){
+app.post("/login", async function (req, res) {
 	try {
 		const email = req.body.email;
 		if (!emailRegex.test(email)) {
@@ -119,7 +124,7 @@ app.post("/login", async function(req, res){
 			res.locals.iconMsg = "error";
 			res.locals.iconColorMsg = "#FF0000";
 			return res.status(400).render("login");
-		  }
+		}
 
 		// check if the user exists
 		const user = await User.findOne({ email: email });
@@ -158,12 +163,12 @@ app.get("/logout", isLoggedIn, function (req, res) {
 //Handling user logout
 app.post("/logout", isLoggedIn, function (req, res) {
 	flagSession = false;
-	req.logout(function(err) {
+	req.logout(function (err) {
 		if (err) { return next(err); }
 		res.locals.errorMsg = "¡Cerraste Sesion!";
 		res.locals.iconMsg = "warning";
 		res.locals.iconColorMsg = "#0000FF";
-		res.status(400).redirect("login");
+		res.status(400).render("login");
 	});
 });
 
@@ -186,7 +191,7 @@ function isLoggedIn(req, res, next) {
 	if (flagSession == true) {
 		return next();
 	} else {
-		res.redirect("/");
+		res.redirect("/login");
 	}
 }
 

@@ -69,32 +69,40 @@
 
       <script>
         function loadDashboard() {
+          localStorage.setItem("lastPage", "dashboard"); // guardar el nombre de la última página visitada
           $('.inventory').empty();
           $('.workOrder').empty();
           $('.dashboard').load('RBdash');
         }
-
+      
         function loadInventory() {
+          localStorage.setItem("lastPage", "inventory"); // guardar el nombre de la última página visitada
           $('.dashboard').empty();
           $('.workOrder').empty();
           $('.inventory').load('Inventory');
         }
-
+      
         function loadWorkOrder() {
+          localStorage.setItem("lastPage", "workOrder"); // guardar el nombre de la última página visitada
           $('.dashboard').empty();
           $('.inventory').empty();
           $('.workOrder').load('Work-Order');
         }
-
-        function activar(elemento) {
-          var elementos = document.getElementsByTagName("a");
-
-          for (var i = 0; i < elementos.length; i++) {
-            elementos[i].classList.remove("active");
+      
+        // cargar la última página visitada cuando la página se recarga
+        window.addEventListener('load', (event) => {
+          var lastPage = localStorage.getItem("lastPage");
+          if (lastPage == "dashboard") {
+            loadDashboard();
+            activar(document.querySelectorAll('a')[1]); // activar el botón correspondiente
+          } else if (lastPage == "inventory") {
+            loadInventory();
+            activar(document.querySelectorAll('a')[2]); // activar el botón correspondiente
+          } else if (lastPage == "workOrder") {
+            loadWorkOrder();
+            activar(document.querySelectorAll('a')[3]); // activar el botón correspondiente
           }
-
-          elemento.classList.add("active");
-        }
+        });
       </script>
 </body>
 </html>

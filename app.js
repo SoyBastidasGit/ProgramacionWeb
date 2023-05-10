@@ -163,7 +163,7 @@ app.post("/logout", isLoggedIn, function (req, res) {
 		res.locals.errorMsg = "¡Cerraste Sesion!";
 		res.locals.iconMsg = "warning";
 		res.locals.iconColorMsg = "#0000FF";
-		res.status(400).render("login");
+		res.status(400).redirect("login");
 	});
 });
 
@@ -186,7 +186,7 @@ function isLoggedIn(req, res, next) {
 	if (flagSession == true) {
 		return next();
 	} else {
-		res.redirect("/login");
+		res.redirect("/");
 	}
 }
 

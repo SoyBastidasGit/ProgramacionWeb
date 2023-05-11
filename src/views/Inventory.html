@@ -16,48 +16,50 @@
 
                 <span>Ingrese los datos de un objeto para capturarlo en el inventario.</span>
 
-                <form action="/loaditem" method="post">
+                <div>
+                    <form action="/loaditem" method="post" class="inventory-form">
 
-                    <label for="ItemName">Nombre</label>
-                    <input type="text" name="ItemName" required="true" placeholder="Nombre del producto">
+                        <label for="ItemName">Nombre</label>
+                        <input type="text" name="ItemName" required="true" placeholder="Nombre del producto">
 
-                    <label for="ItemDesc">Descripción</label>
-                    <input type="text" name="ItemDesc" placeholder="Opcional">
+                        <label for="ItemDesc">Descripción</label>
+                        <input type="text" name="ItemDesc" placeholder="Opcional">
 
-                    <label for="ItemBrand">Marca</label>
-                    <input type="text" name="ItemBrand" placeholder="">
+                        <label for="ItemBrand">Marca</label>
+                        <input type="text" name="ItemBrand" placeholder="">
 
-                    <label for="ItemModel">Modelo</label>
-                    <input type="text" name="ItemModel" placeholder="Serial del producto">
+                        <label for="ItemModel">Modelo</label>
+                        <input type="text" name="ItemModel" placeholder="Serial del producto">
 
-                    <label for="ItemQuantity">Cantidad</label>
-                    <input type="number" name="ItemQuantity" value="1">
+                        <label for="ItemQuantity">Cantidad</label>
+                        <input type="number" name="ItemQuantity" value="1">
 
-                    <label for="ItemPrice">Precio unitario</label>
-                    <input type="number" name="ItemPrice" value="1">
+                        <label for="ItemPrice">Precio unitario</label>
+                        <input type="number" name="ItemPrice" value="1">
 
-                    <label for="ItemType">Tipo:</label>
-                    <select name="ItemType" id="ItemTypeSelect">
-                        <option value="" disabled selected>Seleccione:</option>
-                        <option value="Case">Case</option>
-                        <option value="Plates">Plates</option>
-                        <option value="PCB">PCB</option>
-                        <option value="Leds">Leds</option>
-                        <option value="Diodos">Diodos</option>
-                        <option value="Estabilizadores">Estabilizadores</option>
-                        <option value="Switches">Switches</option>
-                        <option value="Teclas">Teclas</option>
-                        <option value="Cables">Cables</option>
-                        <option value="Baterias">Baterias</option>
-                        <option value="Microcontroladores">Microcontroladores</option>
-                    </select>
-
-                    <label for="ItemMicroName">Nombre del microcontrolador:</label>
-                    <input type="text">
-
-                    <button class="add-item"><span>Añadir</span><i class="fa-solid fa-add"></i></button>
-
-                </form>
+                        <label for="ItemType">Tipo:</label>
+                        <select name="ItemType" id="ItemTypeSelect">
+                            <option value="" disabled selected>Seleccione:</option>
+                            <option value="Case">Case</option>
+                            <option value="Plates">Plates</option>
+                            <option value="PCB">PCB</option>
+                            <option value="Leds">Leds</option>
+                            <option value="Diodos">Diodos</option>
+                            <option value="Estabilizadores">Estabilizadores</option>
+                            <option value="Switches">Switches</option>
+                            <option value="Teclas">Teclas</option>
+                            <option value="Cables">Cables</option>
+                            <option value="Baterias">Baterias</option>
+                            <option value="Microcontroladores">Microcontroladores</option>
+                        </select>
+                        <!-- 
+                        <label for="ItemMicroName">Nombre del microcontrolador:</label>
+                        <input type="text"> -->
+                        
+                    </form>
+                </div>
+                
+                <button class="add-item"><span>Añadir</span><i class="fa-solid fa-add"></i></button>
 
             </div>
         </div>

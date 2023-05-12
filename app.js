@@ -27,9 +27,7 @@ app.set('view engine', 'html');
 app.engine('html', require('ejs').renderFile);
 
 app.use(bodyParser.json()); // analiza el cuerpo de la solicitud JSON
-//app.use(express.urlencoded({ extended: true })); // analiza el cuerpo de la solicitud codificada en URL
-
-/* app.use(bodyParser.urlencoded({ extended: true })); */
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //Mantener sesion iniciada
 const session = require("express-session");
@@ -228,7 +226,6 @@ app.post("/loaditem", async (req, res) => {
 	} catch (err) {
 		// Muestra error
 		res.status(200).json({ message: "¡Hubo un error con el servidor!" });
-
 	}
 });
 

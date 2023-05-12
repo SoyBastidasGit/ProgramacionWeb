@@ -198,29 +198,35 @@ app.get("/Work-Order", isLoggedIn, function (req, res) {
 app.post("/loaditem", async (req, res) => {
 	try {
 		//verifica si existe un item igual al que se intenta guardar y se actualiza
-		if (
-			Components.nombre === req.body.ItemName &&
-			Components.descripcion === req.body.ItemDesc &&
-			Components.marca === req.body.ItemBrand &&
-			Components.modelo === req.body.ItemModel &&
-			Components.tipo === req.body.ItemType
-		) {
-			
-		} else {
+		const item = await Components.updateOne({
+			modelo: req.body.ItemModel,
+			tipo: req.body.ItemType
+		}, {
+			$inc: {
+				cantidad: req.body.ItemQuantity
+			}
+		});
+
+		if (item.modifiedCount === 0) {
 			//guarda item en base de datos
 			const item = await Components.create({
-			nombre: req.body.ItemName,
-			descripcion: req.body.ItemDesc,
-			marca: req.body.ItemBrand,
-			modelo: req.body.ItemModel,
-			cantidad: req.body.ItemQuantity,
-			precio_unitario: req.body.ItemPrice,
-			tipo: req.body.ItemType
-		});
-		// Redirecciona a dashboard luego de registrarse correctamente
-		res.locals.errorMsg = "Componente registrado con exito!";
-		res.locals.iconMsg = "success";
-		res.locals.iconColorMsg = "#008f39";
+				nombre: req.body.ItemName,
+				descripcion: req.body.ItemDesc,
+				marca: req.body.ItemBrand,
+				modelo: req.body.ItemModel,
+				cantidad: req.body.ItemQuantity,
+				precio_unitario: req.body.ItemPrice,
+				tipo: req.body.ItemType
+			});
+			res.locals.errorMsg = "¡Componente registrado con exito!";
+			res.locals.iconMsg = "success";
+			res.locals.iconColorMsg = "#008f39";
+			res.status(400).redirect("principal");
+		} else {
+			res.locals.errorMsg = "¡Componente actualizado con exito!";
+			res.locals.iconMsg = "success";
+			res.locals.iconColorMsg = "#008f39";
+			res.status(400).redirect("principal");
 		}
 	} catch (err) {
 		// Muestra error durante el proceso de registro de usuario

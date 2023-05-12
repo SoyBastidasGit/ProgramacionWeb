@@ -55,7 +55,8 @@
                         <!-- 
                         <label for="ItemMicroName">Nombre del microcontrolador:</label>
                         <input type="text"> -->
-                        <button type="submit" class="add-item"><span>Añadir </span><i class="fa-solid fa-add"></i></button>
+                        <button type="submit" class="add-item"><span>Añadir </span><i
+                                class="fa-solid fa-add"></i></button>
                     </form>
                 </div>
             </div>
@@ -75,35 +76,46 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-    document.getElementById("loaditemform").addEventListener("submit", function(event) {
-    event.preventDefault(); // evita el comportamiento predeterminado de envío del formulario
-  
-    // envía los datos del formulario usando AJAX
-    const xhr = new XMLHttpRequest();
-    xhr.open("post", "/loaditem");
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            const response = JSON.parse(xhr.responseText);
-            if (response.success) {
-                showAlert(response.message, 'success', '#008f39');
+    document.getElementById("loaditemform").addEventListener("submit", function (event) {
+        event.preventDefault(); // evita el comportamiento predeterminado de envío del formulario
+
+        // envía los datos del formulario usando AJAX
+        const xhr = new XMLHttpRequest();
+        xhr.open("post", "/loaditem");
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                const response = JSON.parse(xhr.responseText);
+                if (response.success) {
+                    showAlert(response.message, 'success', '#008f39');
+                    resetInputs();
+                } else {
+                    showAlert(response.message, 'success', '#0000FF');
+                }
             } else {
-                showAlert(response.message, 'success', '#0000FF');
+                showAlert(response.message, 'warning', '#FF0000');
             }
-        } else {
-            showAlert(response.message, 'warning', '#FF0000');
-        }
-    };
-    xhr.send(JSON.stringify({
-        ItemName: document.getElementById("ItemName").value,
-        ItemDesc: document.getElementById("ItemDesc").value,
-        ItemBrand: document.getElementById("ItemBrand").value,
-        ItemModel: document.getElementById("ItemModel").value,
-        ItemQuantity: document.getElementById("ItemQuantity").value,
-        ItemPrice: document.getElementById("ItemPrice").value,
-        ItemType: document.getElementById("ItemType").value,
-    }));
+        };
+        xhr.send(JSON.stringify({
+            ItemName: document.getElementById("ItemName").value,
+            ItemDesc: document.getElementById("ItemDesc").value,
+            ItemBrand: document.getElementById("ItemBrand").value,
+            ItemModel: document.getElementById("ItemModel").value,
+            ItemQuantity: document.getElementById("ItemQuantity").value,
+            ItemPrice: document.getElementById("ItemPrice").value,
+            ItemType: document.getElementById("ItemType").value,
+        }));
     });
+
+    function resetInputs() {
+        document.getElementById("ItemName").value = '';
+        document.getElementById("ItemDesc").value = '';
+        document.getElementById("ItemBrand").value = '';
+        document.getElementById("ItemModel").value = '';
+        document.getElementById("ItemQuantity").value = '';
+        document.getElementById("ItemPrice").value = '';
+        document.getElementById("ItemType").selectedIndex = 0;
+    }
 
     function showAlert(message, icon, iconColor) {
         Swal.fire({

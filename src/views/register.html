@@ -13,7 +13,7 @@
 	<script>
 		window.addEventListener('DOMContentLoaded', (event) => {
 			<% if (locals.errorMsg && locals.iconMsg && locals.iconColorMsg) { %>
-				Swal.fire( {
+				Swal.fire({
 					position: 'center',
 					icon: '<%= locals.iconMsg %>',
 					iconColor: '<%= locals.iconColorMsg %>',
@@ -22,7 +22,7 @@
 					color: '#0C151C',
 					confirmButtonColor: '#16354D'
 				})
-			<% } %>
+				<% } %>
 		});
 	</script>
 </head>
@@ -52,15 +52,15 @@
 					Nombre Completo</label>
 			</div>
 			<div class="user-box">
-			<select name="tipo_empleado" required="true">
-				<option ></option>
-				<option >Administrativo</option>
-				<option >Producción</option>
-			</select>
-			<label for="tipo_empleado">
-				<i class="fa-solid fa-user"></i>
-				Tipo de empleado
-			</label>
+				<select name="tipo_empleado" required="true">
+					<option></option>
+					<option>Administrativo</option>
+					<option>Producción</option>
+				</select>
+				<label for="tipo_empleado">
+					<i class="fa-solid fa-user"></i>
+					Tipo de empleado
+				</label>
 			</div>
 			<button>
 				<i class="fa-solid fa-user"></i>
@@ -76,7 +76,8 @@
 				Iniciar Sesion
 			</button>
 		</form>
-		
+
 	</div>
 </body>
+
 </html>

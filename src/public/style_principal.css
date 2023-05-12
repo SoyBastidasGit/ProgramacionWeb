@@ -177,6 +177,7 @@ a:hover i {
   color: #E4E5EA;
 }
 
+/* #region Dashboard styles*/
 .dash-container {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   position: relative;
@@ -225,6 +226,16 @@ a:hover i {
   height: calc(100% - 26px);
 }
 
+.dash-item-inventory {
+  padding: 5px;
+  display: grid;
+  grid-template-rows: 20px 400px 32px;
+  overflow: hidden;
+  min-height: 0;
+  height: calc(100% - 52px);
+}
+
+/* #endregion Dashboard Styles*/
 .inventory-form {
   position: relative;
   display: grid;
@@ -235,25 +246,39 @@ a:hover i {
   grid-template-columns: auto auto;
   min-height: 0;
   font-size: 1em;
-  max-height: calc(100% - 62px);
+  max-height: calc(100% - 64px);
+}
+
+.inventory-form input,
+.inventory-form select {
+  font-size: 1em;
+  color: #0C151C;
+  border: none;
+  border-bottom: 1px solid #0C151C;
+  outline: none;
+  background: transparent;
 }
 
 .add-item {
-  position: sticky;
-  bottom: 0px;
-  width: 50%;
-  left: 50%;
+  width: 40%;
+  height: 32px;
   background: #16354D;
   color: #E4E5EA;
-  font-size: 1em;
-  text-align: center;
-  padding: 10px 0px 20px 0px;
-  border-radius: 10px;
-  height: 40px;
-  border-width: 10px;
-  white-space: nowrap;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 0.8em;
+  padding: 8px;
+  border-radius: 25px;
+  transition: 0.5s;
+  border-style: none;
 }
 
+.add-item:hover {
+  background: #6B99C3;
+  color: #E4E5EA;
+}
+
+/* #region Scrollbar*/
 ::-webkit-scrollbar {
   width: 10px;
   background-color: #F5F5F5;
@@ -270,3 +295,5 @@ a:hover i {
   border-radius: 10px;
   background-color: #437bd3
 }
+
+/* #endregion Scrollbar*/

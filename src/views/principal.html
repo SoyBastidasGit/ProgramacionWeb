@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <title>KeyboardTech - Pagina Principal</title>
@@ -12,20 +13,20 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <script>
-		window.addEventListener('DOMContentLoaded', (event) => {
+    window.addEventListener('DOMContentLoaded', (event) => {
 			<% if (locals.errorMsg && locals.iconMsg && locals.iconColorMsg) { %>
-				Swal.fire( {
-					position: 'center',
-					icon: '<%= locals.iconMsg %>',
-					iconColor: '<%= locals.iconColorMsg %>',
-					title: '<%= locals.errorMsg %>',
-					background: '#D2D2D4',
-					color: '#0C151C',
-					confirmButtonColor: '#16354D'
-				})
-			<% } %>
+        Swal.fire({
+          position: 'center',
+          icon: '<%= locals.iconMsg %>',
+          iconColor: '<%= locals.iconColorMsg %>',
+          title: '<%= locals.errorMsg %>',
+          background: '#D2D2D4',
+          color: '#0C151C',
+          confirmButtonColor: '#16354D'
+        })
+        <% } %>
 		});
-	</script>
+  </script>
 </head>
 
 <body>
@@ -33,21 +34,21 @@
     <nav>
       <ul>
         <li><a class="logo">
-          <img src="/img/logo.png">
-          <span class="nav-item">Usuario</span>
-        </a></li>
+            <img src="/img/logo.png">
+            <span class="nav-item">Usuario</span>
+          </a></li>
         <li><a onclick="loadDashboard(), activar(this)">
-          <i class="fas fa-columns"></i>
-          <span class="nav-item">Dashboard</span>
-        </a></li>
+            <i class="fas fa-columns"></i>
+            <span class="nav-item">Dashboard</span>
+          </a></li>
         <li><a onclick="loadInventory(), activar(this)">
-          <i class="fas fa-file"></i>
-          <span class="nav-item">Inventario</span>
-        </a></li>
+            <i class="fas fa-file"></i>
+            <span class="nav-item">Inventario</span>
+          </a></li>
         <li><a onclick="loadWorkOrder(), activar(this)">
-          <i class="fas fa-chart-bar"></i>
-          <span class="nav-item">Ordenes de trabajo</span>
-        </a></li>
+            <i class="fas fa-chart-bar"></i>
+            <span class="nav-item">Ordenes de trabajo</span>
+          </a></li>
 
         <!-- Boton logout -->
         <form action="/logout" method="POST">
@@ -62,7 +63,7 @@
     <section class="main">
       <!-- Muestra dashboard -->
       <div class="dashboard"></div>
-      
+
       <!--  Muestra inventario -->
       <div class="inventory"></div>
 
@@ -76,21 +77,21 @@
           $('.workOrder').empty();
           $('.dashboard').load('RBdash');
         }
-      
+
         function loadInventory() {
           localStorage.setItem("lastPage", "inventory"); // guardar el nombre de la última página visitada
           $('.dashboard').empty();
           $('.workOrder').empty();
           $('.inventory').load('Inventory');
         }
-      
+
         function loadWorkOrder() {
           localStorage.setItem("lastPage", "workOrder"); // guardar el nombre de la última página visitada
           $('.dashboard').empty();
           $('.inventory').empty();
           $('.workOrder').load('Work-Order');
         }
-      
+
         // cargar la última página visitada cuando la página se recarga
         window.addEventListener('load', (event) => {
           var lastPage = localStorage.getItem("lastPage");
@@ -120,4 +121,5 @@
         }
       </script>
 </body>
+
 </html>

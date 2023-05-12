@@ -7,24 +7,10 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<!-- Font Awesome -->
 	<script src="https://kit.fontawesome.com/974b03f183.js" crossorigin="anonymous"></script>
-
+	<!-- SweetAlert2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-	<script>
-		window.addEventListener('DOMContentLoaded', (event) => {
-			<% if (locals.errorMsg && locals.iconMsg && locals.iconColorMsg) { %>
-				Swal.fire({
-					position: 'center',
-					icon: '<%= locals.iconMsg %>',
-					iconColor: '<%= locals.iconColorMsg %>',
-					title: '<%= locals.errorMsg %>',
-					background: '#D2D2D4',
-					color: '#0C151C',
-					confirmButtonColor: '#16354D'
-				})
-				<% } %>
-		});
-	</script>
+	<!-- jquery -->
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 
 <body>
@@ -32,27 +18,27 @@
 	<div class="login-box">
 		<h2>Registrarse</h2>
 
-		<form action="/register" method="POST">
+		<form id="registerform" action="/register" method="POST">
 			<div class="user-box">
-				<input type="text" name="email" required="true">
+				<input type="email" id="email" required="true">
 				<label for="user">
 					<i class="fa-solid fa-user"></i>
 					Correo Electronico</label>
 			</div>
 			<div class="user-box">
-				<input type="password" name="password" required="true">
+				<input type="password" id="password" required="true">
 				<label for="user">
 					<i class="fa-solid fa-lock"></i>
 					Contraseña</label>
 			</div>
 			<div class="user-box">
-				<input type="text" name="nombre" required="true">
+				<input type="text" id="nombre" required="true">
 				<label for="user">
 					<i class="fa-solid fa-user"></i>
 					Nombre Completo</label>
 			</div>
 			<div class="user-box">
-				<select name="tipo_empleado" required="true">
+				<select id="tipo_empleado" required="true">
 					<option></option>
 					<option>Administrativo</option>
 					<option>Producción</option>
@@ -62,7 +48,7 @@
 					Tipo de empleado
 				</label>
 			</div>
-			<button>
+			<button type="submit">
 				<i class="fa-solid fa-user"></i>
 				Registrar
 			</button>
@@ -78,6 +64,57 @@
 		</form>
 
 	</div>
+
+	<script>
+		document.getElementById("registerform").addEventListener("submit", function (event) {
+			event.preventDefault(); // evita el comportamiento predeterminado de envío del formulario
+
+			// envía los datos del formulario usando AJAX
+			const xhr = new XMLHttpRequest();
+			xhr.open("post", "/register");
+			xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+			xhr.onload = function () {
+				if (xhr.status === 200) {
+					const response = JSON.parse(xhr.responseText);
+					if (response.success) {
+						showAlert(response.message, 'success', '#008f39');
+					} else {
+						showAlert(response.message, 'warning', '#0000FF');
+					}
+				} else {
+					showAlert(response.message, 'error', '#FF0000');
+				}
+			};
+			xhr.send(JSON.stringify({
+				email: document.getElementById("email").value,
+				password: document.getElementById("password").value,
+				nombre: document.getElementById("nombre").value,
+				tipo_empleado: document.getElementById("tipo_empleado").value
+			}));
+		});
+
+		// Función para redirigir a la página de inicio de sesión
+		function redirectToLogin() {
+			window.location.href = 'login';
+		}
+
+		function showAlert(message, icon, iconColor) {
+			Swal.fire({
+				position: 'center',
+				icon: icon,
+				iconColor: iconColor,
+				title: message,
+				background: '#D2D2D4',
+				color: '#0C151C',
+				confirmButtonColor: '#16354D',
+				confirmButtonText: 'Aceptar'
+			}).then((result) => {
+				if (result.isConfirmed && message === '¡Usuario registrado con exito!') {
+					redirectToLogin();
+				}
+			});
+		}
+	</script>
 </body>
 
 </html>

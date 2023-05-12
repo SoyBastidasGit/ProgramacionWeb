@@ -3,7 +3,7 @@ var express = require("express"),
 	passport = require("passport"),
 	bodyParser = require("body-parser"),
 	LocalStrategy = require("passport-local"),
- 	passportLocalMongoose = require("passport-local-mongoose");
+	passportLocalMongoose = require("passport-local-mongoose");
 const User = require("./src/app/models/user");
 const Components = require("./src/app/models/components");
 const { encrypt, compare } = require('./src/app/models/bcrypt');
@@ -41,7 +41,7 @@ app.use(session({
 		mongoUrl: URI,
 		autoReconnect: true
 	})
-  }));
+}));
 
 //middlewares
 passport.use(new LocalStrategy(User.authenticate()));
@@ -79,10 +79,7 @@ app.post("/register", async (req, res) => {
 		const email = req.body.email;
 		if (!emailRegex.test(email)) {
 			// si el valor del campo "email" no es una dirección de correo electrónico válida
-			res.locals.errorMsg = "¡Por favor ingrese una dirección de correo electrónico válida!";
-			res.locals.iconMsg = "error";
-			res.locals.iconColorMsg = "#FF0000";
-			return res.status(400).render("register");
+			res.status(200).json({ message: "¡Por favor ingrese una dirección de correo electrónico válida!" });
 		}
 
 		const passwordHash = await encrypt(req.body.password)
@@ -93,24 +90,12 @@ app.post("/register", async (req, res) => {
 			nombre: req.body.nombre,
 			tipo_empleado: req.body.tipo_empleado
 		});
-		// Redirecciona a dashboard luego de registrarse correctamente
-		res.locals.errorMsg = "¡Usuario registrado con exito!";
-		res.locals.iconMsg = "success";
-		res.locals.iconColorMsg = "#008f39";
-		res.status(400).render("login");
+		res.status(200).json({ success: true, message: "¡Usuario registrado con exito!" });
 	} catch (err) {
 		if (err.code === 11000) {
-			// si el código de error es 11000 (duplicado de clave en índice único)
-			res.locals.errorMsg = "¡El correo electrónico ya está registrado!";
-			res.locals.iconMsg = "warning";
-			res.locals.iconColorMsg = "#0000FF";
-			return res.status(400).render("register");
+			res.status(200).json({ message: "¡El correo electrónico ya está registrado!" });
 		} else {
-			// Muestra error durante el proceso de registro de usuario
-			res.locals.errorMsg = "¡Hubo un error al registrar el usuario!";
-			res.locals.iconMsg = "warning";
-			res.locals.iconColorMsg = "#0000FF";
-			return res.status(500).render("register");
+			res.status(200).json({ message: "¡Hubo un error al registrar el usuario!" });
 		}
 	}
 });
@@ -119,7 +104,7 @@ app.post("/register", async (req, res) => {
 app.get("/login", function (req, res) {
 	if (req.session.user) {
 		return res.redirect("/principal");
-	  }
+	}
 	res.render("login");
 });
 
@@ -144,24 +129,15 @@ app.post("/login", async function (req, res) {
 
 			if (checkPassword) {
 				req.session.user = req.body.email;
-				res.redirect("principal");
+				res.status(200).json({ success: true });
 			} else {
-				res.locals.errorMsg = "¡Contraseña no coincide!";
-				res.locals.iconMsg = "error";
-				res.locals.iconColorMsg = "#FF0000";
-				res.status(400).render("login");
+				res.status(200).json({ message: "¡Contraseña no coincide!" });
 			}
 		} else {
-			res.locals.errorMsg = "¡Usuario no existe!";
-			res.locals.iconMsg = "error";
-			res.locals.iconColorMsg = "#FF0000";
-			res.status(400).render("login");
+			res.status(200).json({ message: "¡Usuario no existe!" });
 		}
 	} catch (error) {
-		res.locals.errorMsg = "¡A ocurrido un error en el servidor!";
-		res.locals.iconMsg = "error";
-		res.locals.iconColorMsg = "#FF0000";
-		res.status(400).render("login");
+		res.status(200).json({ message: "¡A ocurrido un error en el servidor!" });
 	}
 });
 
@@ -219,7 +195,7 @@ app.post("/loaditem", async (req, res) => {
 				precio_unitario: req.body.ItemPrice,
 				tipo: req.body.ItemType
 			});
-			res.status(200).json({ message: "¡Componente registrado con exito!" });
+			res.status(200).json({success: true, message: "¡Componente registrado con exito!" });
 		} else {
 			res.status(200).json({ message: "¡Componente actualizado con exito!" });
 		}
@@ -242,4 +218,4 @@ function isLoggedIn(req, res, next) {
 var port = process.env.PORT || 4000;
 app.listen(port, function () {
 	console.log("Servidor iniciado!");
-});
+});	

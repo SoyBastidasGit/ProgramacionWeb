@@ -88,10 +88,10 @@
             if (response.success) {
                 showAlert(response.message, 'success', '#008f39');
             } else {
-                showAlert(response.message, 'success', '#008f39');
+                showAlert(response.message, 'success', '#0000FF');
             }
         } else {
-            showAlert(response.message, 'warning', '#0000FF');
+            showAlert(response.message, 'warning', '#FF0000');
         }
     };
     xhr.send(JSON.stringify({

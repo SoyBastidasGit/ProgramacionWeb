@@ -17,28 +17,28 @@
                 <span>Ingrese los datos de un objeto para capturarlo en el inventario.</span>
 
                 <div>
-                    <form action="/loaditem" method="post" class="inventory-form">
+                    <form id="loaditemform" action="/loaditem" method="post" class="inventory-form">
 
                         <label for="ItemName"><span>Nombre</span></label>
-                        <input type="text" name="ItemName" required="true" placeholder="Nombre del producto">
+                        <input type="text" id="ItemName" required="true" placeholder="Nombre del producto">
 
                         <label for="ItemDesc">Descripción</label>
-                        <input type="text" name="ItemDesc" placeholder="Opcional">
+                        <input type="text" id="ItemDesc" placeholder="Opcional">
 
                         <label for="ItemBrand">Marca</label>
-                        <input type="text" name="ItemBrand" placeholder="">
+                        <input type="text" id="ItemBrand" required="true" placeholder="Modelo del producto">
 
                         <label for="ItemModel">Modelo</label>
-                        <input type="text" name="ItemModel" placeholder="Serial del producto">
+                        <input type="text" id="ItemModel" required="true" placeholder="Serial del producto">
 
                         <label for="ItemQuantity">Cantidad</label>
-                        <input type="number" name="ItemQuantity" value="1">
+                        <input type="number" id="ItemQuantity" value="" required="true">
 
                         <label for="ItemPrice">Precio unitario</label>
-                        <input type="number" name="ItemPrice" value="1">
+                        <input type="number" id="ItemPrice" value="" required="true">
 
                         <label for="ItemType">Tipo:</label>
-                        <select name="ItemType" id="ItemTypeSelect">
+                        <select id="ItemType" required="true">
                             <option value="" disabled selected>Seleccione:</option>
                             <option value="Case">Case</option>
                             <option value="Plates">Plates</option>
@@ -55,12 +55,9 @@
                         <!-- 
                         <label for="ItemMicroName">Nombre del microcontrolador:</label>
                         <input type="text"> -->
-                        
+                        <button type="submit" class="add-item"><span>Añadir </span><i class="fa-solid fa-add"></i></button>
                     </form>
                 </div>
-                
-                <button class="add-item"><span>Añadir </span><i class="fa-solid fa-add"></i></button>
-
             </div>
         </div>
 
@@ -74,3 +71,49 @@
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    document.getElementById("loaditemform").addEventListener("submit", function(event) {
+    event.preventDefault(); // evita el comportamiento predeterminado de envío del formulario
+  
+    // envía los datos del formulario usando AJAX
+    const xhr = new XMLHttpRequest();
+    xhr.open("post", "/loaditem");
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
+            if (response.success) {
+                showAlert(response.message, 'success', '#008f39');
+            } else {
+                showAlert(response.message, 'success', '#008f39');
+            }
+        } else {
+            showAlert(response.message, 'warning', '#0000FF');
+        }
+    };
+    xhr.send(JSON.stringify({
+        ItemName: document.getElementById("ItemName").value,
+        ItemDesc: document.getElementById("ItemDesc").value,
+        ItemBrand: document.getElementById("ItemBrand").value,
+        ItemModel: document.getElementById("ItemModel").value,
+        ItemQuantity: document.getElementById("ItemQuantity").value,
+        ItemPrice: document.getElementById("ItemPrice").value,
+        ItemType: document.getElementById("ItemType").value,
+    }));
+    });
+
+    function showAlert(message, icon, iconColor) {
+        Swal.fire({
+            position: 'center',
+            icon: icon,
+            iconColor: iconColor,
+            title: message,
+            background: '#D2D2D4',
+            color: '#0C151C',
+            confirmButtonColor: '#16354D'
+        })
+    }
+</script>

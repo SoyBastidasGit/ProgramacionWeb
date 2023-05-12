@@ -26,7 +26,10 @@ app.set('views', path.join(__dirname, 'src/views'));
 app.set('view engine', 'html');
 app.engine('html', require('ejs').renderFile);
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json()); // analiza el cuerpo de la solicitud JSON
+//app.use(express.urlencoded({ extended: true })); // analiza el cuerpo de la solicitud codificada en URL
+
+/* app.use(bodyParser.urlencoded({ extended: true })); */
 
 //Mantener sesion iniciada
 const session = require("express-session");
@@ -218,21 +221,14 @@ app.post("/loaditem", async (req, res) => {
 				precio_unitario: req.body.ItemPrice,
 				tipo: req.body.ItemType
 			});
-			res.locals.errorMsg = "¡Componente registrado con exito!";
-			res.locals.iconMsg = "success";
-			res.locals.iconColorMsg = "#008f39";
-			res.status(400).redirect("principal");
+			res.status(200).json({ message: "¡Componente registrado con exito!" });
 		} else {
-			res.locals.errorMsg = "¡Componente actualizado con exito!";
-			res.locals.iconMsg = "success";
-			res.locals.iconColorMsg = "#008f39";
-			res.status(400).redirect("principal");
+			res.status(200).json({ message: "¡Componente actualizado con exito!" });
 		}
 	} catch (err) {
-		// Muestra error durante el proceso de registro de usuario
-		res.locals.errorMsg = "¡Hubo un error!";
-		res.locals.iconMsg = "warning";
-		res.locals.iconColorMsg = "#0000FF";
+		// Muestra error
+		res.status(200).json({ message: "¡Hubo un error con el servidor!" });
+
 	}
 });
 

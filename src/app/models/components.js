@@ -10,21 +10,7 @@ var Components = new Schema({
     "modelo": String,
     "cantidad": Number,
     "precio_unitario": Number,
-    "tipo": {
-      "Case": Boolean,
-      "Plates": Boolean,
-      "PCB": Boolean,
-      "Leds": Boolean,
-      "Diodos": Boolean,
-      "Estabilizadores": Boolean,
-      "Switches": Boolean,
-      "Teclas": Boolean,
-      "Cables": Boolean,
-      "Baterias": Boolean,
-      "Microcontroladores": {
-        "nombre": String
-      }
-    }
+    "tipo": String
 });
 
 module.exports = mongoose.model('Components', Components)

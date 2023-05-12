@@ -73,11 +73,6 @@ app.get("/register", function (req, res) {
 
 const emailRegex = /^\S+@\S+\.\S+$/; // expresión regular para validar un correo electrónico
 
-app.post("/loaditem", async (req, res) => {
-	try {
-	} catch (err) { () => console.log(err) }
-})
-
 app.post("/register", async (req, res) => {
 	try {
 		const email = req.body.email;
@@ -199,6 +194,43 @@ app.get("/Work-Order", isLoggedIn, function (req, res) {
 	res.render("Work-Order");
 });
 
+//Formulario captura de inventario
+app.post("/loaditem", async (req, res) => {
+	try {
+		//verifica si existe un item igual al que se intenta guardar y se actualiza
+		if (
+			Components.nombre === req.body.ItemName &&
+			Components.descripcion === req.body.ItemDesc &&
+			Components.marca === req.body.ItemBrand &&
+			Components.modelo === req.body.ItemModel &&
+			Components.tipo === req.body.ItemType
+		) {
+			
+		} else {
+			//guarda item en base de datos
+			const item = await Components.create({
+			nombre: req.body.ItemName,
+			descripcion: req.body.ItemDesc,
+			marca: req.body.ItemBrand,
+			modelo: req.body.ItemModel,
+			cantidad: req.body.ItemQuantity,
+			precio_unitario: req.body.ItemPrice,
+			tipo: req.body.ItemType
+		});
+		// Redirecciona a dashboard luego de registrarse correctamente
+		res.locals.errorMsg = "Componente registrado con exito!";
+		res.locals.iconMsg = "success";
+		res.locals.iconColorMsg = "#008f39";
+		}
+	} catch (err) {
+		// Muestra error durante el proceso de registro de usuario
+		res.locals.errorMsg = "¡Hubo un error!";
+		res.locals.iconMsg = "warning";
+		res.locals.iconColorMsg = "#0000FF";
+	}
+});
+
+//Funciones
 function isLoggedIn(req, res, next) {
 	if (req.session.user) {
 		next();

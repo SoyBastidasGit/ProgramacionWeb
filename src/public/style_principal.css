@@ -397,7 +397,7 @@ a:hover i {
 }
 
 .dash-WO-list>li {
-  border-bottom: 4px solid #437bd3;
+  border-bottom: 2px solid #437bd3;
   border-radius: 2px;
   display: flex;
   grid-template-columns: 100px auto;

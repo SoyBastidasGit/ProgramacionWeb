@@ -177,15 +177,25 @@ a:hover i {
   color: #E4E5EA;
 }
 
-/* #region Dashboard styles*/
+/* #region Dashboard general styles ---------------------------------------------------------------------*/
 .dash-container {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   position: relative;
   display: grid;
   padding: 15px;
-  grid-template-columns: 50% 50%;
   gap: 0.7em;
-  grid-template-rows: 20% 60% 20%;
+  grid-template: 20% 60% 20% / 50% 50%;
+  height: 85vh;
+  max-height: 85vh;
+}
+
+.dash-container-inventory {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
+  display: grid;
+  padding: 15px;
+  gap: 0.7em;
+  grid-template: 20% 80% / 50% 50%;
   height: 85vh;
   max-height: 85vh;
 }
@@ -212,6 +222,7 @@ a:hover i {
   border-color: #16354D;
   font-weight: 500;
   font-size: large;
+  padding-left: 15px;
 }
 
 .dash-item-title>i {
@@ -222,32 +233,26 @@ a:hover i {
   padding: 5px;
   display: grid;
   overflow: hidden;
+  grid-template-rows: max-content auto;
   min-height: 0;
   height: calc(100% - 26px);
 }
 
-.dash-item-inventory {
-  padding: 5px;
-  display: grid;
-  grid-template-rows: 20px auto;
-  overflow: hidden;
-  min-height: 0;
-  height: calc(100% - 25px);
-}
-
 /* #endregion Dashboard Styles*/
 
+
+/* #region Inventory  ---------------------------------------------------------------------------*/
+
+#sp-inv-info {
+  /* Span styling  */
+  border-bottom: 4px solid #437bd3;
+}
+
 .inventory-form {
-  position: relative;
   display: grid;
-  overflow: auto;
-  padding: 10px;
-  row-gap: 10px;
-  overflow: auto;
-  grid-template-columns: auto auto;
-  min-height: 0;
-  font-size: 1em;
-  max-height: calc(100% - 60px);
+  gap: 15px;
+  grid-template-columns: max-content auto;
+  align-content: space-evenly;
 }
 
 .inventory-form input,
@@ -271,7 +276,7 @@ a:hover i {
   font-size: 0.8em;
   padding: 8px;
   border-radius: 25px;
-  transition: 0.5s;
+  transition: 0.5s ease-in;
   border-style: none;
 }
 
@@ -300,10 +305,14 @@ a:hover i {
 .dash-products-list>li {
   border-bottom: 4px solid #437bd3;
   border-radius: 2px;
-  margin-bottom: 25px;
+  margin-bottom: 5px;
   display: grid;
   grid-template-columns: 100px auto;
   grid-template-rows: auto auto;
+}
+
+.dash-products-list>li:hover {
+  font-weight: 500;
 }
 
 .dash-products-list>li:last-child {
@@ -326,10 +335,126 @@ a:hover i {
   font-size: medium;
 }
 
+/* #endregion End inventory*/
 
-/* #region Scrollbar*/
+
+/* #region Work Orders ---------------------------------------------------------------------------*/
+
+.WO-form {
+  display: grid;
+  gap: 15px;
+  grid-template-columns: auto auto auto auto auto;
+  grid-template-rows: auto auto;
+}
+
+.WO-Input-div {
+  display: grid;
+}
+
+.add-order {
+  width: 100%;
+  background: #16354D;
+  color: #E4E5EA;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 0.8em;
+  padding: 8px;
+  border-radius: 25px;
+  transition: 0.5s ease-in;
+  border-style: none;
+}
+
+.add-order:hover {
+  background: #6B99C3;
+  color: #E4E5EA;
+}
+
+.WO-form input {
+  font-size: 1em;
+  color: #0C151C;
+  border: none;
+  border-bottom: 1px solid #0C151C;
+  outline: none;
+  background: transparent;
+}
+
+#WO-p-search,
+#WO-c-search {
+  font-size: medium;
+  margin: 5px 15px 5px 5px;
+  padding: 3px;
+  border: 1px solid #6B99C3;
+  background-color: transparent;
+  border-bottom: 4px solid #437bd3;
+  border-radius: 2px;
+  max-height: 30px;
+}
+
+.dash-WO-list {
+  list-style: none;
+  overflow: auto;
+  padding-right: 1%;
+}
+
+.dash-WO-list>li {
+  border-bottom: 4px solid #437bd3;
+  border-radius: 2px;
+  display: flex;
+  grid-template-columns: 100px auto;
+  grid-template-rows: auto auto;
+  margin: 15px 5px;
+}
+
+.dash-WO-list>li:hover {
+  font-weight: 500;
+}
+
+.dash-WO-list>li:last-child {
+  margin-bottom: 0;
+}
+
+.p-WO-num,
+.p-WO-desc {
+  font-size: medium;
+}
+
+.dash-Completed-WO {
+  /*contenedor*/
+  display: grid;
+  grid-auto-columns: 50% 50%;
+  grid-template-rows: 45% 45%;
+  grid-auto-flow: column;
+  gap: 15px;
+  padding: 15px 0;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.WO-completed-item {
+  /* objeto */
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background: #D2D2D4;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 15%);
+  scroll-snap-align: start;
+  transition: all 0.2s;
+}
+
+.WO-completed-item:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.384);
+  border: 2px solid #437bd3;
+}
+
+/* #endregion WorK Orders*/
+
+
+/* #region Scrollbar ---------------------------------------------------------------------------*/
 ::-webkit-scrollbar {
   width: 10px;
+  height: 10px;
   background-color: #F5F5F5;
   border-radius: 10px;
 }

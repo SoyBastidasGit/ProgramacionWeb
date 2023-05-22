@@ -58,7 +58,7 @@
         </div>
 
         <div class="dash-item">
-            <div class="dash-item-title">Productos <i class="fa-solid fa-expand"></i></div>
+            <div class="dash-item-title" id="refreshInventorybutton">Productos<i class="fa-solid fa-expand"></i></div>
             <div class="dash-item-content" id="products-div">
 
                 <!-- Input para filtrar la lista de objetos con funcion onkeyup() -->
@@ -66,7 +66,7 @@
 
                 <ul class="dash-products-list">
 
-                    <li><img src="...\public\img\part-example.png" alt="display">
+                    <li><img src="../public/img/part-example.png" alt="display">
                         <p class="p-item-name">Nombre</p>
                         <p class="p-item-desc">Descripci&oacute;n</p>
                     </li>
@@ -96,10 +96,14 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-    document.addEventListener("load", () => {
+    document.getElementById("list-search").addEventListener("keyup", () => {
         refreshInventory()
     })
 
+    function refreshInventory() {
+        console.log()
+        console.log("tecla pulsada")
+    }
     document.getElementById("loaditemform").addEventListener("submit", function (event) {
         event.preventDefault(); // evita el comportamiento predeterminado de envío del formulario
 
@@ -155,7 +159,4 @@
         })
     }
 
-    function refreshInventory() {
-        console.log("Cargando inventario")
-    }
 </script>

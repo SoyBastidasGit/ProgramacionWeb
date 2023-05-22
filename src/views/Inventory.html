@@ -61,32 +61,41 @@
             <div class="dash-item-title" id="refreshInventorybutton">Productos<i class="fa-solid fa-expand"></i></div>
             <div class="dash-item-content" id="products-div">
 
-                <!-- Input para filtrar la lista de objetos con funcion onkeyup() -->
+                <!--id="list-search" Input para filtrar la lista de objetos con funcion onkeyup() -->
                 <input type="text" id="list-search" placeholder="Buscar un objeto:">
 
-                <ul class="dash-products-list">
+                <!-- id="ul-productos" Agregar html desde json de mongodb  -->
+                <ul class="dash-products-list" id="ul-productos">
 
                     <li><img src="../public/img/part-example.png" alt="display">
                         <p class="p-item-name">Nombre</p>
-                        <p class="p-item-desc">Descripci&oacute;n</p>
+                        <p class="p-item-model">Modelo</p>
                     </li>
                     <li><img src="" alt="display">
                         <p class="p-item-name">Nombre</p>
                         <p class="p-item-desc">Descripci&oacute;n</p>
                     </li>
+                
                     <li><img src="" alt="display">
                         <p class="p-item-name">Nombre</p>
                         <p class="p-item-desc">Descripci&oacute;n</p>
                     </li>
+                
                     <li><img src="" alt="display">
                         <p class="p-item-name">Nombre</p>
                         <p class="p-item-desc">Descripci&oacute;n</p>
                     </li>
+                
                     <li><img src="" alt="display">
                         <p class="p-item-name">Nombre</p>
                         <p class="p-item-desc">Descripci&oacute;n</p>
                     </li>
-
+                
+                    <li><img src="" alt="display">
+                        <p class="p-item-name">Nombre</p>
+                        <p class="p-item-desc">Descripci&oacute;n</p>
+                    </li>
+                
                 </ul>
             </div>
         </div>
@@ -104,19 +113,21 @@
         console.log()
         console.log("tecla pulsada")
     }
-    document.getElementById("loaditemform").addEventListener("submit", function (event) {
+    document.getElementById("loaditemform").addEventListener("submit", (event) => {
         event.preventDefault(); // evita el comportamiento predeterminado de envío del formulario
 
         // envía los datos del formulario usando AJAX
         const xhr = new XMLHttpRequest();
         xhr.open("post", "/loaditem");
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        xhr.onload = function () {
+        xhr.onload = () => {
             if (xhr.status === 200) {
                 const response = JSON.parse(xhr.responseText);
                 if (response.success) {
                     showAlert(response.message, 'success', '#008f39');
                     resetInputs();
+                    console.log("xhr:" + xhr)
+                    console.log("res:" + response)
                     refreshInventory();
                 } else {
                     showAlert(response.message, 'success', '#0000FF');
@@ -136,6 +147,18 @@
             ItemType: document.getElementById("ItemType").value,
         }));
     });
+
+
+    // function get (){
+    //     request JSON
+    //         {nombre: "",
+    //         cantidad: ""}
+
+    //         ciclo
+    //             (ul).html($"<li><li><img src=../public/img/part-example.p
+    //                 ng alt=display><p class="p-item-name">"{nombre[1]})
+
+    // }
 
     function resetInputs() {
         document.getElementById("ItemName").value = '';

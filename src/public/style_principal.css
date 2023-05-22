@@ -15,6 +15,8 @@ Lineas: #0C151C */
 /*  import google fonts */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
+/* #region main and login styles ----------------------------------------------------------------------------*/
+
 * {
   margin: 0;
   padding: 0;
@@ -177,6 +179,8 @@ a:hover i {
   color: #E4E5EA;
 }
 
+/* #endregion */
+
 /* #region Dashboard general styles ---------------------------------------------------------------------*/
 .dash-container {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -289,11 +293,16 @@ a:hover i {
   font-size: medium;
   margin: 5px 15px 5px 5px;
   padding: 3px;
-  border: 1px solid #6B99C3;
   background-color: transparent;
   border-bottom: 4px solid #437bd3;
   border-radius: 2px;
   max-height: 30px;
+}
+
+#list-search:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 15%);
+  border: 1px solid #6B99C3;
+  border-bottom: 4px solid #0C151C;
 }
 
 .dash-products-list {
@@ -312,7 +321,9 @@ a:hover i {
 }
 
 .dash-products-list>li:hover {
-  font-weight: 500;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 15%);
+  border: 2px solid #437bd3;
+  border-bottom: 4px solid #0C151C;
 }
 
 .dash-products-list>li:last-child {
@@ -341,7 +352,7 @@ a:hover i {
 /* #region Work Orders ---------------------------------------------------------------------------*/
 
 .WO-form {
-  display: grid;
+  display: flex;
   gap: 15px;
   grid-template-columns: auto auto auto auto auto;
   grid-template-rows: auto auto;
@@ -390,6 +401,14 @@ a:hover i {
   max-height: 30px;
 }
 
+#WO-p-search:hover,
+#WO-c-search:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 15%);
+  border: 1px solid #6B99C3;
+  border-bottom: 4px solid #0C151C;
+}
+
+
 .dash-WO-list {
   list-style: none;
   overflow: auto;
@@ -397,6 +416,8 @@ a:hover i {
 }
 
 .dash-WO-list>li {
+  height: 40px;
+  align-items: center;
   border-bottom: 2px solid #437bd3;
   border-radius: 2px;
   display: flex;
@@ -406,7 +427,9 @@ a:hover i {
 }
 
 .dash-WO-list>li:hover {
-  font-weight: 500;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 15%);
+  border: 2px solid #437bd3;
+  border-bottom: 4px solid #0C151C;
 }
 
 .dash-WO-list>li:last-child {
@@ -421,9 +444,10 @@ a:hover i {
 .dash-Completed-WO {
   /*contenedor*/
   display: grid;
-  grid-auto-columns: 50% 50%;
-  grid-template-rows: 45% 45%;
-  grid-auto-flow: column;
+  grid-auto-columns: 150px;
+  grid-template-columns: auto auto;
+  grid-auto-rows: 150px;
+  grid-auto-flow: row;
   gap: 15px;
   padding: 15px 0;
   list-style: none;

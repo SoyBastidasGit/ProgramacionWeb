@@ -7,7 +7,7 @@ var Orders = new Schema({
     "folio": Number,
     "cliente": String,
     "fecha": Date,
-    "Empaque": String,
+    "empaque": String,
     "case": Boolean,
     "plates": Boolean,
     "leds": Boolean,

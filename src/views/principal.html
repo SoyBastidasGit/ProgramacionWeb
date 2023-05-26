@@ -79,7 +79,7 @@
               data.forEach(component => {
                 const listItem = document.createElement('li');
                 let liItem =
-                  '<img src="/img/'+ component.tipo +'.png" alt="imagen"></img><p>Nombre: <span class="p-item-name">' +
+                  '<img src="/img/' + component.tipo + '.png" alt="imagen"></img><p>Nombre: <span class="p-item-name">' +
                   component.nombre + '</span></p><p>Modelo: <span class="p-item-model">' +
                   component.modelo + '</span></p>' + '<p>Cantidad: <span>' +
                   component.cantidad + '</span></p>';
@@ -104,6 +104,7 @@
             .then(data => {
               // Obtener la lista de componentes
               const ordersList = document.getElementById('ordersList'); // Cambiar "ordersList" por "ordersList"
+              const ordersOkList = document.getElementById('ordersOkList');
 
               // Iterar sobre los documentos encontrados y agregarlos como elementos de la lista
               data.forEach(order => {
@@ -112,6 +113,12 @@
                   let liItem = '<p class="p-item-name">Folio: ' + order.folio + '</p><p class="p-item-desc">Cliente: ' + order.cliente + '</p>'
                   listItem.innerHTML = liItem; // Modificar "nombre" por el campo que desees mostrar
                   ordersList.appendChild(listItem);
+                }
+                if (order.status === "listas") {
+                  const listItem = document.createElement('li');
+                  let liItem = '<p class="p-item-name">Folio: ' + order.folio + '</p><p class="p-item-desc">Cliente: ' + order.cliente + '</p>'
+                  listItem.innerHTML = liItem; // Modificar "nombre" por el campo que desees mostrar
+                  ordersOkList.appendChild(listItem);
                 }
               });
             })

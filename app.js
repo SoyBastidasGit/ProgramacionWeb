@@ -207,6 +207,7 @@ app.post("/loaditem", async (req, res) => {
 	}
 });
 
+/* Obtiene lista de componentes*/
 app.get('/componentsList', async (req, res) => {
 	const components = await Components.find();
 	const simplifiedComponents = components.map(component => {
@@ -219,6 +220,33 @@ app.get('/componentsList', async (req, res) => {
 	});
 	// console.log(simplifiedComponents);
 	res.json(simplifiedComponents);
+});
+
+/* Obtiene lista de ordenes */
+app.get('/ordersList', async (req, res) => {
+	const orders = await Orders.find();
+	const simplifiedOrders = orders.map(order => {
+		return {
+			folio: order.folio,
+			cliente: order.cliente,
+			fecha: order.fecha,
+			empaque: order.empaque,
+			case: order.case,
+			plates: order.plates,
+			leds: order.leds,
+			diodos: order.diodos,
+			estabilizadores: order.estabilizadores,
+			switches: order.switches,
+			teclas: order.teclas,
+			cables: order.cables,
+			bateria: order.bateria,
+			microcontrolador: order.microcontrolador,
+			extras: order.extras,
+			status: order.status
+		};
+	});
+	console.log(simplifiedOrders);
+	res.json(simplifiedOrders);
 });
 
 //Funciones

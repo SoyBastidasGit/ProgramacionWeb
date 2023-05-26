@@ -18,7 +18,8 @@ var Orders = new Schema({
     "cables": Boolean,
     "bateria": Boolean,
     "microcontrolador": Boolean,
-    "extras": String
+    "extras": String,
+    "status": String
 });
 
 module.exports = mongoose.model('Orders', Orders)

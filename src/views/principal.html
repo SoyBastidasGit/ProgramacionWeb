@@ -93,6 +93,27 @@
           $('.dashboard').empty();
           $('.inventory').empty();
           $('.workOrder').load('Work-Order');
+
+          // Realizar la solicitud GET al endpoint "/ordersList"
+          fetch('/ordersList')
+            .then(response => response.json())
+            .then(data => {
+              // Obtener la lista de componentes
+              const ordersList = document.getElementById('ordersList'); // Cambiar "ordersList" por "ordersList"
+
+              // Iterar sobre los documentos encontrados y agregarlos como elementos de la lista
+              data.forEach(order => {
+                if (order.status === "produccion") {
+                  const listItem = document.createElement('li');
+                  let liItem = '<p class="p-item-name">Folio: ' + order.folio + '</p><p class="p-item-desc">Cliente: ' + order.cliente + '</p>'
+                  listItem.innerHTML = liItem; // Modificar "nombre" por el campo que desees mostrar
+                  ordersList.appendChild(listItem);
+                }
+              });
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
         }
 
         // cargar la última página visitada cuando la página se recarga

@@ -4,10 +4,10 @@ const Schema = mongoose.Schema
 const passportLocalMongoose = require('passport-local-mongoose');
 
 var Orders = new Schema({
-    "folio": Int16Array,
+    "folio": Number,
     "cliente": String,
     "fecha": Date,
-    "Empaque": ,
+    "Empaque": String,
     "case": Boolean,
     "plates": Boolean,
     "leds": Boolean,

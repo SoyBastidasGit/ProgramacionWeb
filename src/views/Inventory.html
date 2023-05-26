@@ -62,7 +62,7 @@
             <div class="dash-item-content" id="products-div">
 
                 <!--id="list-search" Input para filtrar la lista de objetos con funcion onkeyup() -->
-                <input type="text" id="list-search" placeholder="Buscar un objeto:" onkeyup="searchlist()">
+                <input type="text" id="list-search" placeholder="Buscar un objeto:">
 
                 <!-- id="ul-productos" Agregar html desde json de mongodb  -->
                 <ul class="dash-products-list" id="componentsList"></ul>
@@ -77,25 +77,25 @@
 
 <script>
 
-    function searchlist() {
-        // Declare variables
-        var input, filter, ul, li, a, i, txtValue;
+    document.getElementById("list-search").addEventListener("keyup", () => {
+        var input, filter, ul, li, a, i, txtValueA, txtValueB;
         input = document.getElementById('list-search');
         filter = input.value.toUpperCase();
         ul = document.getElementById("componentsList");
         li = ul.getElementsByTagName('li');
 
-        // Loop through all list items, and hide those who don't match the search query
         for (i = 0; i < li.length; i++) {
             a = li[i].getElementsByClassName("p-item-name")[0];
-            txtValue = a.textContent || a.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            b = li[i].getElementsByClassName("p-item-model")[0];
+            txtValueA = a.textContent;
+            txtValueB = b.textContent;
+            if (txtValueA.toUpperCase().indexOf(filter) > -1 || txtValueB.toUpperCase().indexOf(filter) > -1) {
                 li[i].style.display = "";
             } else {
                 li[i].style.display = "none";
             }
         }
-    }
+    })
 
     document.getElementById("loaditemform").addEventListener("submit", (event) => {
         event.preventDefault(); // evita el comportamiento predeterminado de envío del formulario

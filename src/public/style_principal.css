@@ -318,7 +318,8 @@ a:hover i {
   border-radius: 2px;
   margin-bottom: 5px;
   display: grid;
-  grid-template-columns: 100px auto;
+  grid-auto-flow: row;
+  grid-template-columns: 100px auto auto;
   grid-template-rows: auto auto;
 }
 
@@ -343,7 +344,7 @@ a:hover i {
   padding: 5px;
 }
 
-.p-item-desc,
+.p-item-model,
 .p-item-name {
   font-size: medium;
 }

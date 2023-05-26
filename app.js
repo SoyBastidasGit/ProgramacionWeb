@@ -215,7 +215,7 @@ app.get('/componentsList', async (req, res) => {
 			cantidad: component.cantidad
 		};
 	});
-	console.log(simplifiedComponents);
+	console.log('ELEMENTOS CARGADOS EN LISTAS');
 	res.json(simplifiedComponents);
 });
 

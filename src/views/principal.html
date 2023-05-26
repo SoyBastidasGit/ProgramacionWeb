@@ -83,7 +83,7 @@
                   component.nombre + '</span></p><p>Modelo: <span class="p-item-model">' +
                   component.modelo + '</span></p>' + '<p>Cantidad: <span>' +
                   component.cantidad + '</span></p>';
-                listItem.innerHTML = liItem; // Modificar "nombre" por el campo que desees mostrar
+                listItem.innerHTML = liItem;
                 componentsList.appendChild(listItem);
               });
             })
@@ -111,13 +111,13 @@
                 if (order.status === "produccion") {
                   const listItem = document.createElement('li');
                   let liItem = '<p class="p-item-name">Folio: ' + order.folio + '</p><p class="p-item-desc">Cliente: ' + order.cliente + '</p>'
-                  listItem.innerHTML = liItem; // Modificar "nombre" por el campo que desees mostrar
+                  listItem.innerHTML = liItem;
                   ordersList.appendChild(listItem);
                 }
                 if (order.status === "listas") {
                   const listItem = document.createElement('li');
                   let liItem = '<p class="p-item-name">Folio: ' + order.folio + '</p><p class="p-item-desc">Cliente: ' + order.cliente + '</p>'
-                  listItem.innerHTML = liItem; // Modificar "nombre" por el campo que desees mostrar
+                  listItem.innerHTML = liItem;
                   ordersOkList.appendChild(listItem);
                 }
               });

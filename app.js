@@ -32,6 +32,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Mantener sesion iniciada
 const session = require("express-session");
 const MongoStore = require('connect-mongo');
+const components = require("./src/app/models/components");
 
 app.use(session({
 	secret: "mysecret",
@@ -195,7 +196,7 @@ app.post("/loaditem", async (req, res) => {
 				precio_unitario: req.body.ItemPrice,
 				tipo: req.body.ItemType
 			});
-			res.status(200).json({success: true, message: "¡Componente registrado con exito!" });
+			res.status(200).json({ success: true, message: "¡Componente registrado con exito!" });
 		} else {
 			res.status(200).json({ message: "¡Componente actualizado con exito!" });
 		}
@@ -203,6 +204,19 @@ app.post("/loaditem", async (req, res) => {
 		// Muestra error
 		res.status(200).json({ message: "¡Hubo un error con el servidor!" });
 	}
+});
+
+app.get('/componentsList', async (req, res) => {
+	const components = await Components.find();
+	const simplifiedComponents = components.map(component => {
+		return {
+			nombre: component.nombre,
+			modelo: component.modelo,
+			cantidad: component.cantidad
+		};
+	});
+	console.log(simplifiedComponents);
+	res.json(simplifiedComponents);
 });
 
 //Funciones
@@ -218,4 +232,4 @@ function isLoggedIn(req, res, next) {
 var port = process.env.PORT || 4000;
 app.listen(port, function () {
 	console.log("Servidor iniciado!");
-});	
+});

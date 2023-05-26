@@ -65,43 +65,14 @@
                 <input type="text" id="list-search" placeholder="Buscar un objeto:">
 
                 <!-- id="ul-productos" Agregar html desde json de mongodb  -->
-                <ul class="dash-products-list" id="ul-productos">
+                <ul class="dash-products-list" id="componentsList"></ul>
 
-                    <li><img src="../public/img/part-example.png" alt="display">
-                        <p class="p-item-name">Nombre</p>
-                        <p class="p-item-model">Modelo</p>
-                    </li>
-                    <li><img src="" alt="display">
-                        <p class="p-item-name">Nombre</p>
-                        <p class="p-item-desc">Descripci&oacute;n</p>
-                    </li>
-                
-                    <li><img src="" alt="display">
-                        <p class="p-item-name">Nombre</p>
-                        <p class="p-item-desc">Descripci&oacute;n</p>
-                    </li>
-                
-                    <li><img src="" alt="display">
-                        <p class="p-item-name">Nombre</p>
-                        <p class="p-item-desc">Descripci&oacute;n</p>
-                    </li>
-                
-                    <li><img src="" alt="display">
-                        <p class="p-item-name">Nombre</p>
-                        <p class="p-item-desc">Descripci&oacute;n</p>
-                    </li>
-                
-                    <li><img src="" alt="display">
-                        <p class="p-item-name">Nombre</p>
-                        <p class="p-item-desc">Descripci&oacute;n</p>
-                    </li>
-                
-                </ul>
             </div>
         </div>
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
@@ -182,4 +153,26 @@
         })
     }
 
+</script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        // Realizar la solicitud GET al endpoint "/componentsList"
+        fetch('/componentsList')
+            .then(response => response.json())
+            .then(data => {
+                // Obtener la lista de componentes
+                const componentsList = document.getElementById('componentsList'); // Cambiar "componentList" por "componentsList"
+
+                // Iterar sobre los documentos encontrados y agregarlos como elementos de la lista
+                data.forEach(component => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = component.nombre; // Modificar "nombre" por el campo que desees mostrar
+                    componentsList.appendChild(listItem);
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
 </script>

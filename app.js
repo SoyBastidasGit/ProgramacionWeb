@@ -212,10 +212,11 @@ app.get('/componentsList', async (req, res) => {
 		return {
 			nombre: component.nombre,
 			modelo: component.modelo,
-			cantidad: component.cantidad
+			cantidad: component.cantidad,
+			tipo: component.tipo
 		};
 	});
-	// console.log('ELEMENTOS CARGADOS EN LISTAS');
+	console.log(simplifiedComponents);
 	res.json(simplifiedComponents);
 });
 

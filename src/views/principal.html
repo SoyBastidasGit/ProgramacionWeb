@@ -78,7 +78,11 @@
               // Iterar sobre los documentos encontrados y agregarlos como elementos de la lista
               data.forEach(component => {
                 const listItem = document.createElement('li');
-                let liItem = '<img src="" alt="imagen"></img><p class="p-item-name">Nombre: ' + component.nombre + '</p><p class="p-item-desc">Modelo: ' + component.modelo + '</p>'
+                let liItem =
+                  '<img src="/img/'+ component.tipo +'.png" alt="imagen"></img><p>Nombre: <span class="p-item-name">' +
+                  component.nombre + '</span></p><p>Modelo: <span class="p-item-model">' +
+                  component.modelo + '</span></p>' + '<p>Cantidad: <span>' +
+                  component.cantidad + '</span></p>';
                 listItem.innerHTML = liItem; // Modificar "nombre" por el campo que desees mostrar
                 componentsList.appendChild(listItem);
               });

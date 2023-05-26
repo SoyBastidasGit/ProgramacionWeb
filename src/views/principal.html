@@ -104,6 +104,28 @@
           elemento.classList.add("active");
         }
       </script>
+
+      <script>
+        window.addEventListener('DOMContentLoaded', () => {
+          // Realizar la solicitud GET al endpoint "/componentsList"
+          fetch('/componentsList')
+            .then(response => response.json())
+            .then(data => {
+              // Obtener la lista de componentes
+              const componentsList = document.getElementById('componentsList'); // Cambiar "componentList" por "componentsList"
+
+              // Iterar sobre los documentos encontrados y agregarlos como elementos de la lista
+              data.forEach(component => {
+                const listItem = document.createElement('li');
+                listItem.textContent = component.nombre; // Modificar "nombre" por el campo que desees mostrar
+                componentsList.appendChild(listItem);
+              });
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+        });
+      </script>
 </body>
 
 </html>

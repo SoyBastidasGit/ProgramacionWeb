@@ -181,6 +181,7 @@ a:hover i {
 
 /* #endregion */
 
+
 /* #region Dashboard general styles ---------------------------------------------------------------------*/
 .dash-container {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -193,6 +194,7 @@ a:hover i {
   max-height: 85vh;
 }
 
+.dash-container-WO,
 .dash-container-inventory {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   position: relative;

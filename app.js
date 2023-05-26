@@ -217,7 +217,7 @@ app.get('/componentsList', async (req, res) => {
 			tipo: component.tipo
 		};
 	});
-	console.log(simplifiedComponents);
+	// console.log(simplifiedComponents);
 	res.json(simplifiedComponents);
 });
 

@@ -354,11 +354,17 @@ a:hover i {
 
 /* #region Work Orders ---------------------------------------------------------------------------*/
 
-.WO-form {
+/* ESTE ES TU WO-FORM QUE CREASTE */
+/* .WO-form {
   display: flex;
   gap: 15px;
   grid-template-columns: auto auto auto auto auto;
   grid-template-rows: auto auto;
+} */
+.WO-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 15px;
 }
 
 .WO-Input-div {

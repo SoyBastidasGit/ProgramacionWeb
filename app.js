@@ -207,6 +207,35 @@ app.post("/loaditem", async (req, res) => {
 	}
 });
 
+//Formulario captura de ordenes nuevas
+app.post("/loadorder", async (req, res) => {
+	try {
+		//guarda order en base de datos
+		const order = await Orders.create({
+			folio: req.body.WOfolioId,
+			cliente: req.body.WOclientId,
+			fecha: req.body.WOdateId,
+			empaque: req.body.WOempaqueId,
+			case: req.body.WOcaseId,
+			plates: req.body.WOplatesId,
+			leds: req.body.WOledsId,
+			diodos: req.body.WOdiodosId,
+			estabilizadores: req.body.WOstabsId,
+			switches: req.body.WOswitchesId,
+			teclas: req.body.WOteclasId,
+			cables: req.body.WOcablesId,
+			bateria: req.body.WObateriaId,
+			microcontrolador: req.body.WOmicroId,
+			extras: req.body.WOextrasId,
+			status: 'produccion'
+		});
+		res.status(200).json({ success: true, message: "Orden registrada con exito!" });
+	} catch (err) {
+		// Muestra error
+		res.status(200).json({ message: "¡Hubo un error con el servidor!" });
+	}
+});
+
 /* Obtiene lista de componentes*/
 app.get('/componentsList', async (req, res) => {
 	const components = await Components.find();
@@ -218,7 +247,6 @@ app.get('/componentsList', async (req, res) => {
 			tipo: component.tipo
 		};
 	});
-	// console.log(simplifiedComponents);
 	res.json(simplifiedComponents);
 });
 
@@ -245,7 +273,6 @@ app.get('/ordersList', async (req, res) => {
 			status: order.status
 		};
 	});
-	console.log(simplifiedOrders);
 	res.json(simplifiedOrders);
 });
 

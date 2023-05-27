@@ -1,0 +1,157 @@
+<div class="main-top">
+    <h1>Inventario</h1>
+</div>
+</div>
+
+<div>
+    <div class="dash-container-inventory">
+        <div class="dash-item dash-header">
+            <div class="dash-item-title">Activos</div>
+            <div class="dash-item-content"> </div>
+        </div>
+
+        <div class="dash-item">
+            <div class="dash-item-title"><span>Ingresar</span> <i class="fa-solid fa-expand"></i></div>
+            <div class="dash-item-content">
+
+                <span id="sp-inv-info">Ingrese los datos de un objeto para capturarlo en el inventario.</span>
+
+                <form id="loaditemform" action="/loaditem" method="post" class="inventory-form" autocomplete="off">
+
+                    <label for="ItemName">Nombre:</label>
+                    <input type="text" id="ItemName" required="true" placeholder="Nombre del producto">
+
+                    <label for="ItemDesc">Descripci&oacute;n:</label>
+                    <input type="text" id="ItemDesc" placeholder="Opcional">
+
+                    <label for="ItemBrand">Marca:</label>
+                    <input type="text" id="ItemBrand" required="true" placeholder="Modelo del producto">
+
+                    <label for="ItemModel">Modelo:</label>
+                    <input type="text" id="ItemModel" required="true" placeholder="Serial del producto">
+
+                    <label for="ItemQuantity">Cantidad:</label>
+                    <input type="number" id="ItemQuantity" value="" required="true" placeholder="1">
+
+                    <label for="ItemPrice">Precio unitario:</label>
+                    <input type="number" id="ItemPrice" value="" required="true" placeholder="1">
+
+                    <label for="ItemType">Tipo:</label>
+                    <select id="ItemType" required="true">
+                        <option value="" disabled selected>Seleccione:</option>
+                        <option value="Case">Case</option>
+                        <option value="Plates">Plates</option>
+                        <option value="PCB">PCB</option>
+                        <option value="Leds">Leds</option>
+                        <option value="Diodos">Diodos</option>
+                        <option value="Estabilizadores">Estabilizadores</option>
+                        <option value="Switches">Switches</option>
+                        <option value="Teclas">Teclas</option>
+                        <option value="Cables">Cables</option>
+                        <option value="Baterias">Baterias</option>
+                        <option value="Microcontroladores">Microcontroladores</option>
+                    </select>
+
+                    <button type="submit" class="add-item"><span>Añadir </span><i class="fa-solid fa-add"></i></button>
+                </form>
+            </div>
+        </div>
+
+        <div class="dash-item">
+            <div class="dash-item-title" id="refreshInventorybutton">Productos<i class="fa-solid fa-expand"></i></div>
+            <div class="dash-item-content" id="products-div">
+
+                <!--id="list-search" Input para filtrar la lista de objetos con funcion onkeyup() -->
+                <input type="text" id="list-search" placeholder="Buscar un objeto:">
+
+                <!-- id="ul-productos" Agregar html desde json de mongodb  -->
+                <ul class="dash-products-list" id="componentsList"></ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+
+    document.getElementById("list-search").addEventListener("keyup", () => {
+        var input, filter, ul, li, a, i, txtValueA, txtValueB;
+        input = document.getElementById('list-search');
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("componentsList");
+        li = ul.getElementsByTagName('li');
+
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByClassName("p-item-name")[0];
+            b = li[i].getElementsByClassName("p-item-model")[0];
+            txtValueA = a.textContent;
+            txtValueB = b.textContent;
+            if (txtValueA.toUpperCase().indexOf(filter) > -1 || txtValueB.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    })
+
+    document.getElementById("loaditemform").addEventListener("submit", (event) => {
+        event.preventDefault(); // evita el comportamiento predeterminado de envío del formulario
+
+        // envía los datos del formulario usando AJAX
+        const xhr = new XMLHttpRequest();
+        xhr.open("post", "/loaditem");
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.onload = () => {
+            if (xhr.status === 200) {
+                const response = JSON.parse(xhr.responseText);
+                if (response.success) {
+                    showAlert(response.message, 'success', '#008f39');
+                    resetInputs();
+                    console.log("xhr:" + xhr)
+                    console.log("res:" + response)
+                    refreshInventory();
+                } else {
+                    showAlert(response.message, 'success', '#0000FF');
+                    resetInputs();
+                }
+            } else {
+                showAlert(response.message, 'warning', '#FF0000');
+            }
+        };
+        xhr.send(JSON.stringify({
+            ItemName: document.getElementById("ItemName").value,
+            ItemDesc: document.getElementById("ItemDesc").value,
+            ItemBrand: document.getElementById("ItemBrand").value,
+            ItemModel: document.getElementById("ItemModel").value,
+            ItemQuantity: document.getElementById("ItemQuantity").value,
+            ItemPrice: document.getElementById("ItemPrice").value,
+            ItemType: document.getElementById("ItemType").value,
+        }));
+    });
+
+    function resetInputs() {
+        document.getElementById("ItemName").value = '';
+        document.getElementById("ItemDesc").value = '';
+        document.getElementById("ItemBrand").value = '';
+        document.getElementById("ItemModel").value = '';
+        document.getElementById("ItemQuantity").value = '';
+        document.getElementById("ItemPrice").value = '';
+        document.getElementById("ItemType").selectedIndex = 0;
+    }
+
+    function showAlert(message, icon, iconColor) {
+        Swal.fire({
+            position: 'center',
+            icon: icon,
+            iconColor: iconColor,
+            title: message,
+            background: '#D2D2D4',
+            color: '#0C151C',
+            confirmButtonColor: '#16354D'
+        })
+    }
+
+</script>

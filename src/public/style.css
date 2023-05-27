@@ -1,0 +1,151 @@
+/* Paleta de colores y su distribucion:
+
+Fondo por defecto:#D2D2D4
+
+//Botones sobre el fondo por defecto
+Botones: #16354D
+Botones Hover: #6B99C3
+Texto botones: #E4E5EA
+Texto botones hover: #E4E5EA
+
+//Texto y lineas sobre el fondo por defecto
+Texto: #0C151C
+Lineas: #0C151C */
+
+body {
+	background: #000000; /* Color de fondo */
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background-color: #0C151C;
+    margin-top: 50px;
+    margin-bottom: 0px;
+}
+
+body::before { 
+	content: "";
+	background-image: url('https://i.redd.it/yvyj7hwc4pv31.jpg');
+	background-size: cover;
+	background-position: center;
+	opacity: 0.5;
+	filter: blur(10px);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+  }
+
+  /* Login */
+.login-box {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 350px;
+	background: rgb(129 151 181 / 23%); /* Color de fondo del cuadro de inicio de sesión */
+	padding: 40px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	border-radius: 10px;
+    text-align: center;
+}
+
+.login-box h2 {
+	margin: 0 0 30px;
+	padding: 0;
+	color: #0C151C; /* Color del título */
+	text-align: center;
+}
+
+.login-box .user-box {
+	position: relative;
+}
+
+.login-box .user-box input {
+	width: 100%;
+	padding: 10px 0;
+	font-size: 16px;
+	color: #0C151C; /* Color del texto de los campos de entrada */
+	margin-bottom: 30px;
+	border: none;
+	border-bottom: 1px solid #0C151C; /* Color de la línea inferior de los campos de entrada */
+	outline: none;
+	background: transparent;
+	border-radius: 7px;
+	text-indent: 15px;
+}
+
+.login-box .user-box label {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 10px 0;
+	font-size: 16px;
+	color: #0C151C; /* Color del texto de las etiquetas */
+	pointer-events: none;
+	transition: 0.5s;
+}
+
+.login-box .user-box input:focus ~ label,
+.login-box .user-box input:valid ~ label {
+	top: -30px;
+	left: 0;
+	color: #0C151C; /* Color de la etiqueta al enfocar o cuando el campo no está vacío */
+	font-size: 12px;
+}
+
+.login-box button {
+	display: inline-block;
+	background: #16354D; /* Color del botón */
+	color: #E4E5EA; /* Color del texto del botón */
+	text-transform: uppercase;
+	text-decoration: none;
+	font-size: 16px;
+	padding: 10px 20px;
+	margin-top: 40px;
+	border-radius: 25px;
+	transition: 0.5s;
+	border-style: none;
+}
+
+.login-box button:hover {
+	background: #6B99C3; /* Color del botón al pasar el mouse */
+	color: #E4E5EA; /* Color del texto del botón al pasar el mouse */
+}
+
+.select {
+	width: 100%;
+	padding: 10px 0;
+	font-size: 16px;
+	color: #0C151C;
+	margin-bottom: 30px;
+	border: none;
+	border-bottom: 1px solid #0C151C;
+	outline: none;
+	background: transparent;
+}
+
+.user-box select {
+	width: 100%;
+	padding: 10px 0;
+	font-size: 16px;
+	color: #0C151C;
+	margin-bottom: 30px;
+	border: none;
+	border-bottom: 1px solid #0C151C;
+	outline: none;
+	background: transparent;
+}
+.text-input:focus + .labelUsuario, .filled, .text-input:not(:placeholder-shown) + .labelUsuario {
+	top: -10px;
+	color: #010101;
+	background-color: white;
+	font-size: 1em;
+}
+
+
+

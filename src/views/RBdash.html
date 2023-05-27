@@ -1,0 +1,91 @@
+
+<div class="main-top">
+    <h1>Dashboard</h1>
+  </div>
+
+<div>
+    <div class="dash-container">
+        <div class="dash-item dash-header">
+            <div class="dash-item-title">Resumen</div>
+            <!--<canvas id="Resumen"></canvas> -->
+            <p>El resultado arroja que el inventario cuante con un total de 9 poductos diferentes y el orden de produccion con un usuario</p>
+            <div class="dash-item-content"> </div>
+        </div>
+        <div class="dash-item">
+            <div class="dash-item-title">Ordenes en producci&oacute;n</div>
+            <canvas id="OrdenesProduccion"></canvas>
+            <div class="dash-item-content"> </div>
+        </div>
+        <div class="dash-item">
+            <div class="dash-item-title">Inventario</div>
+            <canvas id="ElInventario"></canvas>
+            <div class="dash-item-content"> </div>
+        </div>
+        <div class="dash-item dash-footer">
+            <div class="dash-item-title">Contenido</div>
+            <div class="dash-item-content"> </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ============== Ordenes de producción ====================
+    var productionOrdersData = {
+      labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
+      datasets: [{
+        label: 'En el tiempo',
+        data: [12, 19, 8, 15, 22, 9],
+        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1
+      }]
+    };
+
+    // Configuración del gráfico
+    var chartOptions = {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    };
+
+    // Crear el gráfico de barras
+    var ctx = document.getElementById('OrdenesProduccion').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: productionOrdersData,
+      options: chartOptions
+    });
+
+        // ================ Inventario =================
+        var inventoryData = {
+      labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
+      datasets: [{
+        label: 'Inventario',
+        data: [150, 180, 200, 160, 190, 210],
+        fill: false,
+        borderColor: 'rgba(75, 192, 192, 1)',
+        tension: 0.1
+      }]
+    };
+
+    // Configuración del gráfico
+    var chartOptions = {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    };
+
+    // Crear el gráfico de línea
+    var ctx = document.getElementById('ElInventario').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'line',
+      data: inventoryData,
+      options: chartOptions
+    });
+  </script>

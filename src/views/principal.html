@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>KeyboardTech - Pagina Principal</title>
+  <link rel="stylesheet" href="style_principal.css" />
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/974b03f183.js" crossorigin="anonymous"></script>
+  <!-- jquery -->
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <nav>
+      <ul>
+        <li><a class="logo">
+            <img src="/img/logo.png">
+            <span class="nav-item">Usuario</span>
+          </a></li>
+        <li><a onclick="loadDashboard(), activar(this)">
+            <i class="fas fa-columns"></i>
+            <span class="nav-item">Dashboard</span>
+          </a></li>
+        <li><a onclick="loadInventory(), activar(this)">
+            <i class="fas fa-file"></i>
+            <span class="nav-item">Inventario</span>
+          </a></li>
+        <li><a onclick="loadWorkOrder(), activar(this)">
+            <i class="fas fa-chart-bar"></i>
+            <span class="nav-item">Ordenes de trabajo</span>
+          </a></li>
+
+        <!-- Boton logout -->
+        <form action="/logout" method="POST">
+          <button class="logout">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="nav-item-logout">Cerrar Sesion</span>
+          </button>
+        </form>
+      </ul>
+    </nav>
+
+    <section class="main">
+      <!-- Muestra dashboard -->
+      <div class="dashboard"></div>
+
+      <!--  Muestra inventario -->
+      <div class="inventory"></div>
+
+      <!-- Muestra ordenes de trabajo -->
+      <div class="workOrder"></div>
+
+      <script>
+        function loadDashboard() {
+          localStorage.setItem("lastPage", "dashboard"); // guardar el nombre de la última página visitada
+          $('.inventory').empty();
+          $('.workOrder').empty();
+          $('.dashboard').load('RBdash');
+        }
+
+        function loadInventory() {
+          localStorage.setItem("lastPage", "inventory"); // guardar el nombre de la última página visitada
+          $('.dashboard').empty();
+          $('.workOrder').empty();
+          $('.inventory').load('Inventory');
+
+          // Realizar la solicitud GET al endpoint "/componentsList"
+          fetch('/componentsList')
+            .then(response => response.json())
+            .then(data => {
+              // Obtener la lista de componentes
+              const componentsList = document.getElementById('componentsList'); // Cambiar "componentList" por "componentsList"
+
+              // Iterar sobre los documentos encontrados y agregarlos como elementos de la lista
+              data.forEach(component => {
+                const listItem = document.createElement('li');
+                let liItem =
+                  '<img src="/img/' + component.tipo + '.png" alt="imagen"></img><p>Nombre: <span class="p-item-name">' +
+                  component.nombre + '</span></p><p>Modelo: <span class="p-item-model">' +
+                  component.modelo + '</span></p>' + '<p>Cantidad: <span>' +
+                  component.cantidad + '</span></p>';
+                listItem.innerHTML = liItem;
+                componentsList.appendChild(listItem);
+              });
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+        }
+
+        function loadWorkOrder() {
+          localStorage.setItem("lastPage", "workOrder"); // guardar el nombre de la última página visitada
+          $('.dashboard').empty();
+          $('.inventory').empty();
+          $('.workOrder').load('Work-Order');
+
+          // Realizar la solicitud GET al endpoint "/ordersList"
+          fetch('/ordersList')
+            .then(response => response.json())
+            .then(data => {
+              // Obtener la lista de componentes
+              const ordersList = document.getElementById('ordersList'); // Cambiar "ordersList" por "ordersList"
+              const ordersOkList = document.getElementById('ordersOkList');
+
+              // Iterar sobre los documentos encontrados y agregarlos como elementos de la lista
+              data.forEach(order => {
+                if (order.status === "produccion") {
+                  const listItem = document.createElement('li');
+                  let liItem = '<p class="p-item-name">Folio: ' + order.folio + '</p><p class="p-item-desc">Cliente: ' + order.cliente + '</p>'
+                  listItem.innerHTML = liItem;
+                  ordersList.appendChild(listItem);
+                }
+                if (order.status === "listas") {
+                  const listItem = document.createElement('li');
+                  let liItem = '<p class="p-item-name">Folio: ' + order.folio + '</p><p class="p-item-desc">Cliente: ' + order.cliente + '</p>'
+                  listItem.innerHTML = liItem;
+                  ordersOkList.appendChild(listItem);
+                }
+              });
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+        }
+
+        // cargar la última página visitada cuando la página se recarga
+        window.addEventListener('load', (event) => {
+          var lastPage = localStorage.getItem("lastPage");
+          if (lastPage == null || lastPage == "") {
+            loadDashboard();
+            activar(document.querySelectorAll('a')[1]); // activar el botón correspondiente
+          } else if (lastPage == "dashboard") {
+            loadDashboard();
+            activar(document.querySelectorAll('a')[1]); // activar el botón correspondiente
+          } else if (lastPage == "inventory") {
+            loadInventory();
+            activar(document.querySelectorAll('a')[2]); // activar el botón correspondiente
+          } else if (lastPage == "workOrder") {
+            loadWorkOrder();
+            activar(document.querySelectorAll('a')[3]); // activar el botón correspondiente
+          }
+        });
+
+        function activar(elemento) {
+          var elementos = document.getElementsByTagName("a");
+
+          for (var i = 0; i < elementos.length; i++) {
+            elementos[i].classList.remove("active");
+          }
+
+          elemento.classList.add("active");
+        }
+
+        function cargarLista() {
+
+        }
+      </script>
+</body>
+
+</html>

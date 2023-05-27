@@ -1,0 +1,60 @@
+<div class="main-top">
+    <h1>Ordenes de Trabajo</h1>
+</div>
+
+<div>
+    <div class="dash-container-WO">
+        <div class="dash-item dash-header">
+            <div class="dash-item-title">Capturar orden</div>
+            <div class="dash-item-content">
+
+                <form action="/loaditem" method="post" class="WO-form" autocomplete="off">
+                    <div class="WO-Input-div">
+                        <label for="WONameId">Nombre:</label>
+                        <input type="text" id="WONameId">
+                    </div>
+                    <div class="WO-Input-div">
+                        <label for="WODescId">Descripci&oacute;n:</label>
+                        <input type="text" id="WODescId">
+                    </div>
+                    <div class="WO-Input-div">
+                        <label for="WOclientId">Cliente:</label>
+                        <input type="text" id="WOclientId">
+                    </div>
+                    <div class="WO-Input-div">
+                        <label for="WOdateId">Fecha:</label>
+                        <input type="date" id="WOdateId">
+                    </div>
+                    <div class="WO-Input-div">
+                        <label for="WOdetailsId">Requisitos extra:</label>
+                        <input type="text" id="WOdetailsId">
+                    </div>
+                    <button class="add-order" type="submit">
+                        <span>Generar orden </span><i class="fa-solid fa-paper-plane-top" style="color: #ffffff;"></i>
+                    </button>
+                </form>
+
+            </div>
+        </div>
+        <div class="dash-item">
+            <div class="dash-item-title">En producci&oacute;n</div>
+            <div class="dash-item-content">
+
+                <input type="text" id="WO-p-search" placeholder="Buscar una orden de trabajo:">
+
+                <ul class="dash-products-list" id="ordersList"></ul>
+
+            </div>
+        </div>
+        <div class="dash-item">
+            <div class="dash-item-title">Ordenes listas</div>
+            <div class="dash-item-content">
+
+                <input type="text" id="WO-c-search" placeholder="Buscar una orden de trabajo:">
+
+                <ul class="dash-products-list" id="ordersOkList"></ul>
+
+            </div>
+        </div>
+    </div>
+</div>

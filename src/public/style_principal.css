@@ -354,18 +354,10 @@ a:hover i {
 
 /* #region Work Orders ---------------------------------------------------------------------------*/
 
-/* ESTE ES TU WO-FORM QUE CREASTE */
-/* .WO-form {
-  display: flex;
-  gap: 15px;
-  grid-template-columns: auto auto auto auto auto;
-  grid-template-rows: auto auto;
-} */
 .WO-form {
   display: grid;
   grid-template-columns: auto auto auto auto auto auto auto;
-  grid-gap: 15px;
-  justify-content: space-between;
+  gap: 15px;
   width: 100%;
 }
 
@@ -375,6 +367,13 @@ a:hover i {
 
 .dropdown-btn {
   color: #0C151C;
+  padding-top: 0;
+}
+
+.label-chkbx{
+  width: 150px;
+  height: 22px;
+  padding: 10 0 0 0 ;
 }
 
 .dropdown-cntn {
@@ -408,10 +407,6 @@ a:hover i {
   grid-auto-flow: column;
   gap: 15px;
   padding: 10px;
-}
-
-.checkbox-inp label {
-  width: 100%;
 }
 
 .add-order {

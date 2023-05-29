@@ -19,7 +19,7 @@
                     </div>
                     <div class="WO-Input-div">
                         <label for="WOdateId">Fecha:</label>
-                        <input type="date" id="WOdateId" required="true">
+                        <input type="date" id="WOdateId" required="true" placeholder=" ">
                     </div>
                     <div class="WO-Input-div">
                         <label for="WOempaqueId">Empaque:</label>
@@ -28,54 +28,55 @@
 
                     <div class="WO-Input-div dropdown">
                         <a class="dropdown-btn">Componentes</a>
+
                         <div class="dropdown-cntn">
                             <div class="WO-Input-div checkbox-inp">
-                                <label for="WOcaseId">Case:</label>
+                                <label for="WOcaseId" class="label-chkbx">Case:</label>
                                 <input type="checkbox" id="WOcaseId">
 
                             </div>
                             <div class="WO-Input-div checkbox-inp">
-                                <label for="WOplatesId">Plates:</label>
+                                <label for="WOplatesId" class="label-chkbx">Plates:</label>
                                 <input type="checkbox" id="WOplatesId">
 
                             </div>
                             <div class="WO-Input-div checkbox-inp">
-                                <label for="WOledsId">LEDs:</label>
+                                <label for="WOledsId" class="label-chkbx">LEDs:</label>
                                 <input type="checkbox" id="WOledsId">
 
                             </div>
                             <div class="WO-Input-div checkbox-inp">
-                                <label for="WOdiodosId">Diodos:</label>
+                                <label for="WOdiodosId" class="label-chkbx">Diodos:</label>
                                 <input type="checkbox" id="WOdiodosId">
 
                             </div>
                             <div class="WO-Input-div checkbox-inp">
-                                <label for="WOstabsId">Stabs:</label>
+                                <label for="WOstabsId" class="label-chkbx">Stabs:</label>
                                 <input type="checkbox" id="WOstabsId">
 
                             </div>
                             <div class="WO-Input-div checkbox-inp">
-                                <label for="WOswitchesId">Switches:</label>
+                                <label for="WOswitchesId" class="label-chkbx">Switches:</label>
                                 <input type="checkbox" id="WOswitchesId">
 
                             </div>
                             <div class="WO-Input-div checkbox-inp">
-                                <label for="WOteclasId">Teclas:</label>
+                                <label for="WOteclasId" class="label-chkbx">Teclas:</label>
                                 <input type="checkbox" id="WOteclasId">
 
                             </div>
                             <div class="WO-Input-div checkbox-inp">
-                                <label for="WOcablesId">Cables:</label>
+                                <label for="WOcablesId" class="label-chkbx">Cables:</label>
                                 <input type="checkbox" id="WOcablesId">
 
                             </div>
                             <div class="WO-Input-div checkbox-inp">
-                                <label for="WObateriaId">Bateria:</label>
+                                <label for="WObateriaId" class="label-chkbx">Bateria:</label>
                                 <input type="checkbox" id="WObateriaId">
 
                             </div>
                             <div class="WO-Input-div checkbox-inp">
-                                <label for="WOmicroId">Microcontrolador:</label>
+                                <label for="WOmicroId" class="label-chkbx">Microcontrolador:</label>
                                 <input type="checkbox" id="WOmicroId">
 
                             </div>
@@ -119,6 +120,36 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
+
+    document.getElementById("WO-p-search").addEventListener("keyup", () => {
+        var input = document.getElementById('WO-p-search'),
+            ul = document.getElementById("ordersList");
+        searchList(input, ul);
+    })
+    document.getElementById("WO-c-search").addEventListener("keyup", () => {
+        var input = document.getElementById('WO-c-search'),
+            ul = document.getElementById("ordersOkList");
+        searchList(input, ul);
+    })
+
+    function searchList(input, ul) {
+        var filter, li, a, i, txtValueA, txtValueB;
+        filter = input.value.toUpperCase();
+        li = ul.getElementsByTagName('li');
+
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByClassName("p-item-name")[0];
+            b = li[i].getElementsByClassName("p-item-desc")[0];
+            txtValueA = a.textContent;
+            txtValueB = b.textContent;
+            if (txtValueA.toUpperCase().indexOf(filter) > -1 || txtValueB.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+
     document.getElementById("loadorderform").addEventListener("submit", (event) => {
         event.preventDefault(); // evita el comportamiento predeterminado de envío del formulario
 

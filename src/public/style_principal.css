@@ -363,12 +363,55 @@ a:hover i {
 } */
 .WO-form {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: auto auto auto auto auto auto auto;
   grid-gap: 15px;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .WO-Input-div {
   display: grid;
+}
+
+.dropdown-btn {
+  color: #0C151C;
+}
+
+.dropdown-cntn {
+  display: none;
+  position: absolute;
+  background-color: #E4E5EA;
+  min-width: 160px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 15%);
+  z-index: 1;
+  border: 2px solid #437bd3;
+  border-radius: 3px;
+}
+
+.dropdown:hover .dropdown-cntn {
+  display: grid;
+  align-content: space-evenly;
+  justify-content: baseline;
+  grid-auto-flow: row;
+}
+
+.checkbox-inp:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 15%);
+  border-bottom: 4px solid #437bd3;
+  font-weight: bold;
+}
+
+.checkbox-inp {
+  display: grid;
+  align-content: space-evenly;
+  justify-content: space-between;
+  grid-auto-flow: column;
+  gap: 15px;
+  padding: 10px;
+}
+
+.checkbox-inp label {
+  width: 100%;
 }
 
 .add-order {

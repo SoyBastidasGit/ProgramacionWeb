@@ -78,11 +78,7 @@
               // Iterar sobre los documentos encontrados y agregarlos como elementos de la lista
               data.forEach(component => {
                 const listItem = document.createElement('li');
-                let liItem =
-                  '<img src="/img/' + component.tipo + '.png" alt="imagen"></img><p>Nombre: <span class="p-item-name">' +
-                  component.nombre + '</span></p><p>Modelo: <span class="p-item-model">' +
-                  component.modelo + '</span></p>' + '<p>Cantidad: <span>' +
-                  component.cantidad + '</span></p>';
+                let liItem = `<img src="/img/${component.tipo}.png" alt="imagen"></img><p>Nombre: <span class="p-item-name">${component.nombre}</span></p><p>Modelo: <span class="p-item-model">${component.modelo}</span></p><p>Cantidad: <span>${component.cantidad}</span></p>`;
                 listItem.innerHTML = liItem;
                 componentsList.appendChild(listItem);
               });
@@ -105,18 +101,25 @@
               // Obtener la lista de componentes
               const ordersList = document.getElementById('ordersList'); // Cambiar "ordersList" por "ordersList"
               const ordersOkList = document.getElementById('ordersOkList');
+              const today = new Date()
+              console.log(today)
 
               // Iterar sobre los documentos encontrados y agregarlos como elementos de la lista
               data.forEach(order => {
                 if (order.status === "produccion") {
                   const listItem = document.createElement('li');
-                  let liItem = '<p class="p-item-name">Folio: ' + order.folio + '</p><p class="p-item-desc">Cliente: ' + order.cliente + '</p>'
+                  let orderDate = new Date(order.fecha)
+                  if (orderDate < today) {
+                    listItem.className = "overdue"
+                  }
+                  let liItem = `<p>Folio: <span class="p-WO-num">${order.folio}</span></p><p>Cliente: <span class="p-WO-desc">${order.cliente}</span></p>`;
                   listItem.innerHTML = liItem;
                   ordersList.appendChild(listItem);
                 }
                 if (order.status === "listas") {
                   const listItem = document.createElement('li');
-                  let liItem = '<p class="p-item-name">Folio: ' + order.folio + '</p><p class="p-item-desc">Cliente: ' + order.cliente + '</p>'
+                  listItem.className = "WO-completed-item"
+                  let liItem = `<p>Folio: <span class="p-WO-num">${order.folio}</span></p><p>Cliente: <span class="p-WO-desc">${order.cliente}</span></p>`
                   listItem.innerHTML = liItem;
                   ordersOkList.appendChild(listItem);
                 }

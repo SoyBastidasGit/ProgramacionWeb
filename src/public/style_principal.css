@@ -370,10 +370,10 @@ a:hover i {
   padding-top: 0;
 }
 
-.label-chkbx{
+.label-chkbx {
   width: 150px;
   height: 22px;
-  padding: 10 0 0 0 ;
+  padding: 10 0 0 0;
 }
 
 .dropdown-cntn {
@@ -463,20 +463,26 @@ a:hover i {
 }
 
 .dash-WO-list>li {
+  padding: 10px;
   height: 40px;
+  max-height: max-content;
   align-items: center;
   border-bottom: 2px solid #437bd3;
   border-radius: 2px;
-  display: flex;
-  grid-template-columns: 100px auto;
+  display: grid;
+  grid-template-columns: 25% auto;
   grid-template-rows: auto auto;
-  margin: 15px 5px;
+  margin: 0px 5px;
+}
+
+.overdue {
+  background-color: #cb7343;
+  color: #E4E5EA;
 }
 
 .dash-WO-list>li:hover {
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 15%);
-  border: 2px solid #437bd3;
-  border-bottom: 4px solid #0C151C;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.466);
+  z-index: 2;
 }
 
 .dash-WO-list>li:last-child {
@@ -488,12 +494,11 @@ a:hover i {
   font-size: medium;
 }
 
-.dash-Completed-WO {
+.dash-completed-WO {
   /*contenedor*/
   display: grid;
-  grid-auto-columns: 150px;
   grid-template-columns: auto auto;
-  grid-auto-rows: 150px;
+  grid-auto-rows: 75px;
   grid-auto-flow: row;
   gap: 15px;
   padding: 15px 0;

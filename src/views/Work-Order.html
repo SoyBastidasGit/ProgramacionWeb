@@ -99,7 +99,7 @@
 
                 <input type="text" id="WO-p-search" placeholder="Buscar una orden de trabajo:">
 
-                <ul class="dash-products-list" id="ordersList"></ul>
+                <ul class="dash-WO-list" id="ordersList"></ul>
 
             </div>
         </div>
@@ -109,7 +109,7 @@
 
                 <input type="text" id="WO-c-search" placeholder="Buscar una orden de trabajo:">
 
-                <ul class="dash-products-list" id="ordersOkList"></ul>
+                <ul class="dash-completed-WO" id="ordersOkList"></ul>
 
             </div>
         </div>
@@ -138,8 +138,8 @@
         li = ul.getElementsByTagName('li');
 
         for (i = 0; i < li.length; i++) {
-            a = li[i].getElementsByClassName("p-item-name")[0];
-            b = li[i].getElementsByClassName("p-item-desc")[0];
+            a = li[i].getElementsByClassName("p-WO-num")[0];
+            b = li[i].getElementsByClassName("p-WO-desc")[0];
             txtValueA = a.textContent;
             txtValueB = b.textContent;
             if (txtValueA.toUpperCase().indexOf(filter) > -1 || txtValueB.toUpperCase().indexOf(filter) > -1) {

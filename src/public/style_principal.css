@@ -249,6 +249,13 @@ a:hover i {
 
 /* #region Inventory  ---------------------------------------------------------------------------*/
 
+table,
+th,
+td {
+  border: 1px solid #437bd3;
+  text-align: center;
+}
+
 #sp-inv-info {
   /* Span styling  */
   border-bottom: 4px solid #437bd3;
@@ -455,7 +462,6 @@ a:hover i {
   border-bottom: 4px solid #0C151C;
 }
 
-
 .dash-WO-list {
   list-style: none;
   overflow: auto;
@@ -470,7 +476,7 @@ a:hover i {
   border-bottom: 2px solid #437bd3;
   border-radius: 2px;
   display: grid;
-  grid-template-columns: 25% auto;
+  grid-template-columns: 35% auto;
   grid-template-rows: auto auto;
   margin: 0px 5px;
 }

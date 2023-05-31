@@ -1,0 +1,64 @@
+/* #region order */
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    text-align: center;
+    background-color: #ffffff;
+}
+
+h1.title {
+    margin-top: 0;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+}
+
+th,
+td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Estilos de celda de estado */
+td:last-child {
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+/* Estilos de estados */
+td:last-child[data-status="produccion"] {
+    background-color: #ffc107;
+    /* Amarillo */
+    color: black;
+}
+
+td:last-child[data-status="listas"] {
+    background-color: #28a745;
+    /* Verde */
+    color: white;
+}
+
+/* Estilos para ocultar el botón de imprimir en la versión impresa */
+@media print {
+    .print-button-container {
+        display: none;
+    }
+}
+
+/* #endregion order */

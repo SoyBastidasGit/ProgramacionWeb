@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Orden de Trabajo</title>
+    <link rel="stylesheet" href="style_order.css" />
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Orden de Trabajo</h1>
+
+        <table>
+            <tr>
+                <th>Folio</th>
+                <td id="folioCell"></td>
+            </tr>
+            <tr>
+                <th>Cliente</th>
+                <td id="clienteCell"></td>
+            </tr>
+            <tr>
+                <th>Fecha</th>
+                <td id="fechaCell"></td>
+            </tr>
+            <tr>
+                <th>Empaque</th>
+                <td id="empaqueCell"></td>
+            </tr>
+            <tr>
+                <th>Case</th>
+                <td id="caseCell"></td>
+            </tr>
+            <tr>
+                <th>Plates</th>
+                <td id="platesCell"></td>
+            </tr>
+            <tr>
+                <th>Leds</th>
+                <td id="ledsCell"></td>
+            </tr>
+            <tr>
+                <th>Diodos</th>
+                <td id="diodosCell"></td>
+            </tr>
+            <tr>
+                <th>Estabilizadores</th>
+                <td id="estabilizadoresCell"></td>
+            </tr>
+            <tr>
+                <th>Switches</th>
+                <td id="switchesCell"></td>
+            </tr>
+            <tr>
+                <th>Teclas</th>
+                <td id="teclasCell"></td>
+            </tr>
+            <tr>
+                <th>Cables</th>
+                <td id="cablesCell"></td>
+            </tr>
+            <tr>
+                <th>Batería</th>
+                <td id="bateriaCell"></td>
+            </tr>
+            <tr>
+                <th>Microcontrolador</th>
+                <td id="microcontroladorCell"></td>
+            </tr>
+            <tr>
+                <th>Extras</th>
+                <td id="extrasCell"></td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td id="statusCell"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="container print-button-container">
+        <button id="printButton">Imprimir</button>
+    </div>
+
+    <script>
+        // Obtener el folio desde la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const folio = parseInt(urlParams.get('folio'));
+
+        console.log(folio);
+
+        // Actualizar el título de la página con el número de folio
+        document.title = `Orden de Trabajo - Folio ${folio}`;
+
+        // Realizar la petición al servidor para obtener todas las órdenes de trabajo
+        fetch('/ordersList')
+            .then(response => response.json())
+            .then(orders => {
+                // Buscar la orden con el folio especificado
+                const order = orders.find(order => order.folio === folio);
+
+                if (order) {
+                    // Actualizar los valores en el HTML con la orden de trabajo obtenida
+                    document.getElementById("folioCell").textContent = order.folio;
+                    document.getElementById("clienteCell").textContent = order.cliente;
+                    document.getElementById("fechaCell").textContent = order.fecha;
+                    document.getElementById("empaqueCell").textContent = order.empaque;
+                    document.getElementById("caseCell").textContent = order.case;
+                    document.getElementById("platesCell").textContent = order.plates;
+                    document.getElementById("ledsCell").textContent = order.leds;
+                    document.getElementById("diodosCell").textContent = order.diodos;
+                    document.getElementById("estabilizadoresCell").textContent = order.estabilizadores;
+                    document.getElementById("switchesCell").textContent = order.switches;
+                    document.getElementById("teclasCell").textContent = order.teclas;
+                    document.getElementById("cablesCell").textContent = order.cables;
+                    document.getElementById("bateriaCell").textContent = order.bateria;
+                    document.getElementById("microcontroladorCell").textContent = order.microcontrolador;
+                    document.getElementById("extrasCell").textContent = order.extras;
+                    document.getElementById("statusCell").textContent = order.status;
+                    document.getElementById("statusCell").setAttribute("data-status", order.status);
+                } else {
+                    // Mostrar un mensaje de error en caso de que la orden no se encuentre
+                    document.getElementById("folioCell").textContent = 'Orden no encontrada';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Mostrar un mensaje de error en caso de que ocurra un error en la petición
+                document.getElementById("folioCell").textContent = 'Error al obtener las órdenes';
+            });
+
+        // Asociar evento de clic al botón para imprimir la página
+        const printButton = document.getElementById("printButton");
+        printButton.addEventListener("click", () => {
+            window.print();
+        });
+    </script>
+
+</body>
+
+</html>

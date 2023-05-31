@@ -149,37 +149,57 @@
         }
 
         function getWorkOrders() {
-          fetch('/ordersList').then(response => response.json()).then(data => {
-            // Obtener la lista de componentes
-            const ordersList = document.getElementById('ordersList'); // Cambiar "ordersList" por "ordersList"
-            const ordersOkList = document.getElementById('ordersOkList');
-            const today = new Date()
+          fetch('/ordersList')
+            .then(response => response.json())
+            .then(data => {
+              const ordersList = document.getElementById('ordersList');
+              const ordersOkList = document.getElementById('ordersOkList');
+              const today = new Date();
 
-            // Iterar sobre los documentos encontrados y agregarlos como elementos de la lista
-            data.forEach(order => {
-              if (order.status === "produccion") {
-                const listItem = document.createElement('li');
-                let orderDate = new Date(order.fecha)
-                //Agrega clase overdue a los objetos de lista con fecha anterior a la actual
-                if (orderDate < today) {
-                  listItem.className = "overdue"
+              data.forEach(order => {
+                if (order.status === "produccion") {
+                  const listItem = document.createElement('li');
+                  let orderDate = new Date(order.fecha);
+
+                  if (orderDate < today) {
+                    listItem.className = "overdue";
+                  }
+
+                  let liItem = `<p><i class="fa-solid fa-file-import"></i> Folio: <span class="p-WO-num">${order.folio}</span></p><p>Cliente: <span class="p-WO-desc">${order.cliente}</span></p>`;
+                  listItem.innerHTML = liItem;
+                  ordersList.appendChild(listItem);
+
+                  // Agrega el evento de clic a los elementos de la lista de órdenes en producción
+                  listItem.addEventListener("click", () => {
+                    const folio = order.folio;
+
+                    const url = `/order?folio=${folio}`;
+                    window.open(url, "_blank");
+                  });
                 }
-                let liItem = `<p><i class="fa-solid fa-file-import"></i> Folio: <span class="p-WO-num">${order.folio}</span></p><p>Cliente: <span class="p-WO-desc">${order.cliente}</span></p>`;
-                listItem.innerHTML = liItem;
-                ordersList.appendChild(listItem);
-              }
-              if (order.status === "listas") {
-                const listItem = document.createElement('li');
-                listItem.className = "WO-completed-item"
-                let liItem = `<p>Folio: <span class="p-WO-num">${order.folio}</span></p><p>Cliente: <span class="p-WO-desc">${order.cliente}</span></p>`
-                listItem.innerHTML = liItem;
-                ordersOkList.appendChild(listItem);
-              }
+                if (order.status === "listas") {
+                  const listItem = document.createElement('li');
+                  listItem.className = "WO-completed-item";
+                  let liItem = `<p>Folio: <span class="p-WO-num">${order.folio}</span></p><p>Cliente: <span class="p-WO-desc">${order.cliente}</span></p>`;
+                  listItem.innerHTML = liItem;
+                  ordersOkList.appendChild(listItem);
+
+                  // Agrega el evento de clic a los elementos de la lista de órdenes en producción
+                  listItem.addEventListener("click", () => {
+                    const folio = order.folio;
+
+                    const url = `/order?folio=${folio}`;
+                    window.open(url, "_blank");
+                  });
+                }
+              });
+            })
+            .catch(error => {
+              console.error('Error:', error);
             });
-          }).catch(error => {
-            console.error('Error:', error);
-          });
         }
+
+
         // cargar la última página visitada cuando la página se recarga
         window.addEventListener('load', (event) => {
           var lastPage = localStorage.getItem("lastPage");

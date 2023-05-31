@@ -276,6 +276,11 @@ app.get('/ordersList', async (req, res) => {
 	res.json(simplifiedOrders);
 });
 
+//Order
+app.get("/Order", isLoggedIn, function (req, res) {
+	res.render("order");
+});
+
 //Funciones
 function isLoggedIn(req, res, next) {
 	if (req.session.user) {

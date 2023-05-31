@@ -281,6 +281,37 @@ app.get("/Order", isLoggedIn, function (req, res) {
 	res.render("order");
 });
 
+//Actualizar order
+app.post("/orderUpdate", async (req, res) => {
+	try {
+		//verifica si existe un item igual al que se intenta actualizar
+		const order = await Orders.updateOne({
+			folio: req.body.folioCell
+		}, {
+			$set: {
+				empaque: req.body.empaqueInput,
+				case: req.body.caseInput,
+				plates: req.body.platesInput,
+				leds: req.body.ledsInput,
+				diodos: req.body.diodosInput,
+				estabilizadores: req.body.estabilizadoresInput,
+				switches: req.body.switchesInput,
+				teclas: req.body.teclasInput,
+				cables: req.body.cablesInput,
+				batería: req.body.bateriaInput,
+				microcontrolador: req.body.microcontroladorInput,
+				extras: req.body.extrasInput,
+				status: req.body.statusInput
+			}
+		});
+		res.status(200).json({ success: true, message: "Orden actualizada con exito!" });
+	} catch (err) {
+		// Muestra error
+		console.log(err);
+		res.status(200).json({ message: "¡Hubo un error con el servidor!" });
+	}
+});
+
 //Funciones
 function isLoggedIn(req, res, next) {
 	if (req.session.user) {

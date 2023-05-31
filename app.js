@@ -257,7 +257,7 @@ app.get('/ordersList', async (req, res) => {
 		return {
 			folio: order.folio,
 			cliente: order.cliente,
-			fecha: order.fecha,
+			fecha: order.fecha.toISOString().split('T')[0],
 			empaque: order.empaque,
 			case: order.case,
 			plates: order.plates,

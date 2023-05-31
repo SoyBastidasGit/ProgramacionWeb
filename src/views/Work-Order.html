@@ -8,26 +8,84 @@
             <div class="dash-item-title">Capturar orden</div>
             <div class="dash-item-content">
 
-                <form action="/loaditem" method="post" class="WO-form" autocomplete="off">
+                <form id="loadorderform" action="/loadorder" method="post" class="WO-form" autocomplete="off">
                     <div class="WO-Input-div">
-                        <label for="WONameId">Nombre:</label>
-                        <input type="text" id="WONameId">
-                    </div>
-                    <div class="WO-Input-div">
-                        <label for="WODescId">Descripci&oacute;n:</label>
-                        <input type="text" id="WODescId">
+                        <label for="WOfolioId">Folio:</label>
+                        <input type="text" id="WOfolioId" required="true">
                     </div>
                     <div class="WO-Input-div">
                         <label for="WOclientId">Cliente:</label>
-                        <input type="text" id="WOclientId">
+                        <input type="text" id="WOclientId" required="true">
                     </div>
                     <div class="WO-Input-div">
                         <label for="WOdateId">Fecha:</label>
-                        <input type="date" id="WOdateId">
+                        <input type="date" id="WOdateId" required="true" placeholder=" ">
                     </div>
                     <div class="WO-Input-div">
-                        <label for="WOdetailsId">Requisitos extra:</label>
-                        <input type="text" id="WOdetailsId">
+                        <label for="WOempaqueId">Empaque:</label>
+                        <input type="text" id="WOempaqueId" required="true">
+                    </div>
+
+                    <div class="WO-Input-div dropdown">
+                        <a class="dropdown-btn">Componentes:</a>
+                        
+                        <div class="dropdown-cntn">
+                            <div class="WO-Input-div checkbox-inp">
+                                <label for="WOcaseId" class="label-chkbx">Case:</label>
+                                <input type="checkbox" id="WOcaseId">
+
+                            </div>
+                            <div class="WO-Input-div checkbox-inp">
+                                <label for="WOplatesId" class="label-chkbx">Plates:</label>
+                                <input type="checkbox" id="WOplatesId">
+
+                            </div>
+                            <div class="WO-Input-div checkbox-inp">
+                                <label for="WOledsId" class="label-chkbx">LEDs:</label>
+                                <input type="checkbox" id="WOledsId">
+
+                            </div>
+                            <div class="WO-Input-div checkbox-inp">
+                                <label for="WOdiodosId" class="label-chkbx">Diodos:</label>
+                                <input type="checkbox" id="WOdiodosId">
+
+                            </div>
+                            <div class="WO-Input-div checkbox-inp">
+                                <label for="WOstabsId" class="label-chkbx">Stabs:</label>
+                                <input type="checkbox" id="WOstabsId">
+
+                            </div>
+                            <div class="WO-Input-div checkbox-inp">
+                                <label for="WOswitchesId" class="label-chkbx">Switches:</label>
+                                <input type="checkbox" id="WOswitchesId">
+
+                            </div>
+                            <div class="WO-Input-div checkbox-inp">
+                                <label for="WOteclasId" class="label-chkbx">Teclas:</label>
+                                <input type="checkbox" id="WOteclasId">
+
+                            </div>
+                            <div class="WO-Input-div checkbox-inp">
+                                <label for="WOcablesId" class="label-chkbx">Cables:</label>
+                                <input type="checkbox" id="WOcablesId">
+
+                            </div>
+                            <div class="WO-Input-div checkbox-inp">
+                                <label for="WObateriaId" class="label-chkbx">Bateria:</label>
+                                <input type="checkbox" id="WObateriaId">
+
+                            </div>
+                            <div class="WO-Input-div checkbox-inp">
+                                <label for="WOmicroId" class="label-chkbx">Microcontrolador:</label>
+                                <input type="checkbox" id="WOmicroId">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="WO-Input-div">
+                        <label for="WOextrasId">Requisitos extra:</label>
+                        <input type="text" id="WOextrasId" required="true">
                     </div>
                     <button class="add-order" type="submit">
                         <span>Generar orden </span><i class="fa-solid fa-paper-plane-top" style="color: #ffffff;"></i>
@@ -41,7 +99,7 @@
 
                 <input type="text" id="WO-p-search" placeholder="Buscar una orden de trabajo:">
 
-                <ul class="dash-products-list" id="ordersList"></ul>
+                <ul class="dash-WO-list" id="ordersList"></ul>
 
             </div>
         </div>
@@ -51,9 +109,117 @@
 
                 <input type="text" id="WO-c-search" placeholder="Buscar una orden de trabajo:">
 
-                <ul class="dash-products-list" id="ordersOkList"></ul>
+                <ul class="dash-completed-WO" id="ordersOkList"></ul>
 
             </div>
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+
+    document.getElementById("WO-p-search").addEventListener("keyup", () => {
+        var input = document.getElementById('WO-p-search'),
+            ul = document.getElementById("ordersList");
+        searchList(input, ul);
+    })
+    document.getElementById("WO-c-search").addEventListener("keyup", () => {
+        var input = document.getElementById('WO-c-search'),
+            ul = document.getElementById("ordersOkList");
+        searchList(input, ul);
+    })
+
+    function searchList(input, ul) {
+        var filter, li, a, i, txtValueA, txtValueB;
+        filter = input.value.toUpperCase();
+        li = ul.getElementsByTagName('li');
+
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByClassName("p-WO-num")[0];
+            b = li[i].getElementsByClassName("p-WO-desc")[0];
+            txtValueA = a.textContent;
+            txtValueB = b.textContent;
+            if (txtValueA.toUpperCase().indexOf(filter) > -1 || txtValueB.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+
+    document.getElementById("loadorderform").addEventListener("submit", (event) => {
+        event.preventDefault(); // evita el comportamiento predeterminado de envío del formulario
+
+        // envía los datos del formulario usando AJAX
+        const xhr = new XMLHttpRequest();
+        xhr.open("post", "/loadorder");
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.onload = () => {
+            if (xhr.status === 200) {
+                const response = JSON.parse(xhr.responseText);
+                if (response.success) {
+                    showAlert(response.message, 'success', '#008f39');
+                    resetInputs();
+                    console.log("xhr:" + xhr)
+                    console.log("res:" + response)
+                } else {
+                    showAlert(response.message, 'success', '#0000FF');
+                    resetInputs();
+                }
+            } else {
+                showAlert(response.message, 'warning', '#FF0000');
+            }
+        };
+        xhr.send(JSON.stringify({
+            WOfolioId: document.getElementById("WOfolioId").value,
+            WOclientId: document.getElementById("WOclientId").value,
+            WOdateId: document.getElementById("WOdateId").value,
+            WOempaqueId: document.getElementById("WOempaqueId").value,
+            WOcaseId: document.getElementById("WOcaseId").checked,
+            WOplatesId: document.getElementById("WOplatesId").checked,
+            WOledsId: document.getElementById("WOledsId").checked,
+            WOdiodosId: document.getElementById("WOdiodosId").checked,
+            WOstabsId: document.getElementById("WOstabsId").checked,
+            WOswitchesId: document.getElementById("WOswitchesId").checked,
+            WOteclasId: document.getElementById("WOteclasId").checked,
+            WOcablesId: document.getElementById("WOcablesId").checked,
+            WObateriaId: document.getElementById("WObateriaId").checked,
+            WOmicroId: document.getElementById("WOmicroId").checked,
+            WOextrasId: document.getElementById("WOextrasId").value
+        }));
+    });
+
+    function resetInputs() {
+        /*        document.getElementById("ItemName").value = '';
+               document.getElementById("WOfolioId").value,
+               document.getElementById("WOclientId").value,
+               document.getElementById("WOdateId").value,
+               document.getElementById("WOempaqueId").value,
+               document.getElementById("WOcaseId").value,
+               document.getElementById("WOplatesId").value,
+               document.getElementById("WOledsId").value,
+               document.getElementById("WOdiodosId").value,
+               document.getElementById("WOstabsId").value,
+               document.getElementById("WOswitchesId").value,
+               document.getElementById("WOteclasId").value,
+               document.getElementById("WOcablesId").value,
+               document.getElementById("WObateriaId").value,
+               document.getElementById("WOmicroId").value,
+               document.getElementById("WOextrasId").value */
+    }
+
+    function showAlert(message, icon, iconColor) {
+        Swal.fire({
+            position: 'center',
+            icon: icon,
+            iconColor: iconColor,
+            title: message,
+            background: '#D2D2D4',
+            color: '#0C151C',
+            confirmButtonColor: '#16354D'
+        })
+    }
+</script>

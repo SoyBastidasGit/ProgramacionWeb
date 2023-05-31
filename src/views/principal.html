@@ -69,27 +69,7 @@
           $('.inventory').load('Inventory');
 
           // Realizar la solicitud GET al endpoint "/componentsList"
-          fetch('/componentsList')
-            .then(response => response.json())
-            .then(data => {
-              // Obtener la lista de componentes
-              const componentsList = document.getElementById('componentsList'); // Cambiar "componentList" por "componentsList"
-
-              // Iterar sobre los documentos encontrados y agregarlos como elementos de la lista
-              data.forEach(component => {
-                const listItem = document.createElement('li');
-                let liItem =
-                  '<img src="/img/' + component.tipo + '.png" alt="imagen"></img><p>Nombre: <span class="p-item-name">' +
-                  component.nombre + '</span></p><p>Modelo: <span class="p-item-model">' +
-                  component.modelo + '</span></p>' + '<p>Cantidad: <span>' +
-                  component.cantidad + '</span></p>';
-                listItem.innerHTML = liItem;
-                componentsList.appendChild(listItem);
-              });
-            })
-            .catch(error => {
-              console.error('Error:', error);
-            });
+          getComponents();
         }
 
         function loadWorkOrder() {
@@ -97,36 +77,109 @@
           $('.dashboard').empty();
           $('.inventory').empty();
           $('.workOrder').load('Work-Order');
-
           // Realizar la solicitud GET al endpoint "/ordersList"
-          fetch('/ordersList')
-            .then(response => response.json())
-            .then(data => {
-              // Obtener la lista de componentes
-              const ordersList = document.getElementById('ordersList'); // Cambiar "ordersList" por "ordersList"
-              const ordersOkList = document.getElementById('ordersOkList');
-
-              // Iterar sobre los documentos encontrados y agregarlos como elementos de la lista
-              data.forEach(order => {
-                if (order.status === "produccion") {
-                  const listItem = document.createElement('li');
-                  let liItem = '<p class="p-item-name">Folio: ' + order.folio + '</p><p class="p-item-desc">Cliente: ' + order.cliente + '</p>'
-                  listItem.innerHTML = liItem;
-                  ordersList.appendChild(listItem);
-                }
-                if (order.status === "listas") {
-                  const listItem = document.createElement('li');
-                  let liItem = '<p class="p-item-name">Folio: ' + order.folio + '</p><p class="p-item-desc">Cliente: ' + order.cliente + '</p>'
-                  listItem.innerHTML = liItem;
-                  ordersOkList.appendChild(listItem);
-                }
-              });
-            })
-            .catch(error => {
-              console.error('Error:', error);
-            });
+          getWorkOrders()
         }
 
+        function getComponents() {
+          let cases = plates = pcb = led = diodo = stab = switches = teclas = cables = baterias = microcontrolador = 0;
+          fetch('/componentsList').then(response => response.json()).then(data => {
+            // Obtener la lista de componentes
+            const componentsList = document.getElementById('componentsList'); // Cambiar "componentList" por "componentsList"
+
+            // Iterar sobre los documentos encontrados y agregarlos como elementos de la lista
+            data.forEach(component => {
+              //agrega cantidades a variables temporales para agregar la cuenta en "activos"
+              switch (component.tipo) {
+                case "Case":
+                  cases += component.cantidad
+                  break;
+                case "Plates":
+                  plates += component.cantidad;
+                  break;
+                case "PCB":
+                  pcb += component.cantidad;
+                  break;
+                case "Leds":
+                  led += component.cantidad;
+                  break;
+                case "Diodos":
+                  diodo += component.cantidad;
+                  break;
+                case "Estabilizadores":
+                  stab += component.cantidad;
+                  break;
+                case "Switches":
+                  switches += component.cantidad;
+                  break;
+                case "Teclas":
+                  teclas += component.cantidad;
+                  break;
+                case "Cables":
+                  cables += component.cantidad;
+                  break;
+                case "Baterias":
+                  baterias += component.cantidad;
+                  break;
+                case "Microcontroladores":
+                  microcontrolador += component.cantidad;
+                  break;
+              }
+
+              const listItem = document.createElement('li');
+              let liItem = `<img src="/img/${component.tipo}.png" alt="imagen"></img><p>Nombre: <span class="p-item-name">${component.nombre}</span></p><p>Modelo: <span class="p-item-model">${component.modelo}</span></p><p>Cantidad: <span>${component.cantidad}</span></p>`;
+              listItem.innerHTML = liItem;
+              componentsList.appendChild(listItem);
+            });
+          }).then(() => {
+            document.getElementById("thCase").append(cases);
+            document.getElementById("thPlates").append(plates);
+            document.getElementById("thPCB").append(pcb);
+            document.getElementById("thLEDs").append(led);
+            document.getElementById("thDiodos").append(diodo);
+            document.getElementById("thStabs").append(stab);
+            document.getElementById("thSwitches").append(switches);
+            document.getElementById("thTeclas").append(teclas);
+            document.getElementById("thCables").append(cables);
+            document.getElementById("thBaterias").append(baterias);
+            document.getElementById("thMicrocontrolador").append(microcontrolador);
+          }).catch(error => {
+            console.error('Error:', error);
+          });
+        }
+
+        function getWorkOrders() {
+          fetch('/ordersList').then(response => response.json()).then(data => {
+            // Obtener la lista de componentes
+            const ordersList = document.getElementById('ordersList'); // Cambiar "ordersList" por "ordersList"
+            const ordersOkList = document.getElementById('ordersOkList');
+            const today = new Date()
+
+            // Iterar sobre los documentos encontrados y agregarlos como elementos de la lista
+            data.forEach(order => {
+              if (order.status === "produccion") {
+                const listItem = document.createElement('li');
+                let orderDate = new Date(order.fecha)
+                //Agrega clase overdue a los objetos de lista con fecha anterior a la actual
+                if (orderDate < today) {
+                  listItem.className = "overdue"
+                }
+                let liItem = `<p><i class="fa-solid fa-file-import"></i> Folio: <span class="p-WO-num">${order.folio}</span></p><p>Cliente: <span class="p-WO-desc">${order.cliente}</span></p>`;
+                listItem.innerHTML = liItem;
+                ordersList.appendChild(listItem);
+              }
+              if (order.status === "listas") {
+                const listItem = document.createElement('li');
+                listItem.className = "WO-completed-item"
+                let liItem = `<p>Folio: <span class="p-WO-num">${order.folio}</span></p><p>Cliente: <span class="p-WO-desc">${order.cliente}</span></p>`
+                listItem.innerHTML = liItem;
+                ordersOkList.appendChild(listItem);
+              }
+            });
+          }).catch(error => {
+            console.error('Error:', error);
+          });
+        }
         // cargar la última página visitada cuando la página se recarga
         window.addEventListener('load', (event) => {
           var lastPage = localStorage.getItem("lastPage");

@@ -284,9 +284,8 @@ app.get("/Order", isLoggedIn, function (req, res) {
 //Actualizar order
 app.post("/orderUpdate", async (req, res) => {
 	try {
-		//verifica si existe un item igual al que se intenta actualizar
 		const order = await Orders.updateOne({
-			folio: req.body.folioCell
+			folio: req.body.folio
 		}, {
 			$set: {
 				empaque: req.body.empaqueInput,
@@ -301,13 +300,15 @@ app.post("/orderUpdate", async (req, res) => {
 				batería: req.body.bateriaInput,
 				microcontrolador: req.body.microcontroladorInput,
 				extras: req.body.extrasInput,
-				status: req.body.statusInput
+				status: req.body.statusSelect
 			}
 		});
-		res.status(200).json({ success: true, message: "Orden actualizada con exito!" });
+		if (order.modifiedCount === 1) {
+			res.status(200).json({ success: true, message: "¡Orden actualizada con exito!" });
+		} else {
+			res.status(200).json({ message: "¡Orden no se actualizo!" });
+		}
 	} catch (err) {
-		// Muestra error
-		console.log(err);
 		res.status(200).json({ message: "¡Hubo un error con el servidor!" });
 	}
 });

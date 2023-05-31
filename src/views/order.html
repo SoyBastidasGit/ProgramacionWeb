@@ -4,6 +4,8 @@
 <head>
     <title>Orden de Trabajo</title>
     <link rel="stylesheet" href="style_order.css" />
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -29,7 +31,7 @@
                 </tr>
                 <tr>
                     <th>Empaque</th>
-                    <td id="empaqueCell"><input type="text" id="empaqueInput"></td>
+                    <td for="empaqueCell"><input type="text" id="empaqueInput"></td>
                 </tr>
                 <tr>
                     <th>Case</th>
@@ -88,13 +90,10 @@
             </table>
         </div>
         <div class="container print-button-container">
-            <button id="printButton">Imprimir</button>
+            <button id="printButton" type="button">Imprimir</button>
             <button type="submit">Editar</button>
         </div>
     </form>
-
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         // Obtener el folio desde la URL
@@ -159,13 +158,14 @@
                         console.log("xhr:" + xhr);
                         console.log("res:" + response);
                     } else {
-                        showAlert(response.message, 'success', '#0000FF');
+                        showAlert(response.message, 'error', '#0000FF');
                     }
-                } else {    
+                } else {
                     showAlert(response.message, 'warning', '#FF0000');
                 }
             };
             xhr.send(JSON.stringify({
+                folio: folio,
                 empaqueInput: document.getElementById("empaqueInput").value,
                 caseInput: document.getElementById("caseInput").checked,
                 platesInput: document.getElementById("platesInput").checked,

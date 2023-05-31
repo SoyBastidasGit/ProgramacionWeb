@@ -111,7 +111,7 @@
 <script>
 
     document.getElementById("list-search").addEventListener("keyup", () => {
-        var input, filter, ul, li, a, i, txtValueA, txtValueB;
+        var input, filter, ul, li, a, b, c, i, txtValueA, txtValueB, txtValueC;
         input = document.getElementById('list-search');
         filter = input.value.toUpperCase();
         ul = document.getElementById("componentsList");
@@ -120,15 +120,19 @@
         for (i = 0; i < li.length; i++) {
             a = li[i].getElementsByClassName("p-item-name")[0];
             b = li[i].getElementsByClassName("p-item-model")[0];
-            txtValueA = a.textContent;
-            txtValueB = b.textContent;
-            if (txtValueA.toUpperCase().indexOf(filter) > -1 || txtValueB.toUpperCase().indexOf(filter) > -1) {
+            c = li[i].getElementsByClassName("p-item-type")[0];
+            txtValueA = a.textContent || a.innerText;
+            txtValueB = b.textContent || b.innerText;
+            txtValueC = c.textContent || c.innerText;
+
+            if (txtValueA.toUpperCase().indexOf(filter) > -1 || txtValueB.toUpperCase().indexOf(filter) > -1 || txtValueC.toUpperCase().indexOf(filter) > -1) {
                 li[i].style.display = "";
             } else {
                 li[i].style.display = "none";
             }
         }
-    })
+    });
+
 
     document.getElementById("loaditemform").addEventListener("submit", (event) => {
         event.preventDefault(); // evita el comportamiento predeterminado de envío del formulario

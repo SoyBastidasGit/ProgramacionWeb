@@ -127,7 +127,7 @@
               }
 
               const listItem = document.createElement('li');
-              let liItem = `<img src="/img/${component.tipo}.png" alt="imagen"></img><p>Nombre: <span class="p-item-name">${component.nombre}</span></p><p>Modelo: <span class="p-item-model">${component.modelo}</span></p><p>Cantidad: <span>${component.cantidad}</span></p>`;
+              let liItem = `<img src="/img/${component.tipo}.png" alt="imagen"></img><p>Nombre: <span class="p-item-name">${component.nombre}</span></p><p>Modelo: <span class="p-item-model">${component.modelo}</span></p><p>Cantidad: <span>${component.cantidad}</span></p><p>Tipo: <span class="p-item-type">${component.tipo}</span></p>`;
               listItem.innerHTML = liItem;
               componentsList.appendChild(listItem);
             });
@@ -198,7 +198,6 @@
               console.error('Error:', error);
             });
         }
-
 
         // cargar la última página visitada cuando la página se recarga
         window.addEventListener('load', (event) => {

@@ -65,7 +65,7 @@
                 // Configuración de la gráfica
                 var options = {
                     responsive: true,
-                    maintainAspectRatio: false,
+                    maintainAspectRatio: true,
                     scales: {
                         y: {
                             beginAtZero: true
@@ -114,7 +114,7 @@
                 // Configuración de la gráfica
                 var options = {
                     responsive: true,
-                    maintainAspectRatio: false,
+                    maintainAspectRatio: true,
                     scales: {
                         y: {
                             beginAtZero: true
@@ -124,7 +124,7 @@
 
                 // Crear la gráfica de órdenes con los datos obtenidos
                 var ordenesChart = new Chart(ordenesChartCtx, {
-                    type: 'bar',
+                    type: 'pie',
                     data: ordenesData,
                     options: options
                 });

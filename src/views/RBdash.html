@@ -1,25 +1,135 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <div class="main-top">
     <h1>Dashboard</h1>
-  </div>
+</div>
 
 <div>
     <div class="dash-container">
         <div class="dash-item dash-header">
             <div class="dash-item-title">Resumen</div>
-            <div class="dash-item-content"> </div>
+            <div class="dash-item-content">
+                Empresa dedicada a la construccion y personalizacion de teclados mecanicos custom
+            </div>
         </div>
         <div class="dash-item">
-            <div class="dash-item-title">Ordenes en producci&oacute;n</div>
-            <div class="dash-item-content"> </div>
+            <div class="dash-item-title">Ordenes</div>
+            <div class="dash-item-content">
+                <canvas id="ordenes-chart"></canvas>
+            </div>
         </div>
         <div class="dash-item">
             <div class="dash-item-title">Inventario</div>
-            <div class="dash-item-content"> </div>
+            <div class="dash-item-content">
+                <canvas id="inventario-chart"></canvas>
+            </div>
         </div>
-        <div class="dash-item dash-footer">
-            <div class="dash-item-title">Contenido</div>
-            <div class="dash-item-content"> </div>
-        </div>
-    </div>
 </div>
+
+<script>
+    // Obtener el contexto del canvas de la gráfica de inventario
+    var inventarioChartCtx = document.getElementById('inventario-chart').getContext('2d');
+
+    // Hacer la solicitud GET al endpoint /componentsList
+    fetch('/componentsList')
+        .then(response => response.json())
+        .then(data => {
+            // Crear un objeto para almacenar las cantidades agrupadas por tipo de componente
+            var cantidadesAgrupadas = {};
+
+            // Agrupar las cantidades por tipo de componente
+            data.forEach(component => {
+                if (cantidadesAgrupadas.hasOwnProperty(component.tipo)) {
+                    cantidadesAgrupadas[component.tipo] += component.cantidad;
+                } else {
+                    cantidadesAgrupadas[component.tipo] = component.cantidad;
+                }
+            });
+
+            // Obtener los tipos de componentes y las cantidades agrupadas
+            var tipos = Object.keys(cantidadesAgrupadas);
+            var cantidades = Object.values(cantidadesAgrupadas);
+
+            // Crear los datos de la gráfica de inventario con los tipos y cantidades
+            var inventarioData = {
+                labels: tipos,
+                datasets: [{
+                    label: 'Inventario',
+                    data: cantidades,
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            };
+
+            // Configuración de la gráfica
+            var options = {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            };
+
+            // Crear la gráfica de inventario con los datos obtenidos
+            var inventarioChart = new Chart(inventarioChartCtx, {
+                type: 'bar',
+                data: inventarioData,
+                options: options
+            });
+        })
+        .catch(error => {
+            console.error('Error al obtener los datos del inventario:', error);
+        });
+
+    // Obtener el contexto del canvas de la gráfica de órdenes
+    var ordenesChartCtx = document.getElementById('ordenes-chart').getContext('2d');
+
+    // Hacer la solicitud GET al endpoint /ordersList
+    fetch('/ordersList')
+        .then(response => response.json())
+        .then(data => {
+            // Filtrar las órdenes por status
+            var ordenesProduccion = data.filter(order => order.status === 'produccion');
+            var ordenesListas = data.filter(order => order.status === 'listas');
+
+            // Obtener el número total de órdenes por status
+            var totalOrdenesProduccion = ordenesProduccion.length;
+            var totalOrdenesListas = ordenesListas.length;
+
+            // Crear los datos de la gráfica de órdenes con los totales
+            var ordenesData = {
+                labels: ['Producción', 'Listas'],
+                datasets: [{
+                    label: 'Órdenes',
+                    data: [totalOrdenesProduccion, totalOrdenesListas],
+                    backgroundColor: ['rgba(54, 162, 235, 0.5)', 'rgba(75, 192, 192, 0.5)'],
+                    borderColor: ['rgba(54, 162, 235, 1)', 'rgba(75, 192, 192, 1)'],
+                    borderWidth: 1
+                }]
+            };
+
+            // Configuración de la gráfica
+            var options = {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            };
+
+            // Crear la gráfica de órdenes con los datos obtenidos
+            var ordenesChart = new Chart(ordenesChartCtx, {
+                type: 'bar',
+                data: ordenesData,
+                options: options
+            });
+        })
+        .catch(error => {
+            console.error('Error al obtener los datos de las órdenes:', error);
+        });
+</script>

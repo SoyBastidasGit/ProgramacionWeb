@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Orden de Trabajo</title>
+    <link rel="stylesheet" href="style_order.css" />
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <div class="container header">
+        <h1>KeyboardTech</h1>
+        <h2>Orden de Trabajo</h2>
+    </div>
+    <form id="orderUp" action="/orderUpdate" method="post">
+        <div class="container">
+            <table>
+
+                <tr>
+                    <th>Folio</th>
+                    <td id="folioCell"></td>
+                </tr>
+                <tr>
+                    <th>Cliente</th>
+                    <td id="clienteCell"></td>
+                </tr>
+                <tr>
+                    <th>Fecha</th>
+                    <td id="fechaCell" data-type="date"></td>
+                </tr>
+                <tr>
+                    <th>Empaque</th>
+                    <td for="empaqueCell"><input type="text" id="empaqueInput"></td>
+                </tr>
+                <tr>
+                    <th>Case</th>
+                    <td id="caseCell"><input type="checkbox" id="caseInput"></td>
+                </tr>
+                <tr>
+                    <th>Plates</th>
+                    <td id="platesCell"><input type="checkbox" id="platesInput"></td>
+                </tr>
+                <tr>
+                    <th>Leds</th>
+                    <td id="ledsCell"><input type="checkbox" id="ledsInput"></td>
+                </tr>
+                <tr>
+                    <th>Diodos</th>
+                    <td id="diodosCell"><input type="checkbox" id="diodosInput"></td>
+                </tr>
+                <tr>
+                    <th>Estabilizadores</th>
+                    <td id="estabilizadoresCell"><input type="checkbox" id="estabilizadoresInput"></td>
+                </tr>
+                <tr>
+                    <th>Switches</th>
+                    <td id="switchesCell"><input type="checkbox" id="switchesInput"></td>
+                </tr>
+                <tr>
+                    <th>Teclas</th>
+                    <td id="teclasCell"><input type="checkbox" id="teclasInput"></td>
+                </tr>
+                <tr>
+                    <th>Cables</th>
+                    <td id="cablesCell"><input type="checkbox" id="cablesInput"></td>
+                </tr>
+                <tr>
+                    <th>Batería</th>
+                    <td id="bateriaCell"><input type="checkbox" id="bateriaInput"></td>
+                </tr>
+                <tr>
+                    <th>Microcontrolador</th>
+                    <td id="microcontroladorCell"><input type="checkbox" id="microcontroladorInput"></td>
+                </tr>
+                <tr>
+                    <th>Extras</th>
+                    <td id="extrasCell"><input type="text" id="extrasInput"></td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td id="statusCell">
+                        <select id="statusSelect">
+                            <option value="produccion">produccion</option>
+                            <option value="listas">listas</option>
+                        </select>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+        <div class="container print-button-container">
+            <button id="printButton" type="button">Imprimir</button>
+            <button type="submit">Editar</button>
+        </div>
+    </form>
+
+    <script>
+        // Obtener el folio desde la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const folio = parseInt(urlParams.get('folio'));
+
+        // Realizar la petición al servidor para obtener todas las órdenes de trabajo
+        fetch('/ordersList')
+            .then(response => response.json())
+            .then(orders => {
+                // Buscar la orden con el folio especificado
+                const order = orders.find(order => order.folio === folio);
+
+                if (order) {
+                    // Actualizar los valores en el HTML con la orden de trabajo obtenida
+                    document.getElementById("folioCell").textContent = order.folio;
+                    document.getElementById("clienteCell").textContent = order.cliente;
+                    document.getElementById("fechaCell").textContent = order.fecha;
+                    document.getElementById("empaqueInput").value = order.empaque;
+                    document.getElementById("caseInput").checked = order.case;
+                    document.getElementById("platesInput").checked = order.plates;
+                    document.getElementById("ledsInput").checked = order.leds;
+                    document.getElementById("diodosInput").checked = order.diodos;
+                    document.getElementById("estabilizadoresInput").checked = order.estabilizadores;
+                    document.getElementById("switchesInput").checked = order.switches;
+                    document.getElementById("teclasInput").checked = order.teclas;
+                    document.getElementById("cablesInput").checked = order.cables;
+                    document.getElementById("bateriaInput").checked = order.bateria;
+                    document.getElementById("microcontroladorInput").checked = order.microcontrolador;
+                    document.getElementById("extrasInput").value = order.extras;
+                    document.getElementById("statusSelect").value = order.status;
+                } else {
+                    // Mostrar un mensaje de error en caso de que la orden no se encuentre
+                    document.getElementById("folioCell").textContent = 'Orden no encontrada';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Mostrar un mensaje de error en caso de que ocurra un error en la petición
+                document.getElementById("folioCell").textContent = 'Error al obtener las órdenes';
+            });
+
+        // Asociar evento de clic al botón para imprimir la página
+        const printButton = document.getElementById("printButton");
+        printButton.addEventListener("click", () => {
+            window.print();
+        });
+
+        /////////////////////////////////////////////////////////////////////////////////////////////
+        document.getElementById("orderUp").addEventListener("submit", (event) => {
+            event.preventDefault(); // evita el comportamiento predeterminado de envío del formulario
+
+            // envía los datos del formulario usando AJAX
+            const xhr = new XMLHttpRequest();
+            xhr.open("post", "/orderUpdate");
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    const response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        showAlert(response.message, 'success', '#008f39');
+                        console.log("xhr:" + xhr);
+                        console.log("res:" + response);
+                    } else {
+                        showAlert(response.message, 'error', '#0000FF');
+                    }
+                } else {
+                    showAlert(response.message, 'warning', '#FF0000');
+                }
+            };
+            xhr.send(JSON.stringify({
+                folio: folio,
+                empaqueInput: document.getElementById("empaqueInput").value,
+                caseInput: document.getElementById("caseInput").checked,
+                platesInput: document.getElementById("platesInput").checked,
+                ledsInput: document.getElementById("ledsInput").checked,
+                diodosInput: document.getElementById("diodosInput").checked,
+                estabilizadoresInput: document.getElementById("estabilizadoresInput").checked,
+                switchesInput: document.getElementById("switchesInput").checked,
+                teclasInput: document.getElementById("teclasInput").checked,
+                cablesInput: document.getElementById("cablesInput").checked,
+                bateriaInput: document.getElementById("bateriaInput").checked,
+                microcontroladorInput: document.getElementById("microcontroladorInput").checked,
+                extrasInput: document.getElementById("extrasInput").value,
+                statusSelect: document.getElementById("statusSelect").value
+            }));
+        });
+
+        function showAlert(message, icon, iconColor) {
+            Swal.fire({
+                position: 'center',
+                icon: icon,
+                iconColor: iconColor,
+                title: message,
+                background: '#D2D2D4',
+                color: '#0C151C',
+                confirmButtonColor: '#16354D'
+            })
+        }
+    </script>
+</body>
+
+</html>

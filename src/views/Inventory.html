@@ -7,7 +7,40 @@
     <div class="dash-container-inventory">
         <div class="dash-item dash-header">
             <div class="dash-item-title">Activos</div>
-            <div class="dash-item-content"> </div>
+            <div class="dash-item-content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Case</th>
+                            <th>Plates</th>
+                            <th>PCB</th>
+                            <th>LEDs</th>
+                            <th>Diodos</th>
+                            <th>Stabs</th>
+                            <th>Switches</th>
+                            <th>Teclas</th>
+                            <th>Cables</th>
+                            <th>Baterias</th>
+                            <th>Microcontrolador</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td id="thCase"><i class="fa-sharp fa-solid fa-xmark"></i></td>
+                            <td id="thPlates"><i class="fa-sharp fa-solid fa-xmark"></i></td>
+                            <td id="thPCB"><i class="fa-sharp fa-solid fa-xmark"></i></td>
+                            <td id="thLEDs"><i class="fa-sharp fa-solid fa-xmark"></i></td>
+                            <td id="thDiodos"><i class="fa-sharp fa-solid fa-xmark"></i></td>
+                            <td id="thStabs"><i class="fa-sharp fa-solid fa-xmark"></i></td>
+                            <td id="thSwitches"><i class="fa-sharp fa-solid fa-xmark"></i></td>
+                            <td id="thTeclas"><i class="fa-sharp fa-solid fa-xmark"></i></td>
+                            <td id="thCables"><i class="fa-sharp fa-solid fa-xmark"></i></td>
+                            <td id="thBaterias"><i class="fa-sharp fa-solid fa-xmark"></i></td>
+                            <td id="thMicrocontrolador"><i class="fa-sharp fa-solid fa-xmark"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="dash-item">
@@ -65,54 +98,42 @@
                 <input type="text" id="list-search" placeholder="Buscar un objeto:">
 
                 <!-- id="ul-productos" Agregar html desde json de mongodb  -->
-                <ul class="dash-products-list" id="ul-productos">
+                <ul class="dash-products-list" id="componentsList"></ul>
 
-                    <li><img src="/img/part-example.png" alt="display">
-                        <p class="p-item-name">Nombre</p>
-                        <p class="p-item-model">Modelo</p>
-                    </li>
-                    <li><img src="" alt="display">
-                        <p class="p-item-name">Nombre</p>
-                        <p class="p-item-desc">Descripci&oacute;n</p>
-                    </li>
-                
-                    <li><img src="" alt="display">
-                        <p class="p-item-name">Nombre</p>
-                        <p class="p-item-desc">Descripci&oacute;n</p>
-                    </li>
-                
-                    <li><img src="" alt="display">
-                        <p class="p-item-name">Nombre</p>
-                        <p class="p-item-desc">Descripci&oacute;n</p>
-                    </li>
-                
-                    <li><img src="" alt="display">
-                        <p class="p-item-name">Nombre</p>
-                        <p class="p-item-desc">Descripci&oacute;n</p>
-                    </li>
-                
-                    <li><img src="" alt="display">
-                        <p class="p-item-name">Nombre</p>
-                        <p class="p-item-desc">Descripci&oacute;n</p>
-                    </li>
-                
-                </ul>
             </div>
         </div>
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-    document.getElementById("list-search").addEventListener("keyup", () => {
-        refreshInventory()
-    })
 
-    function refreshInventory() {
-        console.log()
-        console.log("tecla pulsada")
-    }
+    document.getElementById("list-search").addEventListener("keyup", () => {
+        var input, filter, ul, li, a, b, c, i, txtValueA, txtValueB, txtValueC;
+        input = document.getElementById('list-search');
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("componentsList");
+        li = ul.getElementsByTagName('li');
+
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByClassName("p-item-name")[0];
+            b = li[i].getElementsByClassName("p-item-model")[0];
+            c = li[i].getElementsByClassName("p-item-type")[0];
+            txtValueA = a.textContent || a.innerText;
+            txtValueB = b.textContent || b.innerText;
+            txtValueC = c.textContent || c.innerText;
+
+            if (txtValueA.toUpperCase().indexOf(filter) > -1 || txtValueB.toUpperCase().indexOf(filter) > -1 || txtValueC.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    });
+
+
     document.getElementById("loaditemform").addEventListener("submit", (event) => {
         event.preventDefault(); // evita el comportamiento predeterminado de envío del formulario
 
@@ -128,7 +149,6 @@
                     resetInputs();
                     console.log("xhr:" + xhr)
                     console.log("res:" + response)
-                    refreshInventory();
                 } else {
                     showAlert(response.message, 'success', '#0000FF');
                     resetInputs();
@@ -147,18 +167,6 @@
             ItemType: document.getElementById("ItemType").value,
         }));
     });
-
-
-    // function get (){
-    //     request JSON
-    //         {nombre: "",
-    //         cantidad: ""}
-
-    //         ciclo
-    //             (ul).html($"<li><li><img src=../public/img/part-example.p
-    //                 ng alt=display><p class="p-item-name">"{nombre[1]})
-
-    // }
 
     function resetInputs() {
         document.getElementById("ItemName").value = '';

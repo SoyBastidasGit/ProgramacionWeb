@@ -181,7 +181,6 @@ a:hover i {
 
 /* #endregion */
 
-
 /* #region Dashboard general styles ---------------------------------------------------------------------*/
 .dash-container {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -249,8 +248,14 @@ a:hover i {
 
 /* #region Inventory  ---------------------------------------------------------------------------*/
 
+table,
+th,
+td {
+  border: 1px solid #437bd3;
+  text-align: center;
+}
+
 #sp-inv-info {
-  /* Span styling  */
   border-bottom: 4px solid #437bd3;
 }
 
@@ -318,7 +323,8 @@ a:hover i {
   border-radius: 2px;
   margin-bottom: 5px;
   display: grid;
-  grid-template-columns: 100px auto;
+  grid-auto-flow: row;
+  grid-template-columns: 100px auto auto;
   grid-template-rows: auto auto;
 }
 
@@ -343,9 +349,40 @@ a:hover i {
   padding: 5px;
 }
 
-.p-item-desc,
+.p-item-model,
 .p-item-name {
   font-size: medium;
+}
+
+/* totales */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: #437bd3;
+  color: #ffffff;
+  font-weight: bold;
+  padding: 8px;
+}
+
+td {
+  padding: 8px;
+  width: 80px;
+  box-sizing: border-box;
+}
+
+td i {
+  color: #ff0000;
+  margin-right: 4px;
+}
+
+/* Cambia el tamaño de la fuente */
+td {
+  font-size: 16px;
+  font-weight: bold;
+  color: #000000;
 }
 
 /* #endregion End inventory*/
@@ -354,14 +391,58 @@ a:hover i {
 /* #region Work Orders ---------------------------------------------------------------------------*/
 
 .WO-form {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto;
   gap: 15px;
-  grid-template-columns: auto auto auto auto auto;
-  grid-template-rows: auto auto;
+  width: 100%;
 }
 
 .WO-Input-div {
   display: grid;
+}
+
+.dropdown-btn {
+  color: #0C151C;
+  padding-top: 0;
+}
+
+.label-chkbx {
+  width: 150px;
+  height: 22px;
+  padding: 10 0 0 0;
+}
+
+.dropdown-cntn {
+  display: none;
+  position: absolute;
+  background-color: #E4E5EA;
+  min-width: 160px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 15%);
+  z-index: 1;
+  border: 2px solid #437bd3;
+  border-radius: 3px;
+}
+
+.dropdown:hover .dropdown-cntn {
+  display: grid;
+  align-content: space-evenly;
+  justify-content: baseline;
+  grid-auto-flow: row;
+}
+
+.checkbox-inp:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 15%);
+  border-bottom: 4px solid #437bd3;
+  font-weight: bold;
+}
+
+.checkbox-inp {
+  display: grid;
+  align-content: space-evenly;
+  justify-content: space-between;
+  grid-auto-flow: column;
+  gap: 15px;
+  padding: 10px;
 }
 
 .add-order {
@@ -410,7 +491,6 @@ a:hover i {
   border-bottom: 4px solid #0C151C;
 }
 
-
 .dash-WO-list {
   list-style: none;
   overflow: auto;
@@ -418,20 +498,26 @@ a:hover i {
 }
 
 .dash-WO-list>li {
+  padding: 10px;
   height: 40px;
+  max-height: max-content;
   align-items: center;
   border-bottom: 2px solid #437bd3;
   border-radius: 2px;
-  display: flex;
-  grid-template-columns: 100px auto;
+  display: grid;
+  grid-template-columns: 35% auto;
   grid-template-rows: auto auto;
-  margin: 15px 5px;
+  margin: 0px 5px;
+}
+
+.overdue {
+  background-color: #cb7343;
+  color: #E4E5EA;
 }
 
 .dash-WO-list>li:hover {
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 15%);
-  border: 2px solid #437bd3;
-  border-bottom: 4px solid #0C151C;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.466);
+  z-index: 2;
 }
 
 .dash-WO-list>li:last-child {
@@ -443,12 +529,11 @@ a:hover i {
   font-size: medium;
 }
 
-.dash-Completed-WO {
+.dash-completed-WO {
   /*contenedor*/
   display: grid;
-  grid-auto-columns: 150px;
   grid-template-columns: auto auto;
-  grid-auto-rows: 150px;
+  grid-auto-rows: 75px;
   grid-auto-flow: row;
   gap: 15px;
   padding: 15px 0;

@@ -6,6 +6,7 @@ var express = require("express"),
 	passportLocalMongoose = require("passport-local-mongoose");
 const User = require("./src/app/models/user");
 const Components = require("./src/app/models/components");
+const Orders = require("./src/app/models/orders");
 const { encrypt, compare } = require('./src/app/models/bcrypt');
 
 const path = require('path');
@@ -32,6 +33,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Mantener sesion iniciada
 const session = require("express-session");
 const MongoStore = require('connect-mongo');
+const components = require("./src/app/models/components");
 
 app.use(session({
 	secret: "mysecret",
@@ -195,12 +197,118 @@ app.post("/loaditem", async (req, res) => {
 				precio_unitario: req.body.ItemPrice,
 				tipo: req.body.ItemType
 			});
-			res.status(200).json({success: true, message: "¡Componente registrado con exito!" });
+			res.status(200).json({ success: true, message: "¡Componente registrado con exito!" });
 		} else {
 			res.status(200).json({ message: "¡Componente actualizado con exito!" });
 		}
 	} catch (err) {
 		// Muestra error
+		res.status(200).json({ message: "¡Hubo un error con el servidor!" });
+	}
+});
+
+//Formulario captura de ordenes nuevas
+app.post("/loadorder", async (req, res) => {
+	try {
+		//guarda order en base de datos
+		const order = await Orders.create({
+			folio: req.body.WOfolioId,
+			cliente: req.body.WOclientId,
+			fecha: req.body.WOdateId,
+			empaque: req.body.WOempaqueId,
+			case: req.body.WOcaseId,
+			plates: req.body.WOplatesId,
+			leds: req.body.WOledsId,
+			diodos: req.body.WOdiodosId,
+			estabilizadores: req.body.WOstabsId,
+			switches: req.body.WOswitchesId,
+			teclas: req.body.WOteclasId,
+			cables: req.body.WOcablesId,
+			bateria: req.body.WObateriaId,
+			microcontrolador: req.body.WOmicroId,
+			extras: req.body.WOextrasId,
+			status: 'produccion'
+		});
+		res.status(200).json({ success: true, message: "Orden registrada con exito!" });
+	} catch (err) {
+		// Muestra error
+		res.status(200).json({ message: "¡Hubo un error con el servidor!" });
+	}
+});
+
+/* Obtiene lista de componentes*/
+app.get('/componentsList', async (req, res) => {
+	const components = await Components.find();
+	const simplifiedComponents = components.map(component => {
+		return {
+			nombre: component.nombre,
+			modelo: component.modelo,
+			cantidad: component.cantidad,
+			tipo: component.tipo
+		};
+	});
+	res.json(simplifiedComponents);
+});
+
+/* Obtiene lista de ordenes */
+app.get('/ordersList', async (req, res) => {
+	const orders = await Orders.find();
+	const simplifiedOrders = orders.map(order => {
+		return {
+			folio: order.folio,
+			cliente: order.cliente,
+			fecha: order.fecha.toISOString().split('T')[0],
+			empaque: order.empaque,
+			case: order.case,
+			plates: order.plates,
+			leds: order.leds,
+			diodos: order.diodos,
+			estabilizadores: order.estabilizadores,
+			switches: order.switches,
+			teclas: order.teclas,
+			cables: order.cables,
+			bateria: order.bateria,
+			microcontrolador: order.microcontrolador,
+			extras: order.extras,
+			status: order.status
+		};
+	});
+	res.json(simplifiedOrders);
+});
+
+//Order
+app.get("/Order", isLoggedIn, function (req, res) {
+	res.render("order");
+});
+
+//Actualizar order
+app.post("/orderUpdate", async (req, res) => {
+	try {
+		const order = await Orders.updateOne({
+			folio: req.body.folio
+		}, {
+			$set: {
+				empaque: req.body.empaqueInput,
+				case: req.body.caseInput,
+				plates: req.body.platesInput,
+				leds: req.body.ledsInput,
+				diodos: req.body.diodosInput,
+				estabilizadores: req.body.estabilizadoresInput,
+				switches: req.body.switchesInput,
+				teclas: req.body.teclasInput,
+				cables: req.body.cablesInput,
+				batería: req.body.bateriaInput,
+				microcontrolador: req.body.microcontroladorInput,
+				extras: req.body.extrasInput,
+				status: req.body.statusSelect
+			}
+		});
+		if (order.modifiedCount === 1) {
+			res.status(200).json({ success: true, message: "¡Orden actualizada con exito!" });
+		} else {
+			res.status(200).json({ message: "¡Orden no se actualizo!" });
+		}
+	} catch (err) {
 		res.status(200).json({ message: "¡Hubo un error con el servidor!" });
 	}
 });
@@ -218,4 +326,4 @@ function isLoggedIn(req, res, next) {
 var port = process.env.PORT || 4000;
 app.listen(port, function () {
 	console.log("Servidor iniciado!");
-});	
+});
